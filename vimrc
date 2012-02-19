@@ -1,3 +1,7 @@
+" this initiates pahtogen ... MUST be before filetype detection activated
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+ 
 " this means vim doesn't try to act like the old 'vi'
 set nocompatible
 
