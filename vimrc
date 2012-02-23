@@ -2,6 +2,8 @@
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
  
+" TDOD organize by function and cleanup
+
 " this means vim doesn't try to act like the old 'vi'
 set nocompatible
 
@@ -35,6 +37,9 @@ set scrolloff=3
 " move in rows instead of lines (better for wrapped text)
 nnoremap j gj
 nnoremap k gk
+
+" remap the tasklist to somethign else
+map <leader>l <Plug>TaskList
 
 " this unmaps arrow keys ... let's see if I get used to text movement instead
 map <up> <nop>
