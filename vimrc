@@ -1,4 +1,4 @@
-" this initiates pahtogen ... MUST be before filetype detection activated
+, this initiates pahtogen ... MUST be before filetype detection activated
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
  
@@ -340,6 +340,8 @@ command! -nargs=0 ReSource source $HOME/.vimrc
 augroup filetypedetect 
   au! BufRead,BufNewFile *.m,*.oct,*octaverc set filetype=matlab 
   "au! BufRead,BufNewFile *.m,*.oct set filetype=octave
+  
+  au! BufRead,BufNewFile tmux.conf*,.tmux.conf* set filetype=tmux
 augroup END 
 " set the compiler based on filetype
 "au BufRead * try | execute "compiler ".&filetype | catch /./ | endtry
