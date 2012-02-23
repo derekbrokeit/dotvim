@@ -1,4 +1,4 @@
-, this initiates pahtogen ... MUST be before filetype detection activated
+" this initiates pahtogen ... MUST be before filetype detection activated
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
  
