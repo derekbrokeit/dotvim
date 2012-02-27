@@ -22,3 +22,6 @@
 [submodule "bundle/voom"]
 	path = bundle/voom
 	url = https://github.com/vim-scripts/VOoM.git
+[submodule "bundle/tabularize"]
+	path = bundle/tabularize
+	url = https://github.com/godlygeek/tabular.git
