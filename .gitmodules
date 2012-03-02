@@ -25,3 +25,6 @@
 [submodule "bundle/tabularize"]
 	path = bundle/tabularize
 	url = https://github.com/godlygeek/tabular.git
+[submodule "bundle/pathogen"]
+	path = bundle/pathogen
+	url = https://github.com/tpope/vim-pathogen.git

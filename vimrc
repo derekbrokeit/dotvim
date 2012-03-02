@@ -7,9 +7,10 @@
 " --- pathogen call --- {{{1
 " setup the runtime plugin bundles
 " this initiates pahtogen ... MUST be before filetype detection activated
+source bundle/pathogen/autoload/pathogen.vim
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
- 
+
 " --- general system setup --- {{{1
 " TDOD organize by function and cleanup
 
@@ -21,7 +22,7 @@ set backup
 set backupdir=~/.vim-tmp/backup,~/.vim-tmp/,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 " This setting was necessary, or 'crontab -e' does not install crons
-set backupskip=/tmp/*,/private/tmp/*" 
+set backupskip=/tmp/*,/private/tmp/*"
 
 " this allows buffers to hide in the background
 set hidden
@@ -34,7 +35,7 @@ set undolevels=1000
 runtime macros/matchit.vim
 
 " some case insensitive searching unless case is given
-set ignorecase 
+set ignorecase
 set smartcase
 
 " use w!! to save a file even if sudo was not applied
@@ -58,7 +59,7 @@ let g:session_autoload = 'yes'
 let g:session_autosave="yes"
 set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize
 
-" --- commands ---  {{{1
+" --- commands and functions ---  {{{1
 " matlab running
 command! -nargs=0 Mrun echo system("rmat -b " . shellescape(expand("%:p"))) .  "rmat>> " . expand("%:t")
 command! -nargs=0 Mrecall echo system("rmat -r")
@@ -75,19 +76,32 @@ com! Voomclose call Voom_DeleteOutline('')
 " the following command copies the file path to clipboard
 "nnoremap <leader>yp :YP <CR>
 function! YP()
-   echo "Copy Path: " . expand("%:p") . system("cpath -s " . shellescape(expand("%:p")))
+  echo "Copy Path: " . expand("%:p") . system("cpath -s " . shellescape(expand("%:p")))
 endfunction
 command! -nargs=0 YP call YP()
 
 " character count
 "nnoremap <leader>wc :WC <CR>
 function! WC()
-   let linecount=system("echo -n $(cat " . shellescape(expand("%:p")) . " | wc -l)")
-   let wordcount=system("echo -n $(cat " . shellescape(expand("%:p")) . " | wc -w)")
-   let charcount=system("echo -n $(cat " . shellescape(expand("%:p")) . " | wc -m)")
-   echo "File Status: " . expand("%:t") . " > l:" linecount "・w:" wordcount "・c:" charcount 
+  let linecount=system("echo -n $(cat " . shellescape(expand("%:p")) . " | wc -l)")
+  let wordcount=system("echo -n $(cat " . shellescape(expand("%:p")) . " | wc -w)")
+  let charcount=system("echo -n $(cat " . shellescape(expand("%:p")) . " | wc -m)")
+  echo "File Status: " . expand("%:t") . " > l:" linecount "・w:" wordcount "・c:" charcount
 endfunction
 command! -nargs=0 WC call WC()
+
+
+function! Preserve(command)
+  " Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  execute a:command
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
 
 " --- look and feel --- {{{1
 
@@ -106,13 +120,13 @@ set titlestring=%{system('hostname\ -s')}\ >\ vim:\ %{expand(\"%\")}
 
 " colorscheme
 "colorscheme desertedoceanburnt
-colorscheme synic 
+colorscheme synic
 "colorscheme desert
-"colorscheme jellybeans 
+"colorscheme jellybeans
 
 " turn on wildmenu
 set wildmenu
-set wildmode=longest:full " more bash-like (does not autocomplete) 
+set wildmode=longest:full " more bash-like (does not autocomplete)
 highlight WildMenu ctermbg=darkred ctermfg=white
 
 "turn on filetype plugins
@@ -168,7 +182,7 @@ set cursorline "cursorline required to continuously update cursor position
 
 " turn on mouse-support
 if has("mouse")
-    set mouse=a
+  set mouse=a
 endif
 "map <ScrollWheelUp> <C-Y>
 "map <S-ScrollWheelUp> <C-U>
@@ -177,7 +191,7 @@ endif
 
 " first, enable status line always
 set laststatus=2
-set statusline=\ %F%m%r%h%w\ [\ p:{%04l,%04v}・L:%L・%p%%\ ] 
+set statusline=\ %F%m%r%h%w\ [\ p:{%04l,%04v}・L:%L・%p%%\ ]
 
 " setup status bar that is color coded based on insert/replace methodology
 function! InsertStatuslineColor(mode)
@@ -232,78 +246,82 @@ set spelllang=en_us
 
 " turn on highlighting and set the color scheme
 set hlsearch
-highlight search ctermbg=240 ctermfg=red guibg=240 guifg=red 
+highlight search ctermbg=240 ctermfg=red guibg=240 guifg=red
 
 " set the easymotion highlighting
 hi link EasyMotionTarget ErrorMsg
 hi EasyMotionShade  ctermbg=none ctermfg=237
 
+" use 'par' for paragraph formatting
+set formatprg=par
+
 " --- autocommands --- {{{1
-
-" add fortran commentstring
-au BufRead,BufNewFile *.f90 setlocal commentstring=!%s
-
-" lammps commentstring
-au BufRead,BufNewFile in.* setlocal commentstring=#%s
-
-" give shell a proper commentstring
-autocmd FileType sh setlocal commentstring=#%s
-
-" open pdf files?
-autocmd BufReadPre *.pdf set ro nowrap
-"autocmd BufReadPost *.pdf silent %!pdftotext "%" -nopgbrk -layout -q -eol unix -
-autocmd BufReadPost *.pdf silent %!pdftotext -nopgbrk "%" - |fmt -cs -w 72
-autocmd BufWritePost *.pdf silent !rm -rf ~/PDF/%
-autocmd BufWritePost *.pdf silent !lp -s -d pdffg "%"
-autocmd BufWritePost *.pdf silent !until [ -e ~/PDF/% ]; do sleep 1; done
-autocmd BufWritePost *.pdf silent !mv ~/PDF/% %:p:h
-
-" open doc files?
-" View word documents in Vim (good for diff'ing).
-autocmd BufReadPre *.doc  set ro
-autocmd BufReadPre *.doc  set hlsearch
-autocmd BufReadPost *.doc silent %!antiword '%:p'
-
-
-" Octave syntax 
-augroup filetypedetect 
-  au! BufRead,BufNewFile *.m,*.oct,*octaverc set filetype=matlab 
-  "au! BufRead,BufNewFile *.m,*.oct set filetype=octave
-  
-  au! BufRead,BufNewFile tmux.conf*,.tmux.conf* set filetype=tmux
-augroup END 
-" set the compiler based on filetype
-"au BufRead * try | execute "compiler ".&filetype | catch /./ | endtry
-au BufRead *.m try | execute "compiler matlab" | catch /./ | endtry
-
-"" Use keywords from Octave syntax language file for autocomplete 
-if has("autocmd") && exists("+omnifunc") 
-   autocmd Filetype octave 
-      \  if &omnifunc == "" | 
-      \   setlocal omnifunc=syntaxcomplete#Complete | 
-      \  endif 
-endif 
-
-" Source the vimrc file after saving it
 if has("autocmd")
+
+  " add fortran commentstring
+  au BufRead,BufNewFile *.f90 setlocal commentstring=!%s
+
+  " lammps commentstring
+  au BufRead,BufNewFile in.* setlocal commentstring=#%s
+
+  " give shell a proper commentstring
+  autocmd FileType sh setlocal commentstring=#%s
+
+  " open pdf files?
+  autocmd BufReadPre *.pdf set ro nowrap
+  "autocmd BufReadPost *.pdf silent %!pdftotext "%" -nopgbrk -layout -q -eol unix -
+  autocmd BufReadPost *.pdf silent %!pdftotext -nopgbrk "%" - |fmt -cs -w 72
+  autocmd BufWritePost *.pdf silent !rm -rf ~/PDF/%
+  autocmd BufWritePost *.pdf silent !lp -s -d pdffg "%"
+  autocmd BufWritePost *.pdf silent !until [ -e ~/PDF/% ]; do sleep 1; done
+  autocmd BufWritePost *.pdf silent !mv ~/PDF/% %:p:h
+
+  " open doc files?
+  " View word documents in Vim (good for diff'ing).
+  autocmd BufReadPre *.doc  set ro
+  autocmd BufReadPre *.doc  set hlsearch
+  autocmd BufReadPost *.doc silent %!antiword '%:p'
+
+
+  " Octave syntax
+  augroup filetypedetect
+    au! BufRead,BufNewFile *.m,*.oct,*octaverc set filetype=matlab
+    "au! BufRead,BufNewFile *.m,*.oct set filetype=octave
+
+    au! BufRead,BufNewFile tmux.conf*,.tmux.conf* set filetype=tmux
+  augroup END
+
+  " Use keywords from Octave syntax language file for autocomplete
+  if exists("+omnifunc")
+    autocmd Filetype octave
+          \  if &omnifunc == "" |
+          \   setlocal omnifunc=syntaxcomplete#Complete |
+          \  endif
+  endif
+
+  " Source the vimrc file after saving it
   autocmd! bufwritepost vimrc source $MYVIMRC
+  
+  " strip trailing whitespace off of select filetypes when writing to file
+  autocmd BufWritePre *.m,*.py,*.js :call Preserve("%s/\\s\\+$//e")
+  
 endif
 
 " --- key mapping --- {{{1
 " Voom: create special fold markers (a reminder of the create-tags plugin by
 " the Voom author
 "<Leader>fm         Create start fold marker with level number.
-"                   It is apppended to the end of current line. The level is set 
-"                   to that of the previous start fold marker with level number 
-"                   (if any). The start fold marker string is obtained from option 'foldmarker'. 
-"<Leader>fM         Create fold marker as child: level number is incremented by 1. 
-"<Leader>cm         Create fold marker as comment according to buffer's filetype.  
-"                   E.g., if filetype is html, <!--\{\{\{1--> is appended. Dictionary 
-"                   s:commentstrings defines comment strings for a few filetypes.  
-"                   For all other filetypes, comment strings are obtained from option 
+"                   It is apppended to the end of current line. The level is set
+"                   to that of the previous start fold marker with level number
+"                   (if any). The start fold marker string is obtained from option 'foldmarker'.
+"<Leader>fM         Create fold marker as child: level number is incremented by 1.
+"<Leader>cm         Create fold marker as comment according to buffer's filetype.
+"                   E.g., if filetype is html, <!--\{\{\{1--> is appended. Dictionary
+"                   s:commentstrings defines comment strings for a few filetypes.
+"                   For all other filetypes, comment strings are obtained from option
 "                   'commentstring'. If comment strings are not what you want, you can
-"                   edit dictionary s:commentstrings. 
-"<Leader>cM         Create fold marker as comment and as child. 
+"                   edit dictionary s:commentstrings.
+"<Leader>cM         Create fold marker as comment and as child.
 
 " set the leader character
 let mapleader=','
@@ -330,12 +348,12 @@ map <down> <nop>
 map <left> <nop>
 map <right> <nop>
 
-" Disable commands for creating and deleting folds.  
-noremap zf <Nop>                                     
-noremap zF <Nop>                                     
-noremap zd <Nop>                                     
-noremap zD <Nop>                                     
-noremap zE <Nop>                                     
+" Disable commands for creating and deleting folds.
+noremap zf <Nop>
+noremap zF <Nop>
+noremap zd <Nop>
+noremap zD <Nop>
+noremap zE <Nop>
 
 " setup commandT binding
 nnoremap <leader>t :CommandT<CR>
@@ -380,7 +398,7 @@ nmap <leader>s<up>     :leftabove  new <CR>
 nmap <leader>s<down>   :rightbelow new <CR>
 
 " kill the selected search text
-nmap <silent> <leader><space> :set nolist!<CR>      
+nmap <silent> <leader><space> :set nolist!<CR>
 
 " underline the current line
 nmap <leader>u yypVr-
@@ -392,7 +410,7 @@ nmap <leader>os    :OpenSession  <CR>
 nmap <leader>xs    :!vixs --here <CR>
 
 "NERDTree
-nnoremap <leader>nt :NERDTreeToggle<CR> 
+nnoremap <leader>nt :NERDTreeToggle<CR>
 
 " Voom: setup voom keys
 nnoremap <LocalLeader><LocalLeader> :Voom<CR>
@@ -417,3 +435,5 @@ nmap <leader>v :tabedit $MYVIMRC<CR>
 let mapleader = ","
 nmap <silent> <leader>s :set spell!<CR>
 
+nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
+nmap _= :call Preserve("normal gg=G")<CR>
