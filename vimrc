@@ -1,5 +1,9 @@
-" --- vim startup file --- 
-
+""""""""""""""""""""""""""""""
+"                            "
+" vim startup file ~/.vimrc "
+" Derek Thomas 2012
+"                            "
+""""""""""""""""""""""""""""""
 " --- pathogen call --- {{{1
 " setup the runtime plugin bundles
 " this initiates pahtogen ... MUST be before filetype detection activated
@@ -84,6 +88,206 @@ function! WC()
    echo "File Status: " . expand("%:t") . " > l:" linecount "・w:" wordcount "・c:" charcount 
 endfunction
 command! -nargs=0 WC call WC()
+
+" --- look and feel --- {{{1
+
+" make sure we are in 256 color mode
+set t_Co=256
+
+" syntax coloring
+syntax on
+
+" disk sync after every write
+"au BufWritePost * silent !sync
+
+" set the tile of the terminal
+set title
+set titlestring=%{system('hostname\ -s')}\ >\ vim:\ %{expand(\"%\")}
+
+" colorscheme
+"colorscheme desertedoceanburnt
+colorscheme synic 
+"colorscheme desert
+"colorscheme jellybeans 
+
+" turn on wildmenu
+set wildmenu
+set wildmode=longest:full " more bash-like (does not autocomplete) 
+highlight WildMenu ctermbg=darkred ctermfg=white
+
+"turn on filetype plugins
+filetype plugin on
+filetype plugin indent on
+
+" turn on help for long-lines
+match ErrorMsg '\%>132v.\+'
+
+" this enables "visual" wrapping
+set wrap
+
+" this turns off physical line wrapping (ie: automatic insertion of newlines)
+set textwidth=0 wrapmargin=0
+
+" turn off the audio-bell
+"set visualbell
+set errorbells
+set novisualbell
+
+" sets all tabs to 3-spaces
+set tabstop=2
+set shiftwidth=2
+set expandtab
+
+
+" inactive window highlighting
+hi StatusLineNC cterm=none ctermfg=black ctermbg=245 gui=none guifg=black guibg=245
+"set noequalalways winminheight=0 winheight=99999
+
+" Press space to clear search highlighting and any message already displayed.
+"nnoremap <silent> <Space> :silent noh<Bar>echo<CR>
+
+" make trailing-spaces and tabs more visible
+set lcs=tab:>-,trail:·,eol:$
+
+" reduce "press OK" messg
+set shortmess=atI
+
+" allow the backspace button to work at all times
+set backspace=indent,eol,start
+
+" turn on the line numbers
+set number
+highlight LineNr ctermbg=236 ctermfg=245 guibg=236 guifg=245
+
+" highlight cursor line
+highlight CursorLine ctermbg=darkred guibg=darkred
+set cursorline "cursorline required to continuously update cursor position
+"hi Cursor cterm=none ctermfg=black ctermbg=darkgreen
+"match Cursor /\%#/ "This line does all the work
+"237
+
+" turn on mouse-support
+if has("mouse")
+    set mouse=a
+endif
+"map <ScrollWheelUp> <C-Y>
+"map <S-ScrollWheelUp> <C-U>
+"map <ScrollWheelDown> <C-E>
+"map <S-ScrollWheelDown> <C-D>
+
+" first, enable status line always
+set laststatus=2
+set statusline=\ %F%m%r%h%w\ [\ p:{%04l,%04v}・L:%L・%p%%\ ] 
+
+" setup status bar that is color coded based on insert/replace methodology
+function! InsertStatuslineColor(mode)
+  if a:mode == 'i'
+    hi statusline ctermfg=black ctermbg=yellow guifg=black guibg=yellow
+  elseif a:mode == 'r'
+    hi statusline ctermfg=black ctermbg=darkred guifg=black guibg=darkred
+  else
+    hi statusline ctermfg=black ctermbg=darkblue guifg=black guibg=darkblue
+  endif
+endfunction
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * hi statusline ctermfg=black ctermbg=darkgreen guifg=black guibg=darkgreen
+
+" default the statusline to green when entering Vim
+hi statusline ctermfg=0 ctermbg=2 guifg=0 guibg=2
+
+" Voom options
+let g:voom_verify_oop = 1
+let g:voom_user_command = "runtime! voom_addons.vim"
+
+" indentation instructions
+"set cindent
+"set cinkeys-=0#
+set autoindent
+
+" fortran options
+let fortran_more_precise=1
+let fortran_free_source=1
+let fortran_do_enddo=1
+
+" tab bar changes
+set showtabline=2
+hi TabLineFill ctermfg=LightGreen ctermbg=23 guifg=LightGreen guibg=23
+hi TabLine ctermfg=blue ctermbg=23 guifg=blue guibg=23
+hi TabLineSel ctermfg=lightmagenta ctermbg=23 guifg=lightmagenta guibg=23
+hi Title ctermfg=lightgreen guifg=lightgreen
+" this is for most-recently-used buffer (MRU)
+"let MRU_Max_Entries = 150
+let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'
+
+
+" visual mode coloring
+hi VisualNOS cterm=none ctermfg=black ctermbg=250
+
+" change highlighting of Bad-spelling
+hi clear SpellBad
+hi SpellBad cterm=undercurl ctermfg=196 ctermbg=236
+hi SpellLocal term=underline cterm=undercurl ctermbg=22 ctermfg=white gui=undercurl guisp=Cyan
+" Set region to British English
+set spelllang=en_us
+
+" turn on highlighting and set the color scheme
+set hlsearch
+highlight search ctermbg=240 ctermfg=red guibg=240 guifg=red 
+
+" set the easymotion highlighting
+hi link EasyMotionTarget ErrorMsg
+hi EasyMotionShade  ctermbg=none ctermfg=237
+
+" --- autocommands --- {{{1
+
+" add fortran commentstring
+au BufRead,BufNewFile *.f90 setlocal commentstring=!%s
+
+" lammps commentstring
+au BufRead,BufNewFile in.* setlocal commentstring=#%s
+
+" give shell a proper commentstring
+autocmd FileType sh setlocal commentstring=#%s
+
+" open pdf files?
+autocmd BufReadPre *.pdf set ro nowrap
+"autocmd BufReadPost *.pdf silent %!pdftotext "%" -nopgbrk -layout -q -eol unix -
+autocmd BufReadPost *.pdf silent %!pdftotext -nopgbrk "%" - |fmt -cs -w 72
+autocmd BufWritePost *.pdf silent !rm -rf ~/PDF/%
+autocmd BufWritePost *.pdf silent !lp -s -d pdffg "%"
+autocmd BufWritePost *.pdf silent !until [ -e ~/PDF/% ]; do sleep 1; done
+autocmd BufWritePost *.pdf silent !mv ~/PDF/% %:p:h
+
+" open doc files?
+" View word documents in Vim (good for diff'ing).
+autocmd BufReadPre *.doc  set ro
+autocmd BufReadPre *.doc  set hlsearch
+autocmd BufReadPost *.doc silent %!antiword '%:p'
+
+
+" Octave syntax 
+augroup filetypedetect 
+  au! BufRead,BufNewFile *.m,*.oct,*octaverc set filetype=matlab 
+  "au! BufRead,BufNewFile *.m,*.oct set filetype=octave
+  
+  au! BufRead,BufNewFile tmux.conf*,.tmux.conf* set filetype=tmux
+augroup END 
+" set the compiler based on filetype
+"au BufRead * try | execute "compiler ".&filetype | catch /./ | endtry
+au BufRead *.m try | execute "compiler matlab" | catch /./ | endtry
+
+"" Use keywords from Octave syntax language file for autocomplete 
+if has("autocmd") && exists("+omnifunc") 
+   autocmd Filetype octave 
+      \  if &omnifunc == "" | 
+      \   setlocal omnifunc=syntaxcomplete#Complete | 
+      \  endif 
+endif 
+
+" Source the vimrc file after saving it
+if has("autocmd")
+  autocmd! bufwritepost vimrc source $MYVIMRC
+endif
 
 " --- key mapping --- {{{1
 " Voom: create special fold markers (a reminder of the create-tags plugin by
@@ -206,184 +410,10 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
 
-" --- look and feel --- {{{1
+" quick edit .vimrc
+nmap <leader>v :tabedit $MYVIMRC<CR>
 
-" make sure we are in 256 color mode
-set t_Co=256
-
-" syntax coloring
-syntax on
-
-" disk sync after every write
-"au BufWritePost * silent !sync
-
-" set the tile of the terminal
-set title
-set titlestring=%{system('hostname\ -s')}\ >\ vim:\ %{expand(\"%\")}
-
-" colorscheme
-colorscheme synic 
-"colorscheme jellybeans 
-
-" turn on wildmenu
-set wildmenu
-set wildmode=longest:full " more bash-like (does not autocomplete) 
-highlight WildMenu ctermbg=darkred ctermfg=white
-
-"turn on filetype plugins
-"filetype plugin on
-filetype plugin indent on
-
-" turn on help for long-lines
-match ErrorMsg '\%>132v.\+'
-
-" this enables "visual" wrapping
-set wrap
-
-" this turns off physical line wrapping (ie: automatic insertion of newlines)
-set textwidth=0 wrapmargin=0
-
-" turn off the audio-bell
-"set visualbell
-set errorbells
-set novisualbell
-
-" sets all tabs to 3-spaces
-set tabstop=2
-set shiftwidth=2
-set expandtab
-
-" turn on highlighting and set the color scheme
-set hlsearch
-highlight search ctermbg=240 ctermfg=red guibg=240 guifg=red 
-
-" inactive window highlighting
-hi StatusLineNC cterm=none ctermfg=black ctermbg=245 gui=none guifg=black guibg=245
-"set noequalalways winminheight=0 winheight=99999
-
-" Press space to clear search highlighting and any message already displayed.
-"nnoremap <silent> <Space> :silent noh<Bar>echo<CR>
-
-" make trailing-spaces and tabs more visible
-set lcs=tab:>-,trail:·,eol:$
-
-" reduce "press OK" messg
-set shortmess=atI
-
-" allow the backspace button to work at all times
-set backspace=indent,eol,start
-
-" turn on the line numbers
-set number
-highlight LineNr ctermbg=236 ctermfg=245 guibg=236 guifg=245
-
-" highlight cursor line
-highlight CursorLine ctermbg=darkred guibg=darkred
-set cursorline "cursorline required to continuously update cursor position
-"hi Cursor cterm=none ctermfg=black ctermbg=darkgreen
-"match Cursor /\%#/ "This line does all the work
-"237
-
-" turn on mouse-support
-if has("mouse")
-    set mouse=a
-endif
-"map <ScrollWheelUp> <C-Y>
-"map <S-ScrollWheelUp> <C-U>
-"map <ScrollWheelDown> <C-E>
-"map <S-ScrollWheelDown> <C-D>
-
-" first, enable status line always
-set laststatus=2
-set statusline=\ %F%m%r%h%w\ [\ p:{%04l,%04v}・L:%L・%p%%\ ] 
-
-" setup status bar that is color coded based on insert/replace methodology
-function! InsertStatuslineColor(mode)
-  if a:mode == 'i'
-    hi statusline ctermfg=black ctermbg=yellow guifg=black guibg=yellow
-  elseif a:mode == 'r'
-    hi statusline ctermfg=black ctermbg=darkred guifg=black guibg=darkred
-  else
-    hi statusline ctermfg=black ctermbg=darkblue guifg=black guibg=darkblue
-  endif
-endfunction
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline ctermfg=black ctermbg=darkgreen guifg=black guibg=darkgreen
-
-" default the statusline to green when entering Vim
-hi statusline ctermfg=0 ctermbg=2 guifg=0 guibg=2
-
-" Voom options
-let g:voom_verify_oop = 1
-let g:voom_user_command = "runtime! voom_addons/*.vim"
-
-" indentation instructions
-"set cindent
-"set cinkeys-=0#
-set autoindent
-
-" fortran options
-let fortran_more_precise=1
-let fortran_free_source=1
-let fortran_do_enddo=1
-
-" tab bar changes
-set showtabline=2
-hi TabLineFill ctermfg=LightGreen ctermbg=23 guifg=LightGreen guibg=23
-hi TabLine ctermfg=blue ctermbg=23 guifg=blue guibg=23
-hi TabLineSel ctermfg=lightmagenta ctermbg=23 guifg=lightmagenta guibg=23
-hi Title ctermfg=lightgreen guifg=lightgreen
-" this is for most-recently-used buffer (MRU)
-"let MRU_Max_Entries = 150
-let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'
-
-
-" visual mode coloring
-hi VisualNOS cterm=none ctermfg=black ctermbg=250
-
-" --- autocommands --- {{{1
-
-" add fortran commentstring
-au BufRead,BufNewFile *.f90 setlocal commentstring=!%s
-
-" lammps commentstring
-au BufRead,BufNewFile in.* setlocal commentstring=#%s
-
-" give shell a proper commentstring
-autocmd FileType sh setlocal commentstring=#%s
-
-" open pdf files?
-autocmd BufReadPre *.pdf set ro nowrap
-"autocmd BufReadPost *.pdf silent %!pdftotext "%" -nopgbrk -layout -q -eol unix -
-autocmd BufReadPost *.pdf silent %!pdftotext -nopgbrk "%" - |fmt -cs -w 72
-autocmd BufWritePost *.pdf silent !rm -rf ~/PDF/%
-autocmd BufWritePost *.pdf silent !lp -s -d pdffg "%"
-autocmd BufWritePost *.pdf silent !until [ -e ~/PDF/% ]; do sleep 1; done
-autocmd BufWritePost *.pdf silent !mv ~/PDF/% %:p:h
-
-" open doc files?
-" View word documents in Vim (good for diff'ing).
-autocmd BufReadPre *.doc  set ro
-autocmd BufReadPre *.doc  set hlsearch
-autocmd BufReadPost *.doc silent %!antiword '%:p'
-
-
-" Octave syntax 
-augroup filetypedetect 
-  au! BufRead,BufNewFile *.m,*.oct,*octaverc set filetype=matlab 
-  "au! BufRead,BufNewFile *.m,*.oct set filetype=octave
-  
-  au! BufRead,BufNewFile tmux.conf*,.tmux.conf* set filetype=tmux
-augroup END 
-" set the compiler based on filetype
-"au BufRead * try | execute "compiler ".&filetype | catch /./ | endtry
-au BufRead *.m try | execute "compiler matlab" | catch /./ | endtry
-
-"" Use keywords from Octave syntax language file for autocomplete 
-if has("autocmd") && exists("+omnifunc") 
-   autocmd Filetype octave 
-      \  if &omnifunc == "" | 
-      \   setlocal omnifunc=syntaxcomplete#Complete | 
-      \  endif 
-endif 
+" Toggle spell checking on and off with `,s`
+let mapleader = ","
+nmap <silent> <leader>s :set spell!<CR>
 
