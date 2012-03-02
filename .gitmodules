@@ -28,3 +28,6 @@
 [submodule "bundle/pathogen"]
 	path = bundle/pathogen
 	url = https://github.com/tpope/vim-pathogen.git
+[submodule "bundle/fold_marker"]
+	path = bundle/fold_marker
+	url = https://github.com/vim-scripts/create_start_fold_marker.vim.git
