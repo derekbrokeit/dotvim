@@ -303,7 +303,7 @@ if has("autocmd")
   autocmd! bufwritepost vimrc source $MYVIMRC
   
   " strip trailing whitespace off of select filetypes when writing to file
-  autocmd BufWritePre *.m,*.py,*.js :call Preserve("%s/\\s\\+$//e")
+  autocmd BufWritePre *.m,*.sh,*.py,*.js :call Preserve("%s/\\s\\+$//e")
   
 endif
 

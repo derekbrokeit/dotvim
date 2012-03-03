@@ -1,7 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/Users/derekt/O2/bin'
-let g:netrw_dirhist_2='/Users/derekt/O2'
-let g:netrw_dirhist_3='/Users/derekt/O2/include'
-let g:netrw_dirhist_4='/Users/derekt/O2'
-let g:netrw_dirhist_5='/Users/derekt'
+let g:netrw_dirhist_cnt =0
