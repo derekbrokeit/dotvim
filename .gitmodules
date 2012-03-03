@@ -22,3 +22,15 @@
 [submodule "bundle/tasklist"]
 	path = bundle/tasklist
 	url = https://github.com/vim-scripts/TaskList.vim.git
+[submodule "bundle/voom"]
+	path = bundle/voom
+	url = git://github.com/vim-scripts/VOoM.git
+[submodule "bundle/unimpaired"]
+	path = bundle/unimpaired
+	url = git://github.com/tpope/vim-unimpaired.git
+[submodule "bundle/snipmate"]
+	path = bundle/snipmate
+	url = git://github.com/msanders/snipmate.vim.git
+[submodule "bundle/session"]
+	path = bundle/session
+	url = git://github.com/xolox/vim-session.git
