@@ -255,6 +255,11 @@ hi EasyMotionShade  ctermbg=none ctermfg=237
 " use 'par' for paragraph formatting
 set formatprg=par
 
+" highlighting for vimdiff stuff
+hi DiffAdd        term=bold ctermfg=white ctermbg=29 guifg=white guibg=green
+hi DiffChange     term=bold ctermfg=231 ctermbg=102 guifg=white guibg=LightCyan4
+hi DiffDelete     term=reverse cterm=bold ctermbg=52 gui=bold guibg=Red
+hi DiffText       term=bold ctermfg=57 ctermbg=195 guifg=darkmagenta guibg=LightCyan
 " --- autocommands --- {{{1
 if has("autocmd")
 
