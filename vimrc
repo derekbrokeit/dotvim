@@ -418,8 +418,8 @@ nmap <leader>xs    :!vixs --here <CR>
 nnoremap <leader>nt :NERDTreeToggle<CR>
 
 " Voom: setup voom keys
-nnoremap <LocalLeader><LocalLeader> :Voom<CR>
-nnoremap <LocalLeader>n :Voomunl<CR>
+nnoremap <leader><leader> :Voom<CR>
+nnoremap <leader>n :Voomunl<CR>
 nnoremap <C-c> :call Voom_DeleteOutline('q')<CR>
 nnoremap <C-x> :call Voom_DeleteOutline('x')<CR>
 
