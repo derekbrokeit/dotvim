@@ -4,9 +4,6 @@
 [submodule "bundle/commandT"]
 	path = bundle/commandT
 	url = git://github.com/wincent/Command-T.git
-[submodule "bundle/NERD_commenter"]
-	path = bundle/NERD_commenter
-	url = git://github.com/scrooloose/nerdcommenter.git
 [submodule "bundle/easymotion"]
 	path = bundle/easymotion
 	url = git://github.com/Lokaltog/vim-easymotion.git
