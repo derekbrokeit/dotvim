@@ -211,6 +211,7 @@ hi statusline ctermfg=0 ctermbg=2 guifg=0 guibg=2
 " Voom options
 let g:voom_verify_oop = 1
 let g:voom_user_command = "runtime! voom_addons.vim"
+let g:voom_user_command = "runtime! ~/.vim/custom_headlines.vim"
 
 " indentation instructions
 "set cindent
