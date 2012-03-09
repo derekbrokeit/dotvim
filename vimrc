@@ -45,19 +45,17 @@ cmap w!! w !sudo tee % >/dev/null
 " fit)
 set wildignore=*.o,*.class,*.asv,*~,*.swp,*.bak,*.pyc
 
-" automatically change directory to file-local-directory
-"autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
 
 " make foldmethod marker for better Voom
 set fdm=marker
 
 " set Session variables
 " this is the save directory
-let g:session_directory="~/Dropbox/serverLogs/vim-sessions"
-let g:session_autoload = 'yes'
-"autosave
-let g:session_autosave="yes"
-set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize
+" let g:session_directory="~/Dropbox/serverLogs/vim-sessions"
+" let g:session_autoload = 'yes'
+" "autosave
+" let g:session_autosave="yes"
+" set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize
 
 " --- commands and functions ---  {{{1
 " matlab running
@@ -102,6 +100,7 @@ function! Preserve(command)
   let @/=_s
   call cursor(l, c)
 endfunction
+
 
 " --- look and feel --- {{{1
 
@@ -306,10 +305,23 @@ if has("autocmd")
 
   " Source the vimrc file after saving it
   autocmd! bufwritepost vimrc source $MYVIMRC
-  
+
   " strip trailing whitespace off of select filetypes when writing to file
   autocmd BufWritePre *.m,*.sh,*.py,*.js :call Preserve("%s/\\s\\+$//e")
-  
+
+  " automatically change directory to file-local-directory
+  " autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
+  function! OpenGitRoot()
+    let shellcmd = 'git rev-parse --show-toplevel'
+    let output=system(shellcmd)
+    if !v:shell_error
+      silent! lcd `=output`
+    else
+      silent! lcd %:p:h
+    endif
+  endfunction
+  autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | call OpenGitRoot() | endif
+
 endif
 
 " --- key mapping --- {{{1
@@ -434,7 +446,8 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 nmap gV `[v`]
 
 " quick edit .vimrc
-nmap <leader>v :tabedit $MYVIMRC<CR>
+" nmap <leader>v :tabedit $MYVIMRC<CR>
+nmap <leader>v :tabedit ~/.vim/vimrc<CR>
 
 " Toggle spell checking on and off with `,s`
 let mapleader = ","
