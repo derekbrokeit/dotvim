@@ -37,3 +37,6 @@
 [submodule "bundle/supertab"]
 	path = bundle/supertab
 	url = git://github.com/ervandew/supertab.git
+[submodule "bundle/repeat-vim"]
+	path = bundle/repeat-vim
+	url = git://github.com/tpope/vim-repeat.git
