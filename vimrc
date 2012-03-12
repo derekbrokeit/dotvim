@@ -65,8 +65,7 @@ command! -nargs=0 Mrecall echo system("rmat -r")
 command! -nargs=0 Oct echo system("roct -r " . shellescape(expand("%:p"))) .  "octave> " . expand("%:t")
 
 " update-system
-command! -nargs=0 SysUpdate echo system("source $HOME/.bash_profile > /dev/null ; sysupdate ")
-command! -nargs=0 ReSource source $HOME/.vimrc
+" command! -nargs=0 SysUpdate echo system("source $HOME/.bash_profile > /dev/null ; sysupdate ")
 
 " make sure voomclose kills the outline
 com! Voomclose call Voom_DeleteOutline('')
@@ -375,7 +374,7 @@ noremap zE <Nop>
 
 " setup commandT binding
 nnoremap <leader>t :CommandT<CR>
-nnoremap <leader>bt :CommandTBuffer<CR>
+nnoremap <leader>b :CommandTBuffer<CR>
 
 " clear search buffer
 nmap <silent> <leader>/ :nohlsearch<CR>

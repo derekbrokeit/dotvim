@@ -8,3 +8,8 @@ setlocal expandtab
 setlocal autoindent
 setlocal smarttab
 setlocal formatoptions=croql
+
+command! -nargs=0 Runpy !python %
+nmap <buffer> <leader>r :w<CR>:!python %<CR>
+
+" setlocal tags+=~/.vim/ctags/py_matplotlib
