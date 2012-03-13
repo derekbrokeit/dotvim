@@ -11,5 +11,6 @@ setlocal formatoptions=croql
 
 command! -nargs=0 Runpy !python %
 nmap <buffer> <leader>r :w<CR>:!python %<CR>
+nmap <buffer> <leader>R :w<CR>:!ipython %<CR>
 
 " setlocal tags+=~/.vim/ctags/py_matplotlib
