@@ -13,6 +13,15 @@ command! -nargs=0 Runpy !python %
 nmap <buffer> <leader>r :w<CR>:!python %<CR>
 nmap <buffer> <leader>R :w<CR>:!ipython %<CR>
 
+
+" for now, I am disabling conceal, uncertain if I should simply uninstall the
+" cute unicode submodule
+
+if version >= 703 
+  set conceallevel=0 
+  autocmd FileType * setlocal conceallevel=0 
+endif 
+
 " setlocal tags+=~/.vim/ctags/py_matplotlib
 "
 
