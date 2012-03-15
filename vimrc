@@ -312,12 +312,11 @@ if has("autocmd")
   " automatically change directory to file-local-directory
   " autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
   function! OpenGitRoot()
+    silent! lcd %:p:h
     let shellcmd = 'git rev-parse --show-toplevel'
     let output=system(shellcmd)
     if !v:shell_error
       silent! lcd `=output`
-    else
-      silent! lcd %:p:h
     endif
   endfunction
   autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | call OpenGitRoot() | endif
