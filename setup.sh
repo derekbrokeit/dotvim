@@ -20,3 +20,7 @@ fi
 
 # return to the original directory
 popd > /dev/null
+
+# make sure that the tmp folder and backup folder are present
+mkdir -p ~/.vim-tmp/backup
+
