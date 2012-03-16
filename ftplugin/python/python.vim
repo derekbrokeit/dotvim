@@ -18,8 +18,7 @@ nmap <buffer> <leader>R :w<CR>:!ipython %<CR>
 " cute unicode submodule
 
 if version >= 703 
-  set conceallevel=0 
-  autocmd FileType * setlocal conceallevel=0 
+  setlocal conceallevel=0 
 endif 
 
 " setlocal tags+=~/.vim/ctags/py_matplotlib
