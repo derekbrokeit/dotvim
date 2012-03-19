@@ -43,3 +43,6 @@
 [submodule "bundle/py-cute-unicode"]
 	path = bundle/py-cute-unicode
 	url = git://github.com/ehamberg/vim-cute-python.git
+[submodule "bundle/ipython"]
+	path = bundle/ipython
+	url = git://github.com/ivanov/vim-ipython.git

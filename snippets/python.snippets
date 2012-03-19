@@ -1,0 +1,27 @@
+snippet import
+	import ${1:module}
+# Module Docstring
+snippet while
+	while ${1:condition}:
+		${2:# code...}
+# New Class
+snippet class
+	class ${1:ClassName}(${2:object}):
+		"""${3:docstring for $1}"""
+		def __init__(self, ${4:arg}):
+			${5:super($1, self).__init__()}
+			self.$4 = $4
+			${6}
+# Lambda
+snippet lambda
+	${1:var} = lambda ${2:vars} : ${3:action}
+#insert pdb breakpoint
+snippet pdb
+	import pdb; pdb.set_trace()
+#import science modules
+snippet impsci
+	import numpy as np
+	import scipy as sp
+	import matplotlib as mpl
+	import matplotlib.pyplot as plt
+
