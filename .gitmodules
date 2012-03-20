@@ -40,9 +40,6 @@
 [submodule "bundle/repeat-vim"]
 	path = bundle/repeat-vim
 	url = git://github.com/tpope/vim-repeat.git
-[submodule "bundle/py-cute-unicode"]
-	path = bundle/py-cute-unicode
-	url = git://github.com/ehamberg/vim-cute-python.git
 [submodule "bundle/ipython"]
 	path = bundle/ipython
 	url = git://github.com/ivanov/vim-ipython.git
