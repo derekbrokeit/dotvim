@@ -114,7 +114,7 @@ syntax on
 
 " set the tile of the terminal
 set title
-set titlestring=%{system('hostname\ -s')}\ >\ vim:\ %{expand(\"%\")}
+let &titlestring=system('hostname -s').': vim > '.expand('%')
 
 " colorscheme
 "colorscheme desertedoceanburnt
