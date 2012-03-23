@@ -57,6 +57,15 @@ set fdm=marker
 " let g:session_autosave="yes"
 " set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize
 
+" set encoding: default is utf-8
+if has("multi_byte")
+  if &termencoding == ""
+    let &termencoding = &encoding
+  endif
+  set encoding=utf-8                     " better default than latin1
+  setglobal fileencoding=utf-8           " change default file encoding when writing new files
+endif
+
 " --- commands and functions ---  {{{1
 " matlab running
 command! -nargs=0 Mrun echo system("rmat -b " . shellescape(expand("%:p"))) .  "rmat>> " . expand("%:t")
@@ -311,7 +320,7 @@ if has("autocmd")
   autocmd! bufwritepost vimrc source $MYVIMRC
 
   " strip trailing whitespace off of select filetypes when writing to file
-  autocmd BufWritePre *.m,*.sh,*.py,*.js :call Preserve("%s/\\s\\+$//e")
+  autocmd BufWritePre *.m,*.sh,*.py,*.js,*.txt,*.f90,*.f :call Preserve("%s/\\s\\+$//e")
 
   " automatically change directory to file-local-directory
   " autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
