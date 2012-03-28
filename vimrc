@@ -47,7 +47,9 @@ set wildignore=*.o,*.class,*.asv,*~,*.swp,*.bak,*.pyc
 
 
 " make foldmethod marker for better Voom
+" initially folds are open, but voom will auto-enable folding
 set fdm=marker
+set nofoldenable
 
 " set Session variables
 " this is the save directory
@@ -202,7 +204,7 @@ endif
 
 " first, enable status line always
 set laststatus=2
-set statusline=\ %F%m%r%h%w\ [\ p:{%04l,%04v}・L:%L・%p%%\ ]
+set statusline=\ %F%m%r%h%w\ %{fugitive#statusline()}\ [\ p:{%04l,%04v}・L:%L・%p%%\ ]
 
 " setup status bar that is color coded based on insert/replace methodology
 function! InsertStatuslineColor(mode)
@@ -372,10 +374,16 @@ xmap <c-k>   [egv
 xmap <c-j>   ]egv
 
 " this unmaps arrow keys ... let's see if I get used to text movement instead
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
+map <up>     <nop>
+map <down>   <nop>
+map <left>   <nop>
+map <right>  <nop>
+
+" add surrounding white space
+map <up><space>     [<space>
+map <down><space>   ]<space>
+nmap <left><space>  i<space><esc>l
+nmap <right><space> a<space><esc>h
 
 " Disable commands for creating and deleting folds.
 noremap zf <Nop>
