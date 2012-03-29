@@ -379,11 +379,17 @@ map <down>   <nop>
 map <left>   <nop>
 map <right>  <nop>
 
-" add surrounding white space
+" add surrounding white space 
+" it is easy to quickly input the wrong order,
+" so the reverse order of keys is also supported
 map <up><space>     [<space>
 map <down><space>   ]<space>
 nmap <left><space>  i<space><esc>l
 nmap <right><space> a<space><esc>h
+map <space><up>     [<space>
+map <space><down>   ]<space>
+nmap <space><left>  i<space><esc>l
+nmap <space><right> a<space><esc>h
 
 " Disable commands for creating and deleting folds.
 noremap zf <Nop>
