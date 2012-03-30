@@ -13,5 +13,5 @@ git submodule foreach git pull origin master
 git status | grep "new commits" | cut -d ' ' -f 4 | xargs git add
 echo ""
 echo "git commit"
-git commit
+git commit -a
 
