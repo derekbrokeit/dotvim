@@ -111,7 +111,6 @@ function! Preserve(command)
   call cursor(l, c)
 endfunction
 
-
 " --- look and feel --- {{{1
 
 " make sure we are in 256 color mode
@@ -481,3 +480,16 @@ nmap <silent> <leader>s :set spell!<CR>
 
 nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 nmap _= :call Preserve("normal gg=G")<CR>
+
+" paste the contents of the clipboard without annoying indentation issues
+let os = substitute(system('uname'), "\n", "", "")
+if os == "Darwin"
+  " get clipboard (this automatically pastes)
+  nnoremap _p :r!pbpaste<CR>
+  inoremap <C-v> <esc>:r!pbpaste<CR>i
+elseif os == "Linux"
+  " get ready for pasting
+  " (this simply gets prepared for a paste, turn off after paste)
+  nnoremap _p :set pastetoggle<CR>i
+  inoremap <C-v> <esc>:set pastetoggle<CR>i
+endif
