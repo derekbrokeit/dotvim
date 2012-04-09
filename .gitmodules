@@ -46,3 +46,6 @@
 [submodule "bundle/ansiEsc"]
 	path = bundle/ansiEsc
 	url = https://github.com/vim-scripts/AnsiEsc.vim.git
+[submodule "bundle/w3m"]
+	path = bundle/w3m
+	url = https://github.com/yuratomo/w3m.vim.git
