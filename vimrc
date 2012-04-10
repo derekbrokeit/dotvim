@@ -504,3 +504,10 @@ elseif os == "Linux"
   vnoremap <c-c> <esc>:echoerr "Copy not supported in this os (".os.")... yet"<CR>
 endif
 
+" This is w3m settings
+
+" Identify the syntax highlighting group used at the cursor
+map \c :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
