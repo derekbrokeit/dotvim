@@ -131,6 +131,7 @@ else
 endif
 
 " colorscheme
+set background=dark
 "colorscheme desertedoceanburnt
 colorscheme synic
 "colorscheme desert
@@ -187,6 +188,7 @@ highlight LineNr ctermbg=236 ctermfg=245 guibg=236 guifg=245
 
 " highlight cursor line
 highlight CursorLine ctermbg=darkred guibg=darkred
+highlight CursorLineNr ctermfg=yellow
 set cursorline "cursorline required to continuously update cursor position
 "hi Cursor cterm=none ctermfg=black ctermbg=darkgreen
 "match Cursor /\%#/ "This line does all the work
