@@ -504,10 +504,33 @@ elseif os == "Linux"
   vnoremap <c-c> <esc>:echoerr "Copy not supported in this os (".os.")... yet"<CR>
 endif
 
-" This is w3m settings
 
 " Identify the syntax highlighting group used at the cursor
 map \c :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
+" This is w3m settings
+" highlighting:
+highlight! w3mLink      ctermfg=green ctermbg=none
+highlight! w3mLinkHover ctermfg=17 ctermbg=108
+" highlight! w3mLinkHover ctermfg=215 ctermbg=6
+highlight! w3mSubmit    ctermfg=208 cterm=bold ctermbg=none
+highlight! w3mInput     term=underline cterm=underline ctermfg=yellow ctermbg=238
+highlight! w3mBold      ctermfg=blue cterm=bold ctermbg=none
+highlight! w3mUnderline cterm=underline ctermfg=magenta ctermbg=none
+highlight! w3mHitAHint  ctermbg=darkred ctermfg=white
+highlight! w3mAnchor    ctermfg=cyan cterm=none ctermbg=none
+" Home Page:
+let g:w3m#homepage = "http://www.google.co.jp/"
+" Use Proxy:
+" let &HTTP_PROXY='http://xxx.xxx/:8080'
+" External browser:
+let g:w3m#external_browser = 'open'
+" Specify Key Of Hit-A-Hint
+let g:w3m#hit_a_hint_key = 'f'
+" Specify Default Search Engine
+let g:w3m#search_engine = 
+    \ 'https://www.google.com/#hl=ja&output=search&sclient=psy-ab&q=what&oq=what' . &encoding 
+" disable default keymap
+" let g:w3m#disable_default_keymap = 1
