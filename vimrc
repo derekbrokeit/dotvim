@@ -543,3 +543,5 @@ let g:w3m#search_engine =
 " let g:w3m#disable_default_keymap = 1
 " enable hover links
 let g:w3m#set_hover_on = 1
+" set delay time until highlighting
+let g:w3m#hover_delay_time = 100
