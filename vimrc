@@ -534,3 +534,5 @@ let g:w3m#search_engine =
     \ 'https://www.google.com/#hl=ja&output=search&sclient=psy-ab&q=what&oq=what' . &encoding 
 " disable default keymap
 " let g:w3m#disable_default_keymap = 1
+" enable hover links
+let g:w3m#set_hover_on = 1
