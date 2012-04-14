@@ -302,6 +302,15 @@ if has("autocmd")
   autocmd BufReadPre *.doc  set hlsearch
   autocmd BufReadPost *.doc silent %!antiword '%:p'
 
+  " open docx
+  "use docx2txt.pl to allow VIm to view the text content of a .docx file directly.
+  autocmd BufReadPre *.docx set ro
+  autocmd BufReadPost *.docx %!docx2txt.pl 
+
+  " open up xls files as csv 
+  autocmd BufReadPre *.xls,*.xlsx set ro | setf csv
+  autocmd BufReadPost *.xls,*.xlsx silent! %!xlsx2csv.sh -q -x "%" -c -
+  autocmd BufReadPost *.xls,*.xlsx redraw
 
   " Octave syntax
   augroup filetypedetect
@@ -488,7 +497,6 @@ let os = substitute(system('uname'), "\n", "", "")
 if os == "Darwin"
   " get clipboard (this automatically pastes)
   nnoremap _p :r!pbpaste<CR>
-  inoremap <C-v> <esc>:r!pbpaste<CR>i
 
   " also, support cut/copy
   vnoremap <c-x> :!pbcopy<CR>
@@ -497,7 +505,6 @@ elseif os == "Linux"
   " get ready for pasting
   " (this simply gets prepared for a paste, turn off after paste)
   nnoremap _p :set pastetoggle<CR>i
-  inoremap <C-v> <esc>:set pastetoggle<CR>i
   
   " no support for cut/copy remotely yet
   vnoremap <c-x> <esc>:echoerr "Cut not supported in this os (".os.")... yet"<CR>
