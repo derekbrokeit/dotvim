@@ -544,4 +544,4 @@ let g:w3m#search_engine =
 " enable hover links
 let g:w3m#set_hover_on = 1
 " set delay time until highlighting
-let g:w3m#hover_delay_time = 100
+let g:w3m#hover_delay_time = 220
