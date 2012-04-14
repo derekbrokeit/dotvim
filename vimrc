@@ -561,4 +561,11 @@ map <Leader>ri :InspectVimTmuxRunner<CR>
 map <Leader>rx :CloseVimTmuxPanes<CR>
 " Interrupt any command running in the runner pane
 map <Leader>rs :InterruptVimTmuxRunner<CR>
-
+"If text is selected, save it in the v buffer and send that buffer it to tmux
+vmap <leader>rt "vy :call RunVimTmuxCommand(@v)<CR>
+" Select current paragraph (block) and send it to tmux
+nmap <leader>rb vip<leader>rt<CR>
+" height of tmux window (%)
+let VimuxHeight = "20"
+" horizontal (h) or vertical (v)
+let VimuxOrientation = "v"
