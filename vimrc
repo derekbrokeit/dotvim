@@ -457,13 +457,13 @@ nmap <silent> <leader><space> :set nolist!<CR>
 nmap <leader>u yypVr-
 
 " play with the sessions
-nmap <leader>ss    :SaveSession  <CR>
-"nmap <leader>cs    :CloseSession <CR>
-nmap <leader>os    :OpenSession  <CR>
-nmap <leader>xs    :!vixs --here <CR>
+" nmap <leader>ss    :SaveSession  <CR>
+" "nmap <leader>cs    :CloseSession <CR>
+" nmap <leader>os    :OpenSession  <CR>
+" nmap <leader>xs    :!vixs --here <CR>
 
 "NERDTree
-nnoremap <leader>nt :NERDTreeToggle<CR>
+" nnoremap <leader>nt :NERDTreeToggle<CR>
 
 " Voom: setup voom keys
 nnoremap <leader><leader> :Voom<CR>
