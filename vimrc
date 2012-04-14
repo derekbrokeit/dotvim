@@ -529,7 +529,7 @@ highlight! w3mUnderline cterm=underline ctermfg=magenta ctermbg=none
 highlight! w3mHitAHint  ctermbg=darkred ctermfg=white
 highlight! w3mAnchor    ctermfg=cyan cterm=none ctermbg=none
 " Home Page:
-let g:w3m#homepage = "http://www.google.co.jp/"
+let g:w3m#homepage = "http://www.google.com/ncr"
 " Use Proxy:
 " let &HTTP_PROXY='http://xxx.xxx/:8080'
 " External browser:
@@ -537,11 +537,28 @@ let g:w3m#external_browser = 'open'
 " Specify Key Of Hit-A-Hint
 let g:w3m#hit_a_hint_key = 'f'
 " Specify Default Search Engine
-let g:w3m#search_engine = 
-    \ 'https://www.google.com/#hl=ja&output=search&sclient=psy-ab&q=what&oq=what' . &encoding 
+" let g:w3m#search_engine = 
+"     \ 'https://www.google.com/#hl=ja&output=search&sclient=psy-ab&q=what&oq=what' . &encoding 
 " disable default keymap
 " let g:w3m#disable_default_keymap = 1
 " enable hover links
 let g:w3m#set_hover_on = 1
 " set delay time until highlighting
 let g:w3m#hover_delay_time = 220
+
+" --- Vimux bindings
+" Run the current file with python
+map <Leader>ry :call RunVimTmuxCommand("clear; python " . bufname("%"))<CR>
+" Run the current file with the shell
+map <Leader>rz :call RunVimTmuxCommand("clear; " . bufname("%"))<CR>
+" Prompt for a command to run
+map <Leader>rp :PromptVimTmuxCommand<CR>
+" Run last command executed by RunVimTmuxCommand
+map <Leader>rl :RunLastVimTmuxCommand<CR>
+" Inspect runner pane
+map <Leader>ri :InspectVimTmuxRunner<CR>
+" Close all other tmux panes in current window
+map <Leader>rx :CloseVimTmuxPanes<CR>
+" Interrupt any command running in the runner pane
+map <Leader>rs :InterruptVimTmuxRunner<CR>
+
