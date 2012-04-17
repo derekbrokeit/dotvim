@@ -537,8 +537,7 @@ let g:w3m#external_browser = 'open'
 " Specify Key Of Hit-A-Hint
 let g:w3m#hit_a_hint_key = 'f'
 " Specify Default Search Engine
-" let g:w3m#search_engine = 
-"     \ 'https://www.google.com/#hl=ja&output=search&sclient=psy-ab&q=what&oq=what' . &encoding 
+let g:w3m#search_engine = "https://www.google.co.jp/search?sourceid=chrome&ie=UTF-8&q="
 " disable default keymap
 " let g:w3m#disable_default_keymap = 1
 " enable hover links

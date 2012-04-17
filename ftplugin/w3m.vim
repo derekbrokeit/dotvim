@@ -31,3 +31,15 @@ nmap <up> k
 nmap <down> j
 nmap <left> h
 nmap <right> l
+
+" history
+nmap <leader>h :W3mHistory<CR>
+
+" address
+nmap <leader>c :W3mAddressBar<CR>
+
+" reload
+nmap <leader>r :W3mReload<CR>
+
+" external browser
+nmap m :W3mShowExtenalBrowser<CR>
