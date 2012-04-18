@@ -30,10 +30,10 @@ nmap <buffer><space>       <Plug>(w3m-address-bar)
 nmap <buffer><C-t>      <Plug>(w3m-shift-click)
 
 " return my arrow keys
-nmap <up> k
-nmap <down> j
-nmap <left> h
-nmap <right> l
+nmap <buffer> <up> k
+nmap <buffer> <down> j
+nmap <buffer> <left> h
+nmap <buffer> <right> l
 
 " history
 nmap <leader>h :W3mHistory<CR>
@@ -46,3 +46,4 @@ nmap <leader>r :W3mReload<CR>
 
 " external browser
 nmap m :W3mShowExtenalBrowser<CR>
+nmap o :W3mShowExtenalBrowser<CR>
