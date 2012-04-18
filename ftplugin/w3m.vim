@@ -1,8 +1,11 @@
 " This is for the w3m INSIDE vim!!
 " https://github.com/yuratomo/w3m.vim
-" setlocal nocursorline "cursorline required to continuously update cursor position
-setlocal nocursorline
-" highlight CursorLine ctermbg=238
+
+" set up the line number being highlighted, but cursor line is not
+" The link should be highlighted with hover-highlighting instead
+highlight CursorLine cterm=none ctermbg=none
+highlight CursorLineNr  ctermfg=yellow ctermbg=239
+setlocal cursorline "cursorline required to continuously update cursor position
 
 " Default Keymaps
 " <CR> Open link under the cursor.
