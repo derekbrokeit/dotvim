@@ -95,6 +95,10 @@ if has("conceal") && &enc == 'utf-8'
 
   delfun s:pythonGreek
 
+  " These are for functions 
+  " syn region pyGreek matchgroup=pyMathCall start="math.abs(" end=")" contained concealends contains=pymathfunc
+  " syn region functs matchgroup=mathfuncs  start="math.abs(" end=")" concealends contains=pymathfunc
+
   setlocal conceallevel=2 
   hi Conceal cterm=none ctermbg=235 ctermfg=darkgreen guifg=green guibg=DarkGrey
 endif 
