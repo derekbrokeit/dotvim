@@ -55,3 +55,6 @@
 [submodule "bundle/vimux"]
 	path = bundle/vimux
 	url = https://github.com/benmills/vimux.git
+[submodule "bundle/jinja2"]
+	path = bundle/jinja2
+	url = https://github.com/Glench/Vim-Jinja2-Syntax.git
