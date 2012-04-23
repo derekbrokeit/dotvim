@@ -164,6 +164,7 @@ set novisualbell
 set tabstop=2
 set shiftwidth=2
 set expandtab
+set shiftround
 
 
 " inactive window highlighting
@@ -402,6 +403,7 @@ map <space><up>     [<space>
 map <space><down>   ]<space>
 nmap <space><left>  i<space><esc>l
 nmap <space><right> a<space><esc>h
+nmap <space> za
 
 " Disable commands for creating and deleting folds.
 noremap zf <Nop>
@@ -571,3 +573,5 @@ let VimuxHeight = "20"
 " horizontal (h) or vertical (v)
 let VimuxOrientation = "v"
 
+" opening message {{{1
+" silent! echo ">^.^<" 

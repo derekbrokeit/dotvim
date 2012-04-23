@@ -51,7 +51,7 @@
 	url = https://github.com/vim-scripts/SyntaxAttr.vim.git
 [submodule "bundle/w3m-fork"]
 	path = bundle/w3m-fork
-	url = git@github.com:dat5h/w3m.vim.git
+	url = https://github.com/yuratomo/w3m.vim.git
 [submodule "bundle/vimux"]
 	path = bundle/vimux
 	url = https://github.com/benmills/vimux.git
