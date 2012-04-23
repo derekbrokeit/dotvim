@@ -318,6 +318,8 @@ if has("autocmd")
     "au! BufRead,BufNewFile *.m,*.oct set filetype=octave
 
     au! BufRead,BufNewFile tmux.conf*,.tmux.conf* set filetype=tmux
+
+    au! BufRead,BufNewFile *.j2 set filetype=jinja
   augroup END
 
   " Use keywords from Octave syntax language file for autocomplete
