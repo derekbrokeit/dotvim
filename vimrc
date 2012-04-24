@@ -111,6 +111,21 @@ function! Preserve(command)
   call cursor(l, c)
 endfunction
 
+function! Ansi()
+  set cole=3
+
+  " Run AnsiEsc for colors
+  AnsiEsc
+  
+  " Hide xterm titles
+  if ! exists("g:hiddenAnsiTitle")
+    syn region AnsiTitle start="]2;" end="\\" conceal
+    g:hiddenAnsiTitle = "yes"
+  endif
+endfunction
+command! -nargs=0 Ansi call Ansi()
+
+
 " --- look and feel --- {{{1
 
 " make sure we are in 256 color mode
