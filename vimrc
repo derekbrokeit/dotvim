@@ -297,9 +297,6 @@ if has("autocmd")
   " add fortran commentstring
   au BufRead,BufNewFile *.f90 setlocal commentstring=!%s
 
-  " lammps commentstring
-  au BufRead,BufNewFile in.* setlocal commentstring=#%s
-
   " give shell a proper commentstring
   autocmd FileType sh setlocal commentstring=#%s
 
@@ -336,6 +333,10 @@ if has("autocmd")
     au! BufRead,BufNewFile tmux.conf*,.tmux.conf* set filetype=tmux
 
     au! BufRead,BufNewFile *.j2 set filetype=jinja
+
+    "LAMMPS
+    au! BufRead,BufNewFile in.*           set filetype=lammps
+    au! BufRead,BufNewFile *.lmp          set filetype=lammps
   augroup END
 
   " Use keywords from Octave syntax language file for autocomplete
@@ -365,6 +366,7 @@ if has("autocmd")
   autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | call OpenGitRoot() | endif
 
 endif
+
 
 " --- key mapping --- {{{1
 " Voom: create special fold markers (a reminder of the create-tags plugin by
