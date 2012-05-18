@@ -54,8 +54,8 @@ if has("conceal") && &enc == 'utf-8'
   call s:pythonGreek('pyGreek'                      , 'kappa'                    , 'κ')
   " all lambda not used for making lambda-functions
   call s:pythonGreek('pyGreek'                      , 'lambda\(\s*\(\w\)*:\)\@!' , 'λ')
-  call s:pythonGreek('pyGreek'                      , 'mu'                       , 'μ')
-  call s:pythonGreek('pyGreek'                      , 'nu'                       , 'ν')
+  " call s:pythonGreek('pyGreek'                      , 'mu'                       , 'μ')
+  " call s:pythonGreek('pyGreek'                      , 'nu'                       , 'ν')
   call s:pythonGreek('pyGreek'                      , 'xi'                       , 'ξ')
   call s:pythonGreek('pyGreek'                      , 'pi'                       , 'π')
   call s:pythonGreek('pyGreek'                      , 'rho'                      , 'ρ')
