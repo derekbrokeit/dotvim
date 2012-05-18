@@ -147,10 +147,12 @@ endif
 
 " colorscheme
 set background=dark
-"colorscheme desertedoceanburnt
-colorscheme synic
-"colorscheme desert
-"colorscheme jellybeans
+" colorscheme desertedoceanburnt
+" colorscheme synic
+" colorscheme desert256
+" colorscheme murphy
+" colorscheme desert
+colorscheme jellybeans
 
 " turn on wildmenu
 set wildmenu
