@@ -36,14 +36,14 @@ nmap <buffer> <left> h
 nmap <buffer> <right> l
 
 " history
-nmap <leader>h :W3mHistory<CR>
+nmap <buffer><leader>h :W3mHistory<CR>
 
 " address
-nmap <leader>c :W3mAddressBar<CR>
+nmap <buffer><leader>c :W3mAddressBar<CR>
 
 " reload
-nmap <leader>r :W3mReload<CR>
+nmap <buffer><leader>r :W3mReload<CR>
 
 " external browser
-nmap m :W3mShowExtenalBrowser<CR>
-nmap o :W3mShowExtenalBrowser<CR>
+nmap <buffer>m :W3mShowExtenalBrowser<CR>
+nmap <buffer>o :W3mShowExtenalBrowser<CR>
