@@ -6,7 +6,6 @@ SWNT
 nanocones
 CNC
 graphene
-nanofibers
 CSNF
 nanostructure
 nanofiber
@@ -15,3 +14,6 @@ CNF
 mesoscopic
 LAMMPS
 interatomic
+nanofibers
+nanotube
+multiscale
