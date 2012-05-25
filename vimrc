@@ -592,6 +592,9 @@ let VimuxHeight = "20"
 " horizontal (h) or vertical (v)
 let VimuxOrientation = "v"
 
+" ctags are great, open up taglist window:
+nnoremap _t :TlistOpen<CR>
+
 " opening message {{{1
 " silent! echo ">^.^<" 
 "
