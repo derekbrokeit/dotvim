@@ -116,7 +116,7 @@ function! Ansi()
 
   " Run AnsiEsc for colors
   AnsiEsc
-  
+
   " Hide xterm titles
   if ! exists("g:hiddenAnsiTitle")
     syn region AnsiTitle start="]2;" end="\\" conceal
@@ -236,7 +236,7 @@ function! InsertStatuslineColor(mode)
   endif
 endfunction
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline ctermfg=black ctermbg=darkgreen guifg=black guibg=darkgreen 
+au InsertLeave * hi statusline ctermfg=black ctermbg=darkgreen guifg=black guibg=darkgreen
 
 " default the statusline to green when entering Vim
 hi statusline ctermfg=0 ctermbg=2 guifg=0 guibg=2
@@ -320,9 +320,9 @@ if has("autocmd")
   " open docx
   "use docx2txt.pl to allow VIm to view the text content of a .docx file directly.
   autocmd BufReadPre *.docx set ro
-  autocmd BufReadPost *.docx %!docx2txt.pl 
+  autocmd BufReadPost *.docx %!docx2txt.pl
 
-  " open up xls files as csv 
+  " open up xls files as csv
   autocmd BufReadPre *.xls,*.xlsx set ro | setf csv
   autocmd BufReadPost *.xls,*.xlsx silent! %!xlsx2csv.sh -q -x "%" -c -
   autocmd BufReadPost *.xls,*.xlsx redraw
@@ -331,6 +331,8 @@ if has("autocmd")
   augroup filetypedetect
     au! BufRead,BufNewFile *.m,*.oct,*octaverc set filetype=matlab
     "au! BufRead,BufNewFile *.m,*.oct set filetype=octave
+
+    au! BufRead,BufNewFile *.md set filetype=markdown
 
     au! BufRead,BufNewFile tmux.conf*,.tmux.conf* set filetype=tmux
 
@@ -411,7 +413,7 @@ map <down>   <nop>
 map <left>   <nop>
 map <right>  <nop>
 
-" add surrounding white space 
+" add surrounding white space
 " it is easy to quickly input the wrong order,
 " so the reverse order of keys is also supported
 map <up><space>     [<space>
@@ -528,7 +530,7 @@ elseif os == "Linux"
   " get ready for pasting
   " (this simply gets prepared for a paste, turn off after paste)
   nnoremap _p :set pastetoggle<CR>i
-  
+
   " no support for cut/copy remotely yet
   vnoremap <c-x> <esc>:echoerr "Cut not supported in this os (".os.")... yet"<CR>
   vnoremap <c-c> <esc>:echoerr "Copy not supported in this os (".os.")... yet"<CR>
@@ -596,7 +598,7 @@ let VimuxOrientation = "v"
 nnoremap _t :TlistOpen<CR>
 
 " opening message {{{1
-" silent! echo ">^.^<" 
+" silent! echo ">^.^<"
 "
 
 """""""
