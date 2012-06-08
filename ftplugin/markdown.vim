@@ -3,11 +3,13 @@
 set tabstop=4
  
 " underline the current line
-nmap _u yypVr-
-nmap _U yypVr=
+nmap <buffer> _u yypVr-
+nmap <buffer> _U yypVr=
 
 " add horizontal rule
-nmap _h     o<esc>030i*<space><esc>
+nmap <buffer> _h     o<esc>030i*<space><esc>
 
+" blockquote
+nmap <buffer> _b vip<C-V>I><space><esc>
 
 
