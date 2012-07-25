@@ -219,8 +219,8 @@ set errorbells
 set novisualbell
 
 " sets all tabs to 3-spaces
-set tabstop=4
 set shiftwidth=4
+set tabstop=4
 set expandtab
 set shiftround
 
@@ -637,6 +637,14 @@ let VimuxOrientation = "v"
 
 " ctags are great, open up taglist window:
 nnoremap _t :TlistOpen<CR>
+
+" vim-pad settings
+let g:pad_dir = "~/Dropbox/notes/"
+let g:pad_window_height = 15
+let g:pad_use_default_mappings = 0
+nmap _<esc> <Plug>ListPads
+nmap _n <Plug>OpenPad
+nmap _s <Plug>SearchPads
 
 " opening message {{{1
 " silent! echo ">^.^<"
