@@ -18,9 +18,11 @@ call pathogen#helptags()
 set nocompatible
 
 " save all backups and swap files to the same local directory
-set backup
+" set backup
 set backupdir=~/.vim-tmp/backup,~/.vim-tmp/,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set nobackup
+set nowritebackup
 " This setting was necessary, or 'crontab -e' does not install crons
 set backupskip=/tmp/*,/private/tmp/*"
 
@@ -636,8 +638,8 @@ let VimuxHeight = "20"
 let VimuxOrientation = "v"
 
 " ctags are great, open up taglist window:
-nnoremap _t :TlistOpen<CR>
 
+nnoremap _t :TlistOpen<CR>
 " vim-pad settings
 let g:pad_dir = "~/Dropbox/notes/"
 let g:pad_window_height = 15
