@@ -1,6 +1,9 @@
 
 " 4 space tab
 set tabstop=4
+
+" coloring for notetaking with @* character
+syn match Identifier /\v\@\w+/
  
 " underline the current line
 nmap <buffer> _u yypVr-
