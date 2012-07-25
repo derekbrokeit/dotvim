@@ -224,8 +224,8 @@ set errorbells
 set novisualbell
 
 " sets all tabs to 3-spaces
-set shiftwidth=4
 set tabstop=4
+set shiftwidth=4
 set expandtab
 set shiftround
 
@@ -417,10 +417,9 @@ if has("autocmd")
 
 endif
 
-
 " --- key mapping --- {{{1
-" Voom: create special fold markers (a reminder of the create-tags plugin by
 " the Voom author
+" Voom: create special fold markers (a reminder of the create-tags plugin by
 "<Leader>fm         Create start fold marker with level number.
 "                   It is apppended to the end of current line. The level is set
 "                   to that of the previous start fold marker with level number
@@ -538,7 +537,7 @@ nmap <leader>u yypVr-
 
 " Voom: setup voom keys
 nnoremap <leader><leader> :Voom<CR>
-nnoremap <leader>n :Voomunl<CR>
+nnoremap <leader><leader>n :Voomunl<CR>
 nnoremap <C-c> :call Voom_DeleteOutline('q')<CR>
 nnoremap <C-x> :call Voom_DeleteOutline('x')<CR>
 
@@ -558,7 +557,7 @@ nmap <leader>v :tabedit ~/.vim/vimrc<CR>
 
 " Toggle spell checking on and off with `,s`
 let mapleader = ","
-nmap <silent> <leader>s :set spell!<CR>
+nmap <silent> <leader>sp :set spell!<CR>
 
 nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 nmap _= :call Preserve("normal gg=G")<CR>
@@ -619,6 +618,7 @@ let g:w3m#hover_delay_time = 220
 " --- Vimux bindings
 " Run the current file with python
 map <Leader>ry :call RunVimTmuxCommand("clear; python " . bufname("%"))<CR>
+map <leader>re :call RunVimTmuxCommand("clear; ./" . bufname("%"))<CR>
 " Run the current file with the shell
 map <Leader>rz :call RunVimTmuxCommand("clear; " . bufname("%"))<CR>
 " Prompt for a command to run
@@ -641,8 +641,8 @@ let VimuxHeight = "20"
 let VimuxOrientation = "v"
 
 " ctags are great, open up taglist window:
-
 nnoremap _t :TlistOpen<CR>
+
 " vim-pad settings
 let g:pad_dir = "~/Dropbox/notes/"
 let g:pad_window_height = 15
