@@ -70,6 +70,9 @@ if has("multi_byte")
   setglobal fileencoding=utf-8           " change default file encoding when writing new files
 endif
 
+" set keyword lookup for manual pages
+set keywordprg=man
+
 " --- commands and functions ---  {{{1
 " matlab running
 command! -nargs=0 Mrun echo system("rmat -b " . shellescape(expand("%:p"))) .  "rmat>> " . expand("%:t")
