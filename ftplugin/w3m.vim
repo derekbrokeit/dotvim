@@ -3,9 +3,9 @@
 
 " set up the line number being highlighted, but cursor line is not
 " The link should be highlighted with hover-highlighting instead
-highlight CursorLine cterm=none ctermbg=none
-highlight CursorLineNr  ctermfg=yellow ctermbg=239
-setlocal cursorline "cursorline required to continuously update cursor position
+" highlight CursorLine cterm=none ctermbg=none
+" highlight CursorLineNr  ctermfg=yellow ctermbg=239
+" setlocal cursorline "cursorline required to continuously update cursor position
 
 " Default Keymaps
 " <CR> Open link under the cursor.
