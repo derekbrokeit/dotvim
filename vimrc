@@ -219,8 +219,8 @@ set errorbells
 set novisualbell
 
 " sets all tabs to 3-spaces
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set expandtab
 set shiftround
 
