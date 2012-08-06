@@ -508,6 +508,12 @@ nnoremap <C-H> :tabp <CR>
 nnoremap <C-_> <C-W>_<C-W><Bar>
 nnoremap <C-W><C-W> <C-W>=
 
+" better window movement
+nmap <silent> <M-K> :wincmd k<CR>
+nmap <silent> <M-J> :wincmd j<CR>
+nmap <silent> <M-H> :wincmd h<CR>
+nmap <silent> <M-L> :wincmd l<CR>
+
 " commands for splitting windows
 " window
 nmap <leader>sw<left>  :topleft  vnew <CR>
