@@ -653,9 +653,9 @@ nnoremap _t :TlistOpen<CR>
 let g:pad_dir = "~/Dropbox/notes/"
 let g:pad_window_height = 15
 let g:pad_use_default_mappings = 0
-nmap _<esc> <Plug>ListPads
-nmap _n <Plug>OpenPad
-nmap _s <Plug>SearchPads
+nmap <silent> _o <Plug>ListPads
+nmap <silent> _n <Plug>OpenPad
+nmap <silent> _s <Plug>SearchPads
 
 " opening message {{{1
 " silent! echo ">^.^<"
