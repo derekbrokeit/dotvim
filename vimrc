@@ -623,28 +623,28 @@ let g:w3m#hover_delay_time = 220
 
 " --- Vimux bindings
 " Run the current file with python
-map <Leader>ry :call RunVimTmuxCommand("clear; python " . bufname("%"))<CR>
-map <leader>re :call RunVimTmuxCommand("clear; ./" . bufname("%"))<CR>
+map <Leader>ry :call VimuxRunCommand("clear; python " . bufname("%"))<CR>
+map <leader>re :call VimuxRunCommand("clear; ./" . bufname("%"))<CR>
 " Run the current file with the shell
-map <Leader>rz :call RunVimTmuxCommand("clear; " . bufname("%"))<CR>
+map <Leader>rz :call VimuxRunCommand("clear; " . bufname("%"))<CR>
 " Prompt for a command to run
-map <Leader>rp :PromptVimTmuxCommand<CR>
+map <Leader>rp :VimuxPromptCommand<CR>
 " Run last command executed by RunVimTmuxCommand
-map <Leader>rl :RunLastVimTmuxCommand<CR>
+map <Leader>rl :VimuxRunLastCommand<CR>
 " Inspect runner pane
-map <Leader>ri :InspectVimTmuxRunner<CR>
+map <Leader>ri :VimuxInspectRunner<CR>
 " Close all other tmux panes in current window
-map <Leader>rx :CloseVimTmuxPanes<CR>
+map <Leader>rx :VimuxClosePanes<CR>
 " Interrupt any command running in the runner pane
-map <Leader>rs :InterruptVimTmuxRunner<CR>
+map <Leader>rs :VimuxInterruptRunner<CR>
 "If text is selected, save it in the v buffer and send that buffer it to tmux
-vmap <leader>rt "vy :call RunVimTmuxCommand(@v)<CR>
+vmap <leader>rt "vy :call VimuxRunCommand(@v . "\n", 0)<CR>
 " Select current paragraph (block) and send it to tmux
 nmap <leader>rb vip<leader>rt<CR>
-" height of tmux window (%)
+" vimux options
 let VimuxHeight = "20"
-" horizontal (h) or vertical (v)
 let VimuxOrientation = "v"
+let VimuxUseNearestPane = 1
 
 " ctags are great, open up taglist window:
 nnoremap _t :TlistOpen<CR>
