@@ -67,6 +67,3 @@
 [submodule "bundle/autotag"]
 	path = bundle/autotag
 	url = https://github.com/vim-scripts/AutoTag.git
-[submodule "bundle/vim-pad"]
-	path = bundle/vim-pad
-	url = https://github.com/vim-scripts/vim-pad.git
