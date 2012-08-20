@@ -231,7 +231,7 @@ set shiftround
 
 
 " inactive window highlighting
-hi StatusLineNC cterm=none ctermfg=black ctermbg=245 gui=none guifg=black guibg=245
+hi StatusLineNC cterm=none ctermfg=black ctermbg=245 guifg=#000000 guibg=#8a8a8a gui=none
 "set noequalalways winminheight=0 winheight=99999
 
 " Press space to clear search highlighting and any message already displayed.
@@ -248,15 +248,20 @@ set backspace=indent,eol,start
 
 " turn on the line numbers
 set number
-highlight LineNr ctermbg=236 ctermfg=245 guibg=236 guifg=245
+highlight LineNr ctermbg=236 ctermfg=245 guibg=#303030 guifg=#8a8a8a
 
 " highlight cursor line
-highlight CursorLine ctermbg=darkred guibg=darkred
-highlight CursorLineNr  ctermfg=yellow ctermbg=239
+highlight CursorLine ctermbg=darkred guibg=#5F1F1F
+highlight CursorLineNr  ctermfg=yellow ctermbg=239 guifg=#FFFF66 guibg=#4e4e4e
 set cursorline "cursorline required to continuously update cursor position
-"hi Cursor cterm=none ctermfg=black ctermbg=darkgreen
-"match Cursor /\%#/ "This line does all the work
-"237
+
+" highlight the cursor
+hi Cursor  guifg=black guibg=lightblue gui=none
+highlight iCursor guifg=white guibg=steelblue
+set guicursor=n-v-c:block-Cursor
+"set guicursor+=i:ver100-iCursor
+"set guicursor+=n-v-c:blinkon0
+"set guicursor+=i:blinkwait10
 
 " turn on mouse-support
 if has("mouse")
@@ -274,18 +279,18 @@ set statusline=\ %F%m%r%h%w\ %{fugitive#statusline()}\ [\ p:{%04l,%04v}ãƒ»L:%Lãƒ
 " setup status bar that is color coded based on insert/replace methodology
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
-    hi statusline ctermfg=black ctermbg=yellow guifg=black guibg=yellow
+    hi statusline ctermfg=black ctermbg=yellow guifg=#000000 guibg=#FFFF66 gui=none
   elseif a:mode == 'r'
-    hi statusline ctermfg=black ctermbg=darkred guifg=black guibg=darkred
+    hi statusline ctermfg=black ctermbg=darkred guifg=#000000 guibg=#FF6666 gui=none
   else
-    hi statusline ctermfg=black ctermbg=darkblue guifg=black guibg=darkblue
+    hi statusline ctermfg=black ctermbg=darkblue guifg=#000000 guibg=#6699CC gui=none
   endif
 endfunction
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline ctermfg=black ctermbg=darkgreen guifg=black guibg=darkgreen
+au InsertLeave * hi statusline ctermfg=black ctermbg=darkgreen guifg=#000000 guibg=#66CC33  gui=none
 
 " default the statusline to green when entering Vim
-hi statusline ctermfg=0 ctermbg=2 guifg=0 guibg=2
+hi statusline ctermfg=0 ctermbg=2 guifg=#000000 guibg=#66CC33 gui=none
 
 " Voom options
 let g:voom_verify_oop = 1
@@ -304,9 +309,9 @@ let fortran_do_enddo=1
 
 " tab bar changes
 set showtabline=2
-hi TabLineFill ctermfg=LightGreen ctermbg=23 guifg=LightGreen guibg=23
-hi TabLine ctermfg=blue ctermbg=23 guifg=blue guibg=23
-hi TabLineSel ctermfg=lightmagenta ctermbg=23 guifg=lightmagenta guibg=23
+hi TabLineFill ctermfg=LightGreen ctermbg=23 guifg=#66CC33 guibg=#005f5f gui=none
+hi TabLine ctermfg=blue ctermbg=23 guifg=lightblue guibg=#005f5f gui=none
+hi TabLineSel ctermfg=lightmagenta ctermbg=23 guifg=lightmagenta guibg=#005f5f gui=bold
 hi Title ctermfg=lightgreen guifg=lightgreen
 " this is for most-recently-used buffer (MRU)
 "let MRU_Max_Entries = 150
@@ -314,31 +319,32 @@ let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'
 
 
 " visual mode coloring
-hi VisualNOS cterm=none ctermfg=black ctermbg=250
+hi VisualNOS cterm=none ctermfg=black ctermbg=250 gui=none
 
 " change highlighting of Bad-spelling
 hi clear SpellBad
-hi SpellBad cterm=undercurl ctermfg=196 ctermbg=236
+hi SpellBad cterm=undercurl ctermfg=196 ctermbg=236 gui=undercurl guifg=#ff0000 guibg=#303030
 hi SpellLocal term=underline cterm=undercurl ctermbg=22 ctermfg=white gui=undercurl guisp=Cyan
 " Set region to British English
 set spelllang=en_us
 
 " turn on highlighting and set the color scheme
 set hlsearch
-highlight search ctermbg=240 ctermfg=red guibg=240 guifg=red
+highlight search ctermbg=240 ctermfg=red guibg=#585858 guifg=#FF6666 gui=underline
 
 " set the easymotion highlighting
 hi link EasyMotionTarget ErrorMsg
-hi EasyMotionShade  ctermbg=none ctermfg=237
+"hi EasyMotionShade  ctermbg=none ctermfg=237 guibg=#000000 guifg=#3a3a3a gui=none
+hi EasyMotionShade  ctermfg=237 guibg=#000000 guifg=#3a3a3a gui=none
 
 " use 'par' for paragraph formatting
 set formatprg=par
 
 " highlighting for vimdiff stuff
-hi DiffAdd        term=bold ctermfg=white ctermbg=29 guifg=white guibg=green
-hi DiffChange     term=bold ctermfg=231 ctermbg=102 guifg=white guibg=LightCyan4
-hi DiffDelete     term=reverse cterm=bold ctermbg=52 gui=bold guibg=Red
-hi DiffText       term=bold ctermfg=57 ctermbg=195 guifg=darkmagenta guibg=LightCyan
+hi DiffAdd        term=bold ctermfg=white ctermbg=29 
+hi DiffChange     term=bold ctermfg=231 ctermbg=102 
+hi DiffDelete     term=reverse cterm=bold ctermbg=52 
+hi DiffText       term=bold ctermfg=57 ctermbg=195 
 " --- autocommands --- {{{1
 if has("autocmd")
 
@@ -399,6 +405,7 @@ if has("autocmd")
 
   " Source the vimrc file after saving it
   autocmd! bufwritepost vimrc source $MYVIMRC
+  autocmd! bufwritepost gvimrc source $MYGVIMRC
 
   " strip trailing whitespace off of select filetypes when writing to file
   autocmd BufWritePre *.m,*.sh,*.py,*.js,*.txt,*.f90,*.f :call Preserve("%s/\\s\\+$//e")
@@ -595,8 +602,8 @@ map \c :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 
 " This is w3m settings
 " highlighting:
-highlight! w3mLink      ctermfg=green ctermbg=none
-highlight! w3mLinkHover ctermfg=17 ctermbg=108
+highlight! w3mLink      ctermfg=green ctermbg=none guifg=#66CC33 
+highlight! w3mLinkHover ctermfg=17 ctermbg=108 
 " highlight! w3mLinkHover ctermfg=215 ctermbg=6
 highlight! w3mSubmit    ctermfg=208 cterm=bold ctermbg=none
 highlight! w3mInput     term=underline cterm=underline ctermfg=yellow ctermbg=238
