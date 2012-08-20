@@ -10,6 +10,10 @@ if [[ ! -h $HOME/.vimrc ]] ; then
   rm $HOME/.vimrc &> /dev/null
   ln -s $PWD/vimrc $HOME/.vimrc
 fi
+if [[ ! -h $HOME/.gvimrc ]] ; then
+  rm $HOME/.gvimrc &> /dev/null
+  ln -s $PWD/gvimrc $HOME/.gvimrc
+fi
 
 # make sure that vim-tmp directory exists ... if not, make it
 EDITOR_TMP="${HOME}/.${EDITOR}-tmp"
