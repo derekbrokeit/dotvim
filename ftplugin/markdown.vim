@@ -1,7 +1,4 @@
 
-" 4 space tab
-set tabstop=4
-
 " coloring for notetaking with @* character
 syn match Identifier /\v\@\w+/
  
