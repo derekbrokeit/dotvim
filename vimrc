@@ -664,6 +664,14 @@ nmap <silent> _o <Plug>ListPads
 nmap <silent> _n <Plug>OpenPad
 nmap <silent> _s <Plug>SearchPads
 
+" tcomment
+if has("gui_macvim")
+    let g:tcommentMapLeader1="¥"
+else
+    let g:tcommentMapLeader1="\\"
+endif
+
+
 " opening message {{{1
 " silent! echo ">^.^<"
 "
