@@ -657,7 +657,11 @@ let VimuxUseNearestPane = 1
 nnoremap _t :TlistOpen<CR>
 
 " vim-pad settings
-let g:pad_dir = "~/Dropbox/notes/"
+if os == "Darwin"
+    let g:pad_dir = "~/Dropbox/notes/"
+elseif os == "Linux"
+    let g:pad_dir = "~/notes"
+endif
 let g:pad_window_height = 15
 let g:pad_use_default_mappings = 0
 nmap <silent> _o <Plug>ListPads
