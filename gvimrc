@@ -5,8 +5,12 @@ set fu
 set guioptions=gt
 
 " better fonts
-set guifont=Anonymous_Pro:h11
-set noantialias
+set guifont=Anonymous\ Pro:h11
+" antialiasing appears to be necessary for some bold/italic effects to always
+" work. otherwise, they work sometimes at some sizes and then begin to fail in
+" macvim for unkown reasons
+set antialias
+" set noantialias
 
 " better motion
 nnoremap <D-k> <C-W>k
