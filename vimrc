@@ -287,10 +287,10 @@ function! InsertStatuslineColor(mode)
   endif
 endfunction
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline ctermfg=black ctermbg=darkgreen guifg=#000000 guibg=#66CC33  gui=none
+au InsertLeave * hi statusline ctermfg=black ctermbg=darkgreen guifg=#000000 guibg=#339900  gui=none
 
 " default the statusline to green when entering Vim
-hi statusline ctermfg=0 ctermbg=2 guifg=#000000 guibg=#66CC33 gui=none
+hi statusline ctermfg=0 ctermbg=2 guifg=#000000 guibg=#339900 gui=none
 
 " Voom options
 let g:voom_verify_oop = 1
