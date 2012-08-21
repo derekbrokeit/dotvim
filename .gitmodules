@@ -64,9 +64,6 @@
 [submodule "bundle/autotag"]
 	path = bundle/autotag
 	url = https://github.com/vim-scripts/AutoTag.git
-[submodule "bundle/vimpad"]
-	path = bundle/vimpad
-	url = git://github.com/fmoralesc/vim-pad.git
 [submodule "bundle/conque-shell"]
 	path = bundle/conque-shell
 	url = git://github.com/sgerrand/Conque-Shell.git
