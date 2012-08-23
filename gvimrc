@@ -1,15 +1,20 @@
 " make fullscreen
-set fu
+if os == "Darwin"
+    set fu
+    set guifont=Anonymous\ Pro:h11
+    set antialias
+else
+    set guifont=Anonymous\ Pro\ 11
+    set noantialias
+endif
 
 " remove the menubar, tab-bar, and left/right scrollareas
 set guioptions=gt
 
 " better fonts
-set guifont=Anonymous\ Pro:h11
 " antialiasing appears to be necessary for some bold/italic effects to always
 " work. otherwise, they work sometimes at some sizes and then begin to fail in
 " macvim for unkown reasons
-set antialias
 " set noantialias
 
 " better motion
