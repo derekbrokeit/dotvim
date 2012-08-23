@@ -551,7 +551,7 @@ nmap <leader>u yypVr-
 " Voom: setup voom keys
 nnoremap <leader><leader> :Voom<CR>
 nnoremap <leader><leader>n :Voomunl<CR>
-nnoremap <C-c> :call Voom_DeleteOutline('q')<CR>
+nnoremap <C-c> :call Voom_DeleteOutline('bd')<CR>
 nnoremap <C-x> :call Voom_DeleteOutline('x')<CR>
 
 " tabularize stuff
