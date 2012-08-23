@@ -657,12 +657,23 @@ let VimuxUseNearestPane = 1
 nnoremap _t :TlistOpen<CR>
 
 " vim-pad settings
-let g:pad_dir = "~/Dropbox/notes/"
-let g:pad_window_height = 15
-let g:pad_use_default_mappings = 0
-nmap <silent> _o <Plug>ListPads
-nmap <silent> _n <Plug>OpenPad
-nmap <silent> _s <Plug>SearchPads
+" let g:pad_dir = "~/Dropbox/notes/"
+" let g:pad_window_height = 15
+" let g:pad_use_default_mappings = 0
+" nmap <silent> _o <Plug>ListPads
+" nmap <silent> _n <Plug>OpenPad
+" nmap <silent> _s <Plug>SearchPads
+
+" vim-notes settings
+if os == "Darwin"
+    let g:notes_directory = '~/Dropbox/notes'
+elseif os == "Linux"
+    let g:notes_directory = '~/notes'
+endif
+let g:notes_suffix = '.mkd'
+nmap <silent> _o :botright new<CR>:RecentNotes<CR>
+nmap <silent> _n :botright new<CR>:Note<CR>
+nmap <silent> _s :botright new<CR>:SearchNotes<CR>
 
 " tcomment
 if has("gui_macvim")
