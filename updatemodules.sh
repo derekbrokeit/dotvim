@@ -24,6 +24,7 @@ if [[ -f $ctfile ]] ; then
   echo "## -- Command-T: generate Makefile -- ##"
   ruby $ctfile
   echo "make ($PWD)"
+  make clean
   make
   echo "    * exit: $?"
 else
