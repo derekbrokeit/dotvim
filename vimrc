@@ -653,6 +653,9 @@ let VimuxOrientation = "v"
 let VimuxUseNearestPane = 1
 
 " ctags are great, open up taglist window:
+if os == "Darwin"
+    let Tlist_Ctags_Cmd="/opt/local/bin/ctags"
+endif
 nnoremap _t :TlistOpen<CR>
 
 " vim-pad settings
