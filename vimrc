@@ -329,7 +329,7 @@ set spelllang=en_us
 
 " turn on highlighting and set the color scheme
 set hlsearch
-highlight search ctermbg=240 ctermfg=red guibg=#585858 guifg=#FF6666 gui=underline
+" highlight search ctermbg=240 ctermfg=red guibg=#585858 guifg=#FF6666 gui=underline
 
 " set the easymotion highlighting
 hi link EasyMotionTarget ErrorMsg
