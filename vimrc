@@ -40,8 +40,6 @@ runtime macros/matchit.vim
 set ignorecase
 set smartcase
 
-" use w!! to save a file even if sudo was not applied
-cmap w!! w !sudo tee % >/dev/null
 
 " " (this is for C and Java; users of other languages can change as they see
 " fit)
@@ -75,10 +73,10 @@ set keywordprg=man
 
 " --- commands and functions ---  {{{1
 " matlab running
-command! -nargs=0 Mrun echo system("rmat -b " . shellescape(expand("%:p"))) .  "rmat>> " . expand("%:t")
-command! -nargs=0 Mrecall echo system("rmat -r")
-" octave running
-command! -nargs=0 Oct echo system("roct -r " . shellescape(expand("%:p"))) .  "octave> " . expand("%:t")
+" command! -nargs=0 Mrun echo system("rmat -b " . shellescape(expand("%:p"))) .  "rmat>> " . expand("%:t")
+" command! -nargs=0 Mrecall echo system("rmat -r")
+" " octave running
+" command! -nargs=0 Oct echo system("roct -r " . shellescape(expand("%:p"))) .  "octave> " . expand("%:t")
 
 " update-system
 " command! -nargs=0 SysUpdate echo system("source $HOME/.bash_profile > /dev/null ; sysupdate ")
@@ -659,16 +657,27 @@ endif
 nnoremap _t :TlistOpen<CR>
 
 " vim-pad settings
+" if os == "Darwin"
+"     let g:pad_dir = "~/Dropbox/notes/"
+" elseif os == "Linux"
+"     let g:pad_dir = "~/notes"
+" endif
+" let g:pad_window_height = 15
+" let g:pad_use_default_mappings = 0
+" nmap <silent> _o <Plug>ListPads
+" nmap <silent> _n <Plug>OpenPad
+" nmap <silent> _s <Plug>SearchPads
+
+" vim-notes settings
 if os == "Darwin"
-    let g:pad_dir = "~/Dropbox/notes/"
+    let g:notes_directory = '~/Dropbox/notes'
 elseif os == "Linux"
-    let g:pad_dir = "~/notes"
+    let g:notes_directory = '~/notes'
 endif
-let g:pad_window_height = 15
-let g:pad_use_default_mappings = 0
-nmap <silent> _o <Plug>ListPads
-nmap <silent> _n <Plug>OpenPad
-nmap <silent> _s <Plug>SearchPads
+let g:notes_suffix = '.mkd'
+nmap <silent> _o :botright new<CR>:RecentNotes<CR>
+nmap <silent> _n :botright new<CR>:Note<CR>
+nmap <silent> _s :botright new<CR>:SearchNotes<CR>
 
 " tcomment
 if has("gui_macvim")
