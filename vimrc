@@ -193,11 +193,10 @@ endif
 
 " colorscheme
 set background=dark
-" colorscheme desertedoceanburnt
 " colorscheme synic
-" colorscheme desert256
-" colorscheme murphy
-" colorscheme desert
+" colorscheme symfony
+" colorscheme asmanian_blood
+" colorscheme candy_code
 colorscheme jellybeans
 
 " turn on wildmenu
