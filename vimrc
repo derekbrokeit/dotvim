@@ -501,8 +501,8 @@ nnoremap <C-y> 3<C-y>
 
 " added functionality to NERDcommenter
 " add the ability to yank, comment, then past the text for comparison
-nmap <silent> <leader>cp     yy <leader>cc p
-vmap <silent> <leader>cp     ygv <leader>cc `>p
+" nmap <silent> <leader>cp     yy <leader>cc p
+" vmap <silent> <leader>cp     ygv <leader>cc `>p
 
 "nmap <silent> cp "_cw<C-R>"<Esc>
 
