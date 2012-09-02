@@ -28,5 +28,19 @@ nnoremap <D-down> <C-W><down>
 nnoremap <D-left> <C-W><left>
 nnoremap <D-right> <C-W><right>
 
+" better split creation
+nmap <C-S-left>    :topleft  vnew <CR>
+nmap <C-S-right>  :botright vnew <CR>
+nmap <C-S-up>        :topleft  new <CR>
+nmap <C-S-down>    :botright new <CR>
+" buffer
+nmap <D-S-left>   :leftabove  vnew <CR>
+nmap <D-S-right>  :rightbelow vnew <CR>
+nmap <D-S-up>     :leftabove  new <CR>
+nmap <D-S-down>   :rightbelow new <CR>
+
 " fix the ¥ char
 " nmap \¥ \\
+
+nnoremap <D-_> <C-W>_<C-W><Bar>
+
