@@ -11,6 +11,9 @@ endif
 " remove the menubar, tab-bar, and left/right scrollareas
 set guioptions=gt
 
+" turn off bells (auditory and visual)
+set vb
+
 " better fonts
 " antialiasing appears to be necessary for some bold/italic effects to always
 " work. otherwise, they work sometimes at some sizes and then begin to fail in
