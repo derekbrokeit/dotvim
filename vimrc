@@ -335,7 +335,7 @@ hi link EasyMotionTarget ErrorMsg
 hi EasyMotionShade  ctermfg=237 guibg=#000000 guifg=#3a3a3a gui=none
 
 " use 'par' for paragraph formatting
-set formatprg=par
+set formatprg=/opt/local/bin/par
 
 " highlighting for vimdiff stuff
 hi DiffAdd        term=bold ctermfg=white ctermbg=29 
@@ -657,27 +657,28 @@ endif
 nnoremap _t :TlistOpen<CR>
 
 " vim-pad settings
-" if os == "Darwin"
-"     let g:pad_dir = "~/Dropbox/notes/"
-" elseif os == "Linux"
-"     let g:pad_dir = "~/notes"
-" endif
-" let g:pad_window_height = 15
-" let g:pad_use_default_mappings = 0
-" nmap <silent> _o <Plug>ListPads
-" nmap <silent> _n <Plug>OpenPad
-" nmap <silent> _s <Plug>SearchPads
+if os == "Darwin"
+    let g:pad_dir = "~/Dropbox/notes/"
+elseif os == "Linux"
+    let g:pad_dir = "~/notes"
+endif
+let g:pad_window_height = 15
+let g:pad_use_default_mappings = 0
+let g:pad_highlighting_variant = 0
+nmap <silent> _o <Plug>ListPads
+nmap <silent> _n <Plug>OpenPad
+nmap <silent> _s <Plug>SearchPads
 
 " vim-notes settings
-if os == "Darwin"
-    let g:notes_directory = '~/Dropbox/notes'
-elseif os == "Linux"
-    let g:notes_directory = '~/notes'
-endif
-let g:notes_suffix = '.mkd'
-nmap <silent> _o :botright new<CR>:RecentNotes<CR>
-nmap <silent> _n :botright new<CR>:Note<CR>
-nmap <silent> _s :botright new<CR>:SearchNotes<CR>
+" if os == "Darwin"
+"     let g:notes_directory = '~/Dropbox/notes'
+" elseif os == "Linux"
+"     let g:notes_directory = '~/notes'
+" endif
+" let g:notes_suffix = '.mkd'
+" nmap <silent> _o :botright new<CR>:RecentNotes<CR>
+" nmap <silent> _n :botright new<CR>:Note<CR>
+" nmap <silent> _s :botright new<CR>:SearchNotes<CR>
 
 " tcomment
 if has("gui_macvim")
