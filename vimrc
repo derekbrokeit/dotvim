@@ -665,7 +665,7 @@ endif
 let g:pad_window_height = 15
 let g:pad_use_default_mappings = 0
 let g:pad_highlighting_variant = 0
-let g:pad_default_file_extension = ".mkd"
+let g:pad_default_file_extension = ".md"
 nmap <silent> _o <Plug>ListPads
 nmap <silent> _n <Plug>OpenPad
 nmap <silent> _s <Plug>SearchPads
