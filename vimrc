@@ -543,7 +543,7 @@ nmap <leader>u yypVr-
 " nmap <leader>xs    :!vixs --here <CR>
 
 "NERDTree
-" nnoremap <leader>nt :NERDTreeToggle<CR>
+nnoremap <leader>nt :NERDTreeToggle<CR>
 
 " Voom: setup voom keys
 nnoremap <leader><leader> :Voom<CR>
