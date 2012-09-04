@@ -73,12 +73,12 @@
 [submodule "bundle/vim_pad"]
 	path = bundle/vim_pad
 	url = git://github.com/fmoralesc/vim-pad.git
-[submodule "bundle/nerdtree"]
-	path = bundle/nerdtree
-	url = git://github.com/scrooloose/nerdtree.git
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = git://github.com/scrooloose/syntastic.git
 [submodule "bundle/nerdcommenter"]
 	path = bundle/nerdcommenter
 	url = git://github.com/scrooloose/nerdcommenter.git
+[submodule "bundle/nerd_tree"]
+	path = bundle/nerd_tree
+	url = git://github.com/scrooloose/nerdtree.git
