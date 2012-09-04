@@ -1,4 +1,4 @@
-""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""
 "                            "
 " vim startup file ~/.vimrc "
 " Derek Thomas 2012
@@ -228,7 +228,7 @@ set shiftround
 
 
 " inactive window highlighting
-hi StatusLineNC cterm=none ctermfg=black ctermbg=245 guifg=#000000 guibg=#8a8a8a gui=none
+"hi StatusLineNC cterm=none ctermfg=black ctermbg=245 guifg=#000000 guibg=#8a8a8a gui=none
 "set noequalalways winminheight=0 winheight=99999
 
 " Press space to clear search highlighting and any message already displayed.
@@ -271,23 +271,23 @@ endif
 
 " first, enable status line always
 set laststatus=2
-set statusline=\ %F%m%r%h%w\ %{fugitive#statusline()}\ [\ p:{%04l,%04v}・L:%L・%p%%\ ]
+"set statusline=\ %F%m%r%h%w\ %{fugitive#statusline()}\ [\ p:{%04l,%04v}・L:%L・%p%%\ ]
 
-" setup status bar that is color coded based on insert/replace methodology
-function! InsertStatuslineColor(mode)
-  if a:mode == 'i'
-    hi statusline ctermfg=black ctermbg=yellow guifg=#000000 guibg=#FFFF66 gui=none
-  elseif a:mode == 'r'
-    hi statusline ctermfg=black ctermbg=darkred guifg=#000000 guibg=#FF6666 gui=none
-  else
-    hi statusline ctermfg=black ctermbg=darkblue guifg=#000000 guibg=#6699CC gui=none
-  endif
-endfunction
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline ctermfg=black ctermbg=darkgreen guifg=#000000 guibg=#339900  gui=none
+"" setup status bar that is color coded based on insert/replace methodology
+"function! InsertStatuslineColor(mode)
+  "if a:mode == 'i'
+    "hi statusline ctermfg=black ctermbg=yellow guifg=#000000 guibg=#FFFF66 gui=none
+  "elseif a:mode == 'r'
+    "hi statusline ctermfg=black ctermbg=darkred guifg=#000000 guibg=#FF6666 gui=none
+  "else
+    "hi statusline ctermfg=black ctermbg=darkblue guifg=#000000 guibg=#6699CC gui=none
+  "endif
+"endfunction
+"au InsertEnter * call InsertStatuslineColor(v:insertmode)
+"au InsertLeave * hi statusline ctermfg=black ctermbg=darkgreen guifg=#000000 guibg=#339900  gui=none
 
-" default the statusline to green when entering Vim
-hi statusline ctermfg=0 ctermbg=2 guifg=#000000 guibg=#339900 gui=none
+"" default the statusline to green when entering Vim
+"hi statusline ctermfg=0 ctermbg=2 guifg=#000000 guibg=#339900 gui=none
 
 " Voom options
 let g:voom_verify_oop = 1
@@ -342,6 +342,12 @@ hi DiffAdd        term=bold ctermfg=white ctermbg=29
 hi DiffChange     term=bold ctermfg=231 ctermbg=102 
 hi DiffDelete     term=reverse cterm=bold ctermbg=52 
 hi DiffText       term=bold ctermfg=57 ctermbg=195 
+
+" Powerline
+let g:Powerline_symbols = "fancy"
+let g:Powerline_theme = "default"
+let g:Powerline_colorscheme = "default"
+
 " --- autocommands --- {{{1
 if has("autocmd")
 
@@ -669,29 +675,6 @@ let g:pad_default_file_extension = ".md"
 nmap <silent> _o <Plug>ListPads
 nmap <silent> _n <Plug>OpenPad
 nmap <silent> _s <Plug>SearchPads
-
-" vim-notes settings
-" if os == "Darwin"
-"     let g:notes_directory = '~/Dropbox/notes'
-" elseif os == "Linux"
-"     let g:notes_directory = '~/notes'
-" endif
-" let g:notes_suffix = '.mkd'
-" nmap <silent> _o :botright new<CR>:RecentNotes<CR>
-" nmap <silent> _n :botright new<CR>:Note<CR>
-" nmap <silent> _s :botright new<CR>:SearchNotes<CR>
-
-" tcomment
-if has("gui_macvim")
-    let g:tcommentMapLeader1="¥"
-else
-    let g:tcommentMapLeader1="\\"
-endif
-
-
-" opening message {{{1
-" silent! echo ">^.^<"
-"
 
 """""""
 function! MoveToPrevTab()
