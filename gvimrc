@@ -45,5 +45,7 @@ nmap <D-S-down>   :rightbelow new <CR>
 " fix the ¥ char
 " nmap \¥ \\
 
+" expanding and equalizing buffers
 nnoremap <D-_> <C-W>_<C-W><Bar>
+nnoremap <D-/> <C-W>=
 
