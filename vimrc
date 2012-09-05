@@ -657,7 +657,8 @@ nnoremap _t :TlistOpen<CR>
 
 " vim-pad settings
 if os == "Darwin"
-    let g:pad_dir = "~/Dropbox/notes/"
+    "let g:pad_dir = "~/Dropbox/notes/"
+    let g:pad_dir = "~/Library/Mobile\ Documents/N39PJFAFEV\~com\~metaclassy\~byword/Documents"
 elseif os == "Linux"
     let g:pad_dir = "~/notes"
 endif
