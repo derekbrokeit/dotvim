@@ -573,7 +573,6 @@ nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 nmap _= :call Preserve("normal gg=G")<CR>
 
 " paste the contents of the clipboard without annoying indentation issues
-let os = substitute(system('uname'), "\n", "", "")
 if os == "Darwin"
   " get clipboard (this automatically pastes)
   nnoremap _p :r!pbpaste<CR>
