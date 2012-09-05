@@ -670,6 +670,9 @@ nmap <silent> _o <Plug>ListPads
 nmap <silent> _n <Plug>OpenPad
 nmap <silent> _s <Plug>SearchPads
 
+" Syntastic
+nmap <F5> :SyntasticToggleMode<CR>
+
 """""""
 function! MoveToPrevTab()
   "there is only one window
