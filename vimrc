@@ -303,7 +303,6 @@ hi VisualNOS cterm=none ctermfg=black ctermbg=250 gui=none
 hi clear SpellBad
 hi SpellBad cterm=undercurl ctermfg=196 ctermbg=236 gui=undercurl guifg=#ff0000 guibg=#303030
 hi SpellLocal term=underline cterm=undercurl ctermbg=22 ctermfg=white gui=undercurl guisp=Cyan
-" Set region to British English
 set spelllang=en_us
 
 " turn on highlighting and set the color scheme
