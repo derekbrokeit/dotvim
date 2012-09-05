@@ -17,6 +17,9 @@ call pathogen#helptags()
 " this means vim doesn't try to act like the old 'vi'
 set nocompatible
 
+" keep os name as 'os'
+let os = substitute(system('uname'), "\n", "", "")
+
 " save all backups and swap files to the same local directory
 " set backup
 set backupdir=~/.vim-tmp/backup,~/.vim-tmp/,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -226,11 +229,6 @@ set shiftwidth=4
 set expandtab
 set shiftround
 
-
-" inactive window highlighting
-"hi StatusLineNC cterm=none ctermfg=black ctermbg=245 guifg=#000000 guibg=#8a8a8a gui=none
-"set noequalalways winminheight=0 winheight=99999
-
 " Press space to clear search highlighting and any message already displayed.
 "nnoremap <silent> <Space> :silent noh<Bar>echo<CR>
 
@@ -271,23 +269,6 @@ endif
 
 " first, enable status line always
 set laststatus=2
-"set statusline=\ %F%m%r%h%w\ %{fugitive#statusline()}\ [\ p:{%04l,%04v}・L:%L・%p%%\ ]
-
-"" setup status bar that is color coded based on insert/replace methodology
-"function! InsertStatuslineColor(mode)
-  "if a:mode == 'i'
-    "hi statusline ctermfg=black ctermbg=yellow guifg=#000000 guibg=#FFFF66 gui=none
-  "elseif a:mode == 'r'
-    "hi statusline ctermfg=black ctermbg=darkred guifg=#000000 guibg=#FF6666 gui=none
-  "else
-    "hi statusline ctermfg=black ctermbg=darkblue guifg=#000000 guibg=#6699CC gui=none
-  "endif
-"endfunction
-"au InsertEnter * call InsertStatuslineColor(v:insertmode)
-"au InsertLeave * hi statusline ctermfg=black ctermbg=darkgreen guifg=#000000 guibg=#339900  gui=none
-
-"" default the statusline to green when entering Vim
-"hi statusline ctermfg=0 ctermbg=2 guifg=#000000 guibg=#339900 gui=none
 
 " Voom options
 let g:voom_verify_oop = 1
