@@ -326,8 +326,13 @@ hi DiffChange     term=bold ctermfg=231 ctermbg=102
 hi DiffDelete     term=reverse cterm=bold ctermbg=52 
 hi DiffText       term=bold ctermfg=57 ctermbg=195 
 
+
 " Powerline
-let g:Powerline_symbols = "fancy"
+"if os == "Darwin"
+    let g:Powerline_symbols = "fancy"
+"else
+    "let g:Powerline_symbols = "unicode"
+"endif
 let g:Powerline_theme = "default"
 let g:Powerline_colorscheme = "default"
 
