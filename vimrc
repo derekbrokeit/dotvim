@@ -511,10 +511,12 @@ nnoremap <C-_> <C-W>_<C-W><Bar>
 nnoremap <C-W><C-W> <C-W>=
 
 " better window movement
-nmap <silent> <M-K> :wincmd k<CR>
-nmap <silent> <M-J> :wincmd j<CR>
-nmap <silent> <M-H> :wincmd h<CR>
-nmap <silent> <M-L> :wincmd l<CR>
+if !has("gui_macvim")
+    nmap <silent> ˚ <C-w>k
+    nmap <silent> ∆ <C-w>j
+    nmap <silent> ˙ <C-w>h
+    nmap <silent> ¬ <C-w>l
+endif
 
 " commands for splitting windows
 " window
