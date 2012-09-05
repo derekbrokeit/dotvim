@@ -316,7 +316,9 @@ hi link EasyMotionTarget ErrorMsg
 hi EasyMotionShade  ctermfg=237 guibg=#000000 guifg=#3a3a3a gui=none
 
 " use 'par' for paragraph formatting
-set formatprg=/opt/local/bin/par
+if os == "Darwin"
+    set formatprg=/opt/local/bin/par
+endif
 
 " highlighting for vimdiff stuff
 hi DiffAdd        term=bold ctermfg=white ctermbg=29 
