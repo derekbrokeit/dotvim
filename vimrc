@@ -286,7 +286,7 @@ let fortran_free_source=1
 let fortran_do_enddo=1
 
 " tab bar changes
-set showtabline=2
+set showtabline=1
 hi TabLineFill ctermfg=LightGreen ctermbg=23 guifg=#66CC33 guibg=#005f5f gui=none
 hi TabLine ctermfg=blue ctermbg=23 guifg=lightblue guibg=#005f5f gui=none
 hi TabLineSel ctermfg=lightmagenta ctermbg=23 guifg=lightmagenta guibg=#005f5f gui=bold
