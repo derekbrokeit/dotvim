@@ -719,3 +719,7 @@ function! MoveToNextTab()
 endfunc
 nnoremap <C-W>. :call MoveToNextTab()<CR>
 nnoremap <C-W>, :call MoveToPrevTab()<CR>
+
+if os == "Darwin"
+    let $PATH = "/opt/local/bin:".$HOME."/bin:".$PATH
+endif
