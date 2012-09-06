@@ -14,6 +14,10 @@ if [[ ! -h $HOME/.gvimrc ]] ; then
   rm $HOME/.gvimrc &> /dev/null
   ln -s $PWD/gvimrc $HOME/.gvimrc
 fi
+if [[ ! -h $HOME/.NERDTreeBookmarks ]] ; then
+  rm $HOME/.gvimrc &> /dev/null
+  ln -s $PWD/NERDTreeBookmarks $HOME/.NERDTreeBookmarks
+fi
 
 # make sure that vim-tmp directory exists ... if not, make it
 EDITOR_TMP="${HOME}/.${EDITOR}-tmp"
