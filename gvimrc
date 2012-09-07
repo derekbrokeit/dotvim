@@ -1,7 +1,7 @@
 " make fullscreen
 if os == "Darwin"
     set fu
-    set guifont=Anonymous\ Pro:h11
+    set guifont=Anonymous\ Pro\ for\ Powerline:h11
     set antialias
 else
     set guifont=Anonymous\ Pro\ 11
