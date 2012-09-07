@@ -11,6 +11,10 @@ source ~/.vim/bundle/pathogen/autoload/pathogen.vim
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+" fix for ¥ vs \ in command format
+" this makes it impossible to search for ¥, though
+cmap ¥ \
+
 " --- general system setup --- {{{1
 " TDOD organize by function and cleanup
 
@@ -64,11 +68,11 @@ set nofoldenable
 
 " set encoding: default is utf-8
 if has("multi_byte")
-  if &termencoding == ""
-    let &termencoding = &encoding
-  endif
-  set encoding=utf-8                     " better default than latin1
-  setglobal fileencoding=utf-8           " change default file encoding when writing new files
+    if &termencoding == ""
+        let &termencoding = &encoding
+    endif
+    set encoding=utf-8                     " better default than latin1
+    setglobal fileencoding=utf-8           " change default file encoding when writing new files
 endif
 
 " set keyword lookup for manual pages
@@ -90,44 +94,44 @@ com! Voomclose call Voom_DeleteOutline('')
 " the following command copies the file path to clipboard
 "nnoremap <leader>yp :YP <CR>
 function! YP()
-  echo "Copy Path: " . expand("%:p") . system("cpath -s " . shellescape(expand("%:p")))
+    echo "Copy Path: " . expand("%:p") . system("cpath -s " . shellescape(expand("%:p")))
 endfunction
 command! -nargs=0 YP call YP()
 
 " character count
 "nnoremap <leader>wc :WC <CR>
 function! WC()
-  let linecount=system("echo -n $(cat " . shellescape(expand("%:p")) . " | wc -l)")
-  let wordcount=system("echo -n $(cat " . shellescape(expand("%:p")) . " | wc -w)")
-  let charcount=system("echo -n $(cat " . shellescape(expand("%:p")) . " | wc -m)")
-  echo "File Status: " . expand("%:t") . " > l:" linecount "・w:" wordcount "・c:" charcount
+    let linecount=system("echo -n $(cat " . shellescape(expand("%:p")) . " | wc -l)")
+    let wordcount=system("echo -n $(cat " . shellescape(expand("%:p")) . " | wc -w)")
+    let charcount=system("echo -n $(cat " . shellescape(expand("%:p")) . " | wc -m)")
+    echo "File Status: " . expand("%:t") . " > l:" linecount "・w:" wordcount "・c:" charcount
 endfunction
 command! -nargs=0 WC call WC()
 
 
 function! Preserve(command)
-  " Preparation: save last search, and cursor position.
-  let _s=@/
-  let l = line(".")
-  let c = col(".")
-  " Do the business:
-  execute a:command
-  " Clean up: restore previous search history, and cursor position
-  let @/=_s
-  call cursor(l, c)
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    execute a:command
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
 endfunction
 
 function! Ansi()
-  set cole=3
+    set cole=3
 
-  " Run AnsiEsc for colors
-  AnsiEsc
+    " Run AnsiEsc for colors
+    AnsiEsc
 
-  " Hide xterm titles
-  if ! exists("g:hiddenAnsiTitle")
-    syn region AnsiTitle start="]2;" end="\\" conceal
-    g:hiddenAnsiTitle = "yes"
-  endif
+    " Hide xterm titles
+    if ! exists("g:hiddenAnsiTitle")
+        syn region AnsiTitle start="]2;" end="\\" conceal
+        g:hiddenAnsiTitle = "yes"
+    endif
 endfunction
 command! -nargs=0 Ansi call Ansi()
 
@@ -138,48 +142,74 @@ command! -bar Hex :Hexmode
 
 " helper function to toggle hex mode
 function! ToggleHex()
-  " hex mode should be considered a read-only operation
-  " save values for modified and read-only for restoration later,
-  " and clear the read-only flag for now
-  let l:modified=&mod
-  let l:oldreadonly=&readonly
-  let &readonly=0
-  let l:oldmodifiable=&modifiable
-  let &modifiable=1
-  if !exists("b:editHex") || !b:editHex
-    " save old options
-    let b:oldft=&ft
-    let b:oldbin=&bin
-    " set new options
-    setlocal binary " make sure it overrides any textwidth, etc.
-    let &ft="xxd"
-    " set status
-    let b:editHex=1
-    " switch to hex editor
-    %!xxd
-  else
-    " restore old options
-    let &ft=b:oldft
-    if !b:oldbin
-      setlocal nobinary
+    " hex mode should be considered a read-only operation
+    " save values for modified and read-only for restoration later,
+    " and clear the read-only flag for now
+    let l:modified=&mod
+    let l:oldreadonly=&readonly
+    let &readonly=0
+    let l:oldmodifiable=&modifiable
+    let &modifiable=1
+    if !exists("b:editHex") || !b:editHex
+        " save old options
+        let b:oldft=&ft
+        let b:oldbin=&bin
+        " set new options
+        setlocal binary " make sure it overrides any textwidth, etc.
+        let &ft="xxd"
+        " set status
+        let b:editHex=1
+        " switch to hex editor
+        %!xxd
+    else
+        " restore old options
+        let &ft=b:oldft
+        if !b:oldbin
+            setlocal nobinary
+        endif
+        " set status
+        let b:editHex=0
+        " return to normal editing
+        %!xxd -r
     endif
-    " set status
-    let b:editHex=0
-    " return to normal editing
-    %!xxd -r
-  endif
-  " restore values for modified and read only state
-  let &mod=l:modified
-  let &readonly=l:oldreadonly
-  let &modifiable=l:oldmodifiable
+    " restore values for modified and read only state
+    let &mod=l:modified
+    let &readonly=l:oldreadonly
+    let &modifiable=l:oldmodifiable
 endfunction
+
+" use 'par' for paragraph formatting
+if os == "Darwin"
+    set formatprg=/opt/local/bin/par
+endif
+
+" fortran options
+let fortran_more_precise=1
+let fortran_free_source=1
+let fortran_do_enddo=1
+
 " --- look and feel --- {{{1
 
-" make sure we are in 256 color mode
-set t_Co=256
+if !exists("g:vimrc_loaded_colorscheme")
+    " make sure we are in 256 color mode
+    if !exists("t_Co")
+        set t_Co=256
+    endif
 
-" syntax coloring
-syntax on
+    " syntax coloring
+    syntax enable
+
+    " colorscheme
+    set background=dark
+    " colorscheme synic
+    " colorscheme symfony
+    " colorscheme asmanian_blood
+    " colorscheme candy_code
+    colorscheme jellybeans
+    "colorscheme solarized
+
+    let g:vimrc_loaded_colorscheme = 1
+endif
 
 " disk sync after every write
 "au BufWritePost * silent !sync
@@ -187,18 +217,11 @@ syntax on
 " set the tile of the terminal
 set title
 if strlen($TMUX)>0
-  set titlestring=%{system('hostname\ -s')}:\ vim\ >\ %t
+    set titlestring=%{system('hostname\ -s')}:\ vim\ >\ %t
 else
-  let &titlestring=system('hostname -s').': vim '
+    let &titlestring=system('hostname -s').': vim '
 endif
 
-" colorscheme
-set background=dark
-" colorscheme synic
-" colorscheme symfony
-" colorscheme asmanian_blood
-" colorscheme candy_code
-colorscheme jellybeans
 
 " turn on wildmenu
 set wildmenu
@@ -260,7 +283,7 @@ highlight iCursor guifg=white guibg=steelblue
 
 " turn on mouse-support
 if has("mouse")
-  set mouse=a
+    set mouse=a
 endif
 "map <ScrollWheelUp> <C-Y>
 "map <S-ScrollWheelUp> <C-U>
@@ -280,17 +303,13 @@ let g:voom_user_command = "runtime! ~/.vim/custom_headlines.vim"
 "set cinkeys-=0#
 set autoindent
 
-" fortran options
-let fortran_more_precise=1
-let fortran_free_source=1
-let fortran_do_enddo=1
-
 " tab bar changes
 set showtabline=1
 hi TabLineFill ctermfg=LightGreen ctermbg=23 guifg=#66CC33 guibg=#005f5f gui=none
 hi TabLine ctermfg=blue ctermbg=23 guifg=lightblue guibg=#005f5f gui=none
 hi TabLineSel ctermfg=lightmagenta ctermbg=23 guifg=lightmagenta guibg=#005f5f gui=bold
 hi Title ctermfg=lightgreen guifg=lightgreen
+
 " this is for most-recently-used buffer (MRU)
 "let MRU_Max_Entries = 150
 let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'
@@ -314,10 +333,6 @@ hi link EasyMotionTarget ErrorMsg
 "hi EasyMotionShade  ctermbg=none ctermfg=237 guibg=#000000 guifg=#3a3a3a gui=none
 hi EasyMotionShade  ctermfg=237 guibg=#000000 guifg=#3a3a3a gui=none
 
-" use 'par' for paragraph formatting
-if os == "Darwin"
-    set formatprg=/opt/local/bin/par
-endif
 
 " highlighting for vimdiff stuff
 hi DiffAdd        term=bold ctermfg=white ctermbg=29 
@@ -328,9 +343,9 @@ hi DiffText       term=bold ctermfg=57 ctermbg=195
 
 " Powerline
 "if os == "Darwin"
-    let g:Powerline_symbols = "fancy"
+let g:Powerline_symbols = "fancy"
 "else
-    "let g:Powerline_symbols = "unicode"
+"let g:Powerline_symbols = "unicode"
 "endif
 let g:Powerline_theme = "default"
 let g:Powerline_colorscheme = "default"
@@ -338,79 +353,83 @@ let g:Powerline_colorscheme = "default"
 " --- autocommands --- {{{1
 if has("autocmd")
 
-  " add fortran commentstring
-  au BufRead,BufNewFile *.f90 setlocal commentstring=!%s
+    " add fortran commentstring
+    au BufRead,BufNewFile *.f90 setlocal commentstring=!%s
 
-  " give shell a proper commentstring
-  autocmd FileType sh setlocal commentstring=#%s
+    " give shell a proper commentstring
+    autocmd FileType sh setlocal commentstring=#%s
 
-  " open pdf files?
-  autocmd BufReadPre *.pdf set ro nowrap
-  "autocmd BufReadPost *.pdf silent %!pdftotext "%" -nopgbrk -layout -q -eol unix -
-  autocmd BufReadPost *.pdf silent %!pdftotext -nopgbrk "%" - |fmt -cs -w 72
-  autocmd BufWritePost *.pdf silent !rm -rf ~/PDF/%
-  autocmd BufWritePost *.pdf silent !lp -s -d pdffg "%"
-  autocmd BufWritePost *.pdf silent !until [ -e ~/PDF/% ]; do sleep 1; done
-  autocmd BufWritePost *.pdf silent !mv ~/PDF/% %:p:h
+    " open up NERDTree if vim opens with no buffer
+    autocmd vimenter * if !argc() | NERDTree | endif
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-  " open doc files?
-  " View word documents in Vim (good for diff'ing).
-  autocmd BufReadPre *.doc  set ro
-  autocmd BufReadPre *.doc  set hlsearch
-  autocmd BufReadPost *.doc silent %!antiword '%:p'
+    " open pdf files?
+    autocmd BufReadPre *.pdf set ro nowrap
+    "autocmd BufReadPost *.pdf silent %!pdftotext "%" -nopgbrk -layout -q -eol unix -
+    autocmd BufReadPost *.pdf silent %!pdftotext -nopgbrk "%" - |fmt -cs -w 72
+    autocmd BufWritePost *.pdf silent !rm -rf ~/PDF/%
+    autocmd BufWritePost *.pdf silent !lp -s -d pdffg "%"
+    autocmd BufWritePost *.pdf silent !until [ -e ~/PDF/% ]; do sleep 1; done
+    autocmd BufWritePost *.pdf silent !mv ~/PDF/% %:p:h
 
-  " open docx
-  "use docx2txt.pl to allow VIm to view the text content of a .docx file directly.
-  autocmd BufReadPre *.docx set ro
-  autocmd BufReadPost *.docx %!docx2txt.pl
+    " open doc files?
+    " View word documents in Vim (good for diff'ing).
+    autocmd BufReadPre *.doc  set ro
+    autocmd BufReadPre *.doc  set hlsearch
+    autocmd BufReadPost *.doc silent %!antiword '%:p'
 
-  " open up xls files as csv
-  autocmd BufReadPre *.xls,*.xlsx set ro | setf csv
-  autocmd BufReadPost *.xls,*.xlsx silent! %!xlsx2csv.sh -q -x "%" -c -
-  autocmd BufReadPost *.xls,*.xlsx redraw
+    " open docx
+    "use docx2txt.pl to allow VIm to view the text content of a .docx file directly.
+    autocmd BufReadPre *.docx set ro
+    autocmd BufReadPost *.docx %!docx2txt.pl
 
-  " Octave syntax
-  augroup filetypedetect
-    au! BufRead,BufNewFile *.m,*.oct,*octaverc set filetype=matlab
-    "au! BufRead,BufNewFile *.m,*.oct set filetype=octave
+    " open up xls files as csv
+    autocmd BufReadPre *.xls,*.xlsx set ro | setf csv
+    autocmd BufReadPost *.xls,*.xlsx silent! %!xlsx2csv.sh -q -x "%" -c -
+    autocmd BufReadPost *.xls,*.xlsx redraw
 
-    au! BufRead,BufNewFile *.md set filetype=markdown
+    " Octave syntax
+    augroup filetypedetect
+        au! BufRead,BufNewFile *.m,*.oct,*octaverc set filetype=matlab
+        "au! BufRead,BufNewFile *.m,*.oct set filetype=octave
 
-    au! BufRead,BufNewFile tmux.conf*,.tmux.conf* set filetype=tmux
+        au! BufRead,BufNewFile *.md set filetype=markdown
 
-    au! BufRead,BufNewFile *.j2 set filetype=jinja
+        au! BufRead,BufNewFile tmux.conf*,.tmux.conf* set filetype=tmux
 
-    "LAMMPS
-    au! BufRead,BufNewFile in.*           set filetype=lammps
-    au! BufRead,BufNewFile *.lmp          set filetype=lammps
-  augroup END
+        au! BufRead,BufNewFile *.j2 set filetype=jinja
 
-  " Use keywords from Octave syntax language file for autocomplete
-  if exists("+omnifunc")
-    autocmd Filetype octave
-          \  if &omnifunc == "" |
-          \   setlocal omnifunc=syntaxcomplete#Complete |
-          \  endif
-  endif
+        "LAMMPS
+        au! BufRead,BufNewFile in.*           set filetype=lammps
+        au! BufRead,BufNewFile *.lmp          set filetype=lammps
+    augroup END
 
-  " Source the vimrc file after saving it
-  autocmd! bufwritepost vimrc source $MYVIMRC
-  autocmd! bufwritepost gvimrc source $MYGVIMRC
-
-  " strip trailing whitespace off of select filetypes when writing to file
-  autocmd BufWritePre *.m,*.sh,*.py,*.js,*.txt,*.f90,*.f :call Preserve("%s/\\s\\+$//e")
-
-  " automatically change directory to file-local-directory
-  " autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
-  function! OpenGitRoot()
-    silent! lcd %:p:h
-    let shellcmd = 'git rev-parse --show-toplevel'
-    let output=system(shellcmd)
-    if !v:shell_error
-      silent! lcd `=output`
+    " Use keywords from Octave syntax language file for autocomplete
+    if exists("+omnifunc")
+        autocmd Filetype octave
+                    \  if &omnifunc == "" |
+                    \   setlocal omnifunc=syntaxcomplete#Complete |
+                    \  endif
     endif
-  endfunction
-  autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | call OpenGitRoot() | endif
+
+    " Source the vimrc file after saving it
+    autocmd! bufwritepost vimrc source $MYVIMRC
+    autocmd! bufwritepost gvimrc source $MYGVIMRC
+
+    " strip trailing whitespace off of select filetypes when writing to file
+    autocmd BufWritePre *.m,*.sh,*.py,*.js,*.txt,*.f90,*.f :call Preserve("%s/\\s\\+$//e")
+
+    " automatically change directory to file-local-directory
+    " autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
+    function! OpenGitRoot()
+        silent! lcd %:p:h
+        let shellcmd = 'git rev-parse --show-toplevel'
+        let output=system(shellcmd)
+        if !v:shell_error
+            silent! lcd `=output`
+        endif
+    endfunction
+    autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | call OpenGitRoot() | endif
 
 endif
 
@@ -543,6 +562,7 @@ nmap <leader>u yypVr-
 
 "NERDTree
 nnoremap <leader>nt :NERDTreeToggle<CR>
+let NERDTreeMinimalUI=1
 
 " Voom: setup voom keys
 nnoremap <leader><leader> :Voom<CR>
@@ -573,27 +593,33 @@ nmap _= :call Preserve("normal gg=G")<CR>
 
 " paste the contents of the clipboard without annoying indentation issues
 if os == "Darwin"
-  " get clipboard (this automatically pastes)
-  nnoremap _p :r!pbpaste<CR>
+    " get clipboard (this automatically pastes)
+    nnoremap _p :r!pbpaste<CR>
 
-  " also, support cut/copy
-  vnoremap <c-x> :!pbcopy<CR>
-  vnoremap <C-c> :w !pbcopy<CR><CR>
+    " also, support cut/copy
+    vnoremap <c-x> :!pbcopy<CR>
+    vnoremap <C-c> :w !pbcopy<CR><CR>
 elseif os == "Linux"
-  " get ready for pasting
-  " (this simply gets prepared for a paste, turn off after paste)
-  nnoremap _p :set pastetoggle<CR>i
+    " get ready for pasting
+    " (this simply gets prepared for a paste, turn off after paste)
+    nnoremap _p :set pastetoggle<CR>i
 
-  " no support for cut/copy remotely yet
-  vnoremap <c-x> <esc>:echoerr "Cut not supported in this os (".os.")... yet"<CR>
-  vnoremap <c-c> <esc>:echoerr "Copy not supported in this os (".os.")... yet"<CR>
+    " no support for cut/copy remotely yet
+    vnoremap <c-x> <esc>:echoerr "Cut not supported in this os (".os.")... yet"<CR>
+    vnoremap <c-c> <esc>:echoerr "Copy not supported in this os (".os.")... yet"<CR>
 endif
 
 
 " Identify the syntax highlighting group used at the cursor
-map \c :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+if has("gui_macvim")
+    nmap ¥c <esc>:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+                \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+                \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+else
+    nmap \c :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+                \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+                \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+endif
 
 " This is w3m settings
 " highlighting:
@@ -672,53 +698,56 @@ nmap <silent> _s <Plug>SearchPads
 " Syntastic
 nmap <F5> :SyntasticToggleMode<CR>
 
+
 """""""
 function! MoveToPrevTab()
-  "there is only one window
-  if tabpagenr('$') == 1 && winnr('$') == 1
-    return
-  endif
-  "preparing new window
-  let l:tab_nr = tabpagenr('$')
-  let l:cur_buf = bufnr('%')
-  if tabpagenr() != 1
-    close!
-    if l:tab_nr == tabpagenr('$')
-      tabprev
+    "there is only one window
+    if tabpagenr('$') == 1 && winnr('$') == 1
+        return
     endif
-    sp
-  else
-    close!
-    exe "0tabnew"
-  endif
-  "opening current buffer in new window
-  exe "b".l:cur_buf
+    "preparing new window
+    let l:tab_nr = tabpagenr('$')
+    let l:cur_buf = bufnr('%')
+    if tabpagenr() != 1
+        close!
+        if l:tab_nr == tabpagenr('$')
+            tabprev
+        endif
+        sp
+    else
+        close!
+        exe "0tabnew"
+    endif
+    "opening current buffer in new window
+    exe "b".l:cur_buf
 endfunc
 
 function! MoveToNextTab()
-  "there is only one window
-  if tabpagenr('$') == 1 && winnr('$') == 1
-    return
-  endif
-  "preparing new window
-  let l:tab_nr = tabpagenr('$')
-  let l:cur_buf = bufnr('%')
-  if tabpagenr() < tab_nr
-    close!
-    if l:tab_nr == tabpagenr('$')
-      tabnext
+    "there is only one window
+    if tabpagenr('$') == 1 && winnr('$') == 1
+        return
     endif
-    sp
-  else
-    close!
-    tabnew
-  endif
-  "opening current buffer in new window
-  exe "b".l:cur_buf
+    "preparing new window
+    let l:tab_nr = tabpagenr('$')
+    let l:cur_buf = bufnr('%')
+    if tabpagenr() < tab_nr
+        close!
+        if l:tab_nr == tabpagenr('$')
+            tabnext
+        endif
+        sp
+    else
+        close!
+        tabnew
+    endif
+    "opening current buffer in new window
+    exe "b".l:cur_buf
 endfunc
 nnoremap <C-W>. :call MoveToNextTab()<CR>
 nnoremap <C-W>, :call MoveToPrevTab()<CR>
 
 if os == "Darwin"
     let $PATH = "/opt/local/bin:".$HOME."/bin:".$PATH
+    let $LOGS_DIR = "~/Dropbox/serverLogs"
 endif
+
