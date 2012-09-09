@@ -21,31 +21,34 @@ set vb
 " set noantialias
 
 " better motion
-nnoremap <D-k> <C-W>k
-nnoremap <D-j> <C-W>j
-nnoremap <D-h> <C-W>h
-nnoremap <D-l> <C-W>l
+map <D-k> <esc><C-W>k
+map <D-j> <esc><C-W>j
+map <D-h> <esc><C-W>h
+map <D-l> <esc><C-W>l
 
-nnoremap <D-up> <C-W><up>
-nnoremap <D-down> <C-W><down>
-nnoremap <D-left> <C-W><left>
-nnoremap <D-right> <C-W><right>
+map <D-up>    <esc><C-W><up>
+map <D-down>  <esc><C-W><down>
+map <D-left>  <esc><C-W><left>
+map <D-right> <esc><C-W><right>
 
 " better split creation
-nmap <C-S-left>    :topleft  vnew <CR>
-nmap <C-S-right>  :botright vnew <CR>
-nmap <C-S-up>        :topleft  new <CR>
-nmap <C-S-down>    :botright new <CR>
+map <C-S-left>          <esc>:topleft  vnew <CR>
+map <C-S-right>         <esc>:botright vnew <CR>
+map <C-S-up>            <esc>:topleft  new <CR>
+map <C-S-down>          <esc>:botright new <CR>
 " buffer
-nmap <D-S-left>   :leftabove  vnew <CR>
-nmap <D-S-right>  :rightbelow vnew <CR>
-nmap <D-S-up>     :leftabove  new <CR>
-nmap <D-S-down>   :rightbelow new <CR>
+map <D-S-left>          <esc>:leftabove  vnew <CR>
+map <D-S-right>         <esc>:rightbelow vnew <CR>
+map <D-S-up>            <esc>:leftabove  new <CR>
+map <D-S-down>          <esc>:rightbelow new <CR>
+" more splitting
+"map <D-|> <D-S-right>
+"map <D>- <D-S-down>
 
 " fix the ¥ char
 " nmap \¥ \\
 
 " expanding and equalizing buffers
-nnoremap <D-_> <C-W>_<C-W><Bar>
-nnoremap <D-/> <C-W>=
+map <D-_> <esc><C-W>_<C-W><Bar>
+map <D-/> <esc><C-W>=
 

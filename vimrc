@@ -60,11 +60,12 @@ set nofoldenable
 
 " set Session variables
 " this is the save directory
-" let g:session_directory="~/Dropbox/serverLogs/vim-sessions"
-" let g:session_autoload = 'yes'
+let g:session_directory="~/Dropbox/serverLogs/vim-sessions_".hostname()
+"let g:session_autoload = 'yes'
 " "autosave
-" let g:session_autosave="yes"
-" set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize
+let g:session_autosave="yes"
+let g:session_command_aliases = 1
+"set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize
 
 " set encoding: default is utf-8
 if has("multi_byte")
@@ -295,8 +296,7 @@ set laststatus=2
 
 " Voom options
 let g:voom_verify_oop = 1
-let g:voom_user_command = "runtime! voom_addons.vim"
-let g:voom_user_command = "runtime! ~/.vim/custom_headlines.vim"
+let g:voom_user_command = "runtime!  voom_addons/custom_headlines.vim"
 
 " indentation instructions
 "set cindent
@@ -434,21 +434,6 @@ if has("autocmd")
 endif
 
 " --- key mapping --- {{{1
-" the Voom author
-" Voom: create special fold markers (a reminder of the create-tags plugin by
-"<Leader>fm         Create start fold marker with level number.
-"                   It is apppended to the end of current line. The level is set
-"                   to that of the previous start fold marker with level number
-"                   (if any). The start fold marker string is obtained from option 'foldmarker'.
-"<Leader>fM         Create fold marker as child: level number is incremented by 1.
-"<Leader>cm         Create fold marker as comment according to buffer's filetype.
-"                   E.g., if filetype is html, <!--\{\{\{1--> is appended. Dictionary
-"                   s:commentstrings defines comment strings for a few filetypes.
-"                   For all other filetypes, comment strings are obtained from option
-"                   'commentstring'. If comment strings are not what you want, you can
-"                   edit dictionary s:commentstrings.
-"<Leader>cM         Create fold marker as comment and as child.
-
 " set the leader character
 let mapleader=','
 
@@ -530,10 +515,10 @@ nnoremap <C-W><C-W> <C-W>=
 
 " better window movement
 if !has("gui_macvim")
-    nmap <silent> ˚ <C-w>k
-    nmap <silent> ∆ <C-w>j
-    nmap <silent> ˙ <C-w>h
-    nmap <silent> ¬ <C-w>l
+    map <silent> ˚ <esc><C-w>k
+    map <silent> ∆ <esc><C-w>j
+    map <silent> ˙ <esc><C-w>h
+    map <silent> ¬ <esc><C-w>l
 endif
 
 " commands for splitting windows
@@ -555,10 +540,9 @@ nmap <silent> <leader><space> :set nolist!<CR>
 nmap <leader>u yypVr-
 
 " play with the sessions
-" nmap <leader>ss    :SaveSession  <CR>
-" "nmap <leader>cs    :CloseSession <CR>
-" nmap <leader>os    :OpenSession  <CR>
-" nmap <leader>xs    :!vixs --here <CR>
+nmap <leader>ss    :wall <CR> :SaveSession  <CR>
+nmap <leader>sc    :CloseSession <CR>
+nmap <leader>so    :OpenSession  <CR>
 
 "NERDTree
 nnoremap <leader>nt :NERDTreeToggle<CR>
@@ -581,7 +565,6 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 nmap gV `[v`]
 
 " quick edit .vimrc
-" nmap <leader>v :tabedit $MYVIMRC<CR>
 nmap <leader>v :tabedit ~/.vim/vimrc<CR>
 
 " Toggle spell checking on and off with `,s`
@@ -750,4 +733,23 @@ if os == "Darwin"
     let $PATH = "/opt/local/bin:".$HOME."/bin:".$PATH
     let $LOGS_DIR = "~/Dropbox/serverLogs"
 endif
+
+" the Voom author
+" Voom: create special fold markers (a reminder of the create-tags plugin by
+"<Leader>fm         Create start fold marker with level number.
+"                   It is apppended to the end of current line. The level is set
+"                   to that of the previous start fold marker with level number
+"                   (if any). The start fold marker string is obtained from option 'foldmarker'.
+"<Leader>fM         Create fold marker as child: level number is incremented by 1.
+"<Leader>cm         Create fold marker as comment according to buffer's filetype.
+"                   E.g., if filetype is html, <!--\{\{\{1--> is appended. Dictionary
+"                   s:commentstrings defines comment strings for a few filetypes.
+"                   For all other filetypes, comment strings are obtained from option
+"                   'commentstring'. If comment strings are not what you want, you can
+"                   edit dictionary s:commentstrings.
+"<Leader>cM         Create fold marker as comment and as child.
+nmap <silent> <leader>gm :call FOLD_MARKER_CreateMarker('as_comment')<CR>
+vmap <silent> <leader>gm :call FOLD_MARKER_CreateMarker('as_comment')<CR>
+nmap <silent> <leader>gM :call FOLD_MARKER_CreateMarker('as_child', 'as_comment')<CR>
+vmap <silent> <leader>gM :call FOLD_MARKER_CreateMarker('as_child', 'as_comment')<CR>
 
