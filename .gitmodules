@@ -13,9 +13,6 @@
 [submodule "bundle/pathogen"]
 	path = bundle/pathogen
 	url = https://github.com/tpope/vim-pathogen.git
-[submodule "bundle/fold_marker"]
-	path = bundle/fold_marker
-	url = https://github.com/vim-scripts/create_start_fold_marker.vim.git
 [submodule "bundle/tasklist"]
 	path = bundle/tasklist
 	url = https://github.com/vim-scripts/TaskList.vim.git
