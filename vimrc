@@ -733,23 +733,3 @@ if os == "Darwin"
     let $PATH = "/opt/local/bin:".$HOME."/bin:".$PATH
     let $LOGS_DIR = "~/Dropbox/serverLogs"
 endif
-
-" the Voom author
-" Voom: create special fold markers (a reminder of the create-tags plugin by
-"<Leader>fm         Create start fold marker with level number.
-"                   It is apppended to the end of current line. The level is set
-"                   to that of the previous start fold marker with level number
-"                   (if any). The start fold marker string is obtained from option 'foldmarker'.
-"<Leader>fM         Create fold marker as child: level number is incremented by 1.
-"<Leader>cm         Create fold marker as comment according to buffer's filetype.
-"                   E.g., if filetype is html, <!--\{\{\{1--> is appended. Dictionary
-"                   s:commentstrings defines comment strings for a few filetypes.
-"                   For all other filetypes, comment strings are obtained from option
-"                   'commentstring'. If comment strings are not what you want, you can
-"                   edit dictionary s:commentstrings.
-"<Leader>cM         Create fold marker as comment and as child.
-nmap <silent> <leader>gm :call FOLD_MARKER_CreateMarker('as_comment')<CR>
-vmap <silent> <leader>gm :call FOLD_MARKER_CreateMarker('as_comment')<CR>
-nmap <silent> <leader>gM :call FOLD_MARKER_CreateMarker('as_child', 'as_comment')<CR>
-vmap <silent> <leader>gM :call FOLD_MARKER_CreateMarker('as_child', 'as_comment')<CR>
-
