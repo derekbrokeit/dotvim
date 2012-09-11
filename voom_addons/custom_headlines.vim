@@ -2,7 +2,6 @@
 " Body filetypes. It works only when outlining start fold markers with levels,
 " doesn't do anything when using a markup mode.
 "
-"
 " IMPORTANT: This file must be sourced after entire voom.vim has been sourced.
 " Use option g:voom_user_command as explained in |voom_addons|.
 " EXAMPLE: Move this file to $HOME/.vim/voom_add-ons/ and add the following
@@ -53,24 +52,6 @@ if 1:
             return s
     voom.MAKE_HEAD['html'] = voom_make_head_html
 
-if 1:
-    # fortran headline
-    def voom_make_head_fortran(bline,match):
-        # ws = whitespace
-        # take the string        . f77 'C'   . ws    . comment   . ws    . other chars  . ws
-        s = bline[:match.start()].lstrip('C').strip().strip('\!').strip().strip('\*-=~').strip()
-        return s
-    voom.MAKE_HEAD['fortran'] = voom_make_head_fortran
-
-if 1:
-    # shell headline
-    def voom_make_head_shell(bline,match):
-        # ws = whitespace
-        # take the string        . f77 'C'   . ws    . comment   . ws    . other chars  . ws
-        s = bline[:match.start()].strip().strip('#').strip().strip('\*-=~').strip()
-        return s
-    voom.MAKE_HEAD['sh'] = voom_make_head_shell
-
 if 0:
     # Python headline: like default plus remove "def "
     def voom_make_head_python(bline,match):
@@ -82,11 +63,11 @@ if 0:
     voom.MAKE_HEAD['python'] = voom_make_head_python
     #voom.MAKE_HEAD['ruby'] = voom_make_head_python
 
-if 0:
+if 1:
     # Vim headline: like default plus remove leading "fu ", "fun ", ..., "function ".
     vim_func_sub = re.compile(r"^fu(n|nc|nct|ncti|nctio|nction)?!?\s+").sub
     def voom_make_head_vim(bline,match):
-        s = bline[:match.start()].lstrip().rstrip('" \t').strip('-=~').strip()
+        s = bline[:match.start()].lstrip().lstrip('" \t').rstrip('" \t').strip('-=~').strip()
         s = vim_func_sub('',s)
         return s
     voom.MAKE_HEAD['vim'] = voom_make_head_vim
