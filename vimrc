@@ -361,7 +361,7 @@ if has("autocmd")
 
     " open up NERDTree if vim opens with no buffer
     autocmd vimenter * if !argc() | NERDTree | endif
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+    "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
     " open pdf files?
     autocmd BufReadPre *.pdf set ro nowrap
