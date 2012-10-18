@@ -1,66 +1,66 @@
 [submodule "bundle/fugitive"]
 	path = bundle/fugitive
-	url = https://github.com/tpope/vim-fugitive.git
+	url = git://github.com/tpope/vim-fugitive.git
 [submodule "bundle/commandT"]
 	path = bundle/commandT
-	url = https://github.com/wincent/Command-T.git
+	url = git://github.com/wincent/Command-T.git
 [submodule "bundle/easymotion"]
 	path = bundle/easymotion
-	url = https://github.com/Lokaltog/vim-easymotion.git
+	url = git://github.com/Lokaltog/vim-easymotion.git
 [submodule "bundle/tabularize"]
 	path = bundle/tabularize
-	url = https://github.com/godlygeek/tabular.git
+	url = git://github.com/godlygeek/tabular.git
 [submodule "bundle/pathogen"]
 	path = bundle/pathogen
-	url = https://github.com/tpope/vim-pathogen.git
+	url = git://github.com/tpope/vim-pathogen.git
 [submodule "bundle/tasklist"]
 	path = bundle/tasklist
-	url = https://github.com/vim-scripts/TaskList.vim.git
+	url = git://github.com/vim-scripts/TaskList.vim.git
 [submodule "bundle/voom"]
 	path = bundle/voom
-	url = https://github.com/vim-scripts/VOoM.git
+	url = git://github.com/vim-scripts/VOoM.git
 [submodule "bundle/unimpaired"]
 	path = bundle/unimpaired
-	url = https://github.com/tpope/vim-unimpaired.git
+	url = git://github.com/tpope/vim-unimpaired.git
 [submodule "bundle/snipmate"]
 	path = bundle/snipmate
-	url = https://github.com/msanders/snipmate.vim.git
+	url = git://github.com/msanders/snipmate.vim.git
 [submodule "bundle/surround"]
 	path = bundle/surround
-	url = https://github.com/tpope/vim-surround.git
+	url = git://github.com/tpope/vim-surround.git
 [submodule "bundle/supertab"]
 	path = bundle/supertab
-	url = https://github.com/ervandew/supertab.git
+	url = git://github.com/ervandew/supertab.git
 [submodule "bundle/repeat-vim"]
 	path = bundle/repeat-vim
-	url = https://github.com/tpope/vim-repeat.git
+	url = git://github.com/tpope/vim-repeat.git
 [submodule "bundle/ipython"]
 	path = bundle/ipython
-	url = https://github.com/ivanov/vim-ipython.git
+	url = git://github.com/ivanov/vim-ipython.git
 [submodule "bundle/ansiEsc"]
 	path = bundle/ansiEsc
-	url = https://github.com/vim-scripts/AnsiEsc.vim.git
+	url = git://github.com/vim-scripts/AnsiEsc.vim.git
 [submodule "bundle/syntax-attr"]
 	path = bundle/syntax-attr
-	url = https://github.com/vim-scripts/SyntaxAttr.vim.git
+	url = git://github.com/vim-scripts/SyntaxAttr.vim.git
 [submodule "bundle/w3m-fork"]
 	path = bundle/w3m-fork
-	url = https://github.com/yuratomo/w3m.vim.git
+	url = git://github.com/yuratomo/w3m.vim.git
 [submodule "bundle/vimux"]
 	path = bundle/vimux
-	url = https://github.com/benmills/vimux.git
+	url = git://github.com/benmills/vimux.git
 [submodule "bundle/jinja2"]
 	path = bundle/jinja2
-	url = https://github.com/Glench/Vim-Jinja2-Syntax.git
+	url = git://github.com/Glench/Vim-Jinja2-Syntax.git
 [submodule "bundle/html5"]
 	path = bundle/html5
-	url = https://github.com/othree/html5-syntax.vim.git
+	url = git://github.com/othree/html5-syntax.vim.git
 [submodule "bundle/taglist"]
 	path = bundle/taglist
-	url = https://github.com/vim-scripts/taglist.vim
+	url = git://github.com/vim-scripts/taglist.vim.git
 [submodule "bundle/autotag"]
 	path = bundle/autotag
-	url = https://github.com/vim-scripts/AutoTag.git
+	url = git://github.com/vim-scripts/AutoTag.git
 [submodule "bundle/conque-shell"]
 	path = bundle/conque-shell
 	url = git://github.com/sgerrand/Conque-Shell.git
