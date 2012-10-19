@@ -60,7 +60,11 @@ set nofoldenable
 
 " set Session variables
 " this is the save directory
-let g:session_directory="~/Dropbox/serverLogs/vim-sessions_".hostname()
+if os == "Darwin"
+    let g:session_directory="~/Dropbox/serverLogs/vim-sessions_".hostname()
+else
+    let g:session_directory="~/logs/vim-sessions_".hostname()
+endif
 "let g:session_autoload = 'yes'
 " "autosave
 let g:session_autosave="yes"
@@ -189,7 +193,7 @@ let fortran_more_precise=1
 let fortran_free_source=1
 let fortran_do_enddo=1
 
-command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+com! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
 	 	\ | wincmd p | diffthis
 
 " --- look and feel --- {{{1
@@ -260,7 +264,7 @@ set shiftround
 "nnoremap <silent> <Space> :silent noh<Bar>echo<CR>
 
 " make trailing-spaces and tabs more visible
-set lcs=tab:>-,trail:·,eol:$
+set listchars=tab:>-,trail:.,eol:$
 
 " reduce "press OK" messg
 set shortmess=atI
@@ -550,6 +554,11 @@ nmap <leader>so    :OpenSession  <CR>
 "NERDTree
 nnoremap <leader>nt :NERDTreeToggle<CR>
 let NERDTreeMinimalUI=1
+if os == "Darwin"
+    let NERDTreeDirArrows=1
+else
+    let NERDTreeDirArrows=0
+endif
 
 " Voom: setup voom keys
 nnoremap <leader><leader> :Voom<CR>
