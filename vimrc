@@ -353,6 +353,9 @@ endif
 let g:Powerline_theme = "default"
 let g:Powerline_colorscheme = "default"
 
+" change the highlighting of numbers
+hi Number ctermfg=219 guifg=#ffafff
+
 " --- autocommands --- {{{1
 if has("autocmd")
 
