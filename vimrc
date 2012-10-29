@@ -73,11 +73,11 @@ let g:session_command_aliases = 1
 
 " set encoding: default is utf-8
 if has("multi_byte")
+    set encoding=utf-8                     " better default than latin1
+    setglobal fileencoding=utf-8           " change default file encoding when writing new files
     if &termencoding == ""
         let &termencoding = &encoding
     endif
-    set encoding=utf-8                     " better default than latin1
-    setglobal fileencoding=utf-8           " change default file encoding when writing new files
 endif
 
 " set keyword lookup for manual pages
