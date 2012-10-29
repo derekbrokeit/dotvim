@@ -219,18 +219,6 @@ if !exists("g:vimrc_loaded_colorscheme")
     let g:vimrc_loaded_colorscheme = 1
 endif
 
-" disk sync after every write
-"au BufWritePost * silent !sync
-
-" set the tile of the terminal
-set title
-if strlen($TMUX)>0
-    set titlestring=%{system('hostname\ -s')}:\ vim\ >\ %t
-else
-    let &titlestring=system('hostname -s').': vim '
-endif
-
-
 " turn on wildmenu
 set wildmenu
 set wildmode=longest:full " more bash-like (does not autocomplete)
