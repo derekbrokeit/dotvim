@@ -73,11 +73,11 @@ let g:session_command_aliases = 1
 
 " set encoding: default is utf-8
 if has("multi_byte")
+    set encoding=utf-8                     " better default than latin1
+    setglobal fileencoding=utf-8           " change default file encoding when writing new files
     if &termencoding == ""
         let &termencoding = &encoding
     endif
-    set encoding=utf-8                     " better default than latin1
-    setglobal fileencoding=utf-8           " change default file encoding when writing new files
 endif
 
 " set keyword lookup for manual pages
@@ -218,18 +218,6 @@ if !exists("g:vimrc_loaded_colorscheme")
 
     let g:vimrc_loaded_colorscheme = 1
 endif
-
-" disk sync after every write
-"au BufWritePost * silent !sync
-
-" set the tile of the terminal
-set title
-if strlen($TMUX)>0
-    set titlestring=%{system('hostname\ -s')}:\ vim\ >\ %t
-else
-    let &titlestring=system('hostname -s').': vim '
-endif
-
 
 " turn on wildmenu
 set wildmenu
