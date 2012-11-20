@@ -50,7 +50,7 @@ set smartcase
 
 " " (this is for C and Java; users of other languages can change as they see
 " fit)
-set wildignore=*.o,*.class,*.asv,*~,*.swp,*.bak,*.pyc
+set wildignore=*.o,*.class,*.asv,*~,*.swp,*.bak,*.pyc,deploy
 
 
 " make foldmethod marker for better Voom
@@ -231,8 +231,8 @@ filetype plugin indent on
 " turn on help for long-lines
 match ErrorMsg '\%>132v.\+'
 
-" this enables "visual" wrapping
-set wrap
+" this disables "visual" wrapping
+set nowrap
 
 " this turns off physical line wrapping (ie: automatic insertion of newlines)
 set textwidth=0 wrapmargin=0
