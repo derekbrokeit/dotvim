@@ -64,9 +64,6 @@
 [submodule "bundle/conque-shell"]
 	path = bundle/conque-shell
 	url = git://github.com/sgerrand/Conque-Shell.git
-[submodule "bundle/markdown"]
-	path = bundle/markdown
-	url = git://github.com/tpope/vim-markdown.git
 [submodule "bundle/vim_pad"]
 	path = bundle/vim_pad
 	url = git://github.com/fmoralesc/vim-pad.git
