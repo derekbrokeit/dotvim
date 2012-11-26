@@ -57,7 +57,7 @@ if has("conceal") && &enc == 'utf-8'
   " syn region functs matchgroup=mathfuncs  start="math.abs(" end=")" concealends contains=pymathfunc
 
   setlocal conceallevel=2 
-  hi Conceal cterm=none ctermbg=235 ctermfg=darkgreen guifg=orange guibg=#646464
+  "hi Conceal cterm=none ctermbg=235 ctermfg=darkgreen guifg=orange guibg=#646464
   hi def link pyGreek Conceal
 
   syntax match pyNiceOperator "\<\%(numpy\.\)\?sqrt\>" conceal cchar=√

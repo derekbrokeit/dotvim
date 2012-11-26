@@ -140,7 +140,6 @@ function! Ansi()
 endfunction
 command! -nargs=0 Ansi call Ansi()
 
-
 " ex command for toggling hex mode - define mapping if desired
 command! -bar Hexmode call ToggleHex()
 command! -bar Hex :Hexmode
@@ -223,6 +222,7 @@ endif
 set wildmenu
 set wildmode=longest:full " more bash-like (does not autocomplete)
 highlight WildMenu ctermbg=darkred ctermfg=white
+
 
 "turn on filetype plugins
 filetype plugin on
