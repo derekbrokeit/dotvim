@@ -212,8 +212,9 @@ if !exists("g:vimrc_loaded_colorscheme")
     " colorscheme symfony
     " colorscheme asmanian_blood
     " colorscheme candy_code
-    colorscheme jellybeans
+    "colorscheme jellybeans
     "colorscheme solarized
+    colorscheme hemisu
 
     let g:vimrc_loaded_colorscheme = 1
 endif

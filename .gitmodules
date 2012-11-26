@@ -100,3 +100,6 @@
 [submodule "bundle/vim-cute-py"]
 	path = bundle/vim-cute-py
 	url = git://github.com/ehamberg/vim-cute-python.git
+[submodule "bundle/hemisu"]
+	path = bundle/hemisu
+	url = git://github.com/noahfrederick/Hemisu.git
