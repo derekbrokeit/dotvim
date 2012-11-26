@@ -736,3 +736,6 @@ if os == "Darwin"
     let $PATH = "/opt/local/bin:".$HOME."/bin:".$PATH
     let $LOGS_DIR = "~/Dropbox/serverLogs"
 endif
+
+" force markdown filetype
+nnoremap mmd :set ft=markdown<CR>

@@ -9,3 +9,5 @@ nmap <buffer> _h     o<esc>030i*<space><esc>
 " blockquote
 nmap <buffer> _b vip<C-V>I><space><esc>
 
+" jinja style comments
+set commentstring={#%s#}
