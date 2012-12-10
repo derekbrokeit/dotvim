@@ -7,9 +7,8 @@ if os == "Darwin"
     map <D-N> <esc>:call MoveToNextTab()<CR>
     map <D-P> <esc>:call MoveToPrevTab()<CR>
 
-    let $PATH="/Users/derekt/bin:/opt/local/bin:/opt/local/libexec/gnubin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/local/bin:/usr/sbin:"
-    let $PYTHONPATH="/Users/derekt/dev/github_third-party/src/package/doc/pyplots:/Users/derekt/dev/github_third-party/src/package/examples/pylab_examples:/Users/derekt/dev/github_third-party/src/package/lib/pytz:"
-
+    let $PATH="/usr/local/heroku/bin:/Users/derekt/bin:/Users/derekt/local/bin:/Users/derekt/local/.gems/bin:/opt/gpg2/bin:/opt/local/bin:/opt/local/libexec/gnubin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/local/bin:/usr/sbin"
+    let $PYTHONPATH="/Users/derekt/local/lib/python2.7/site-packages:/Users/derekt/bin/modules"
 
     " better fonts
     " antialiasing appears to be necessary for some bold/italic effects to always
