@@ -402,6 +402,7 @@ if has("autocmd")
         "LAMMPS
         au! BufRead,BufNewFile in.*           set filetype=lammps
         au! BufRead,BufNewFile *.lmp          set filetype=lammps
+        au! BufRead,BufNewFile *.lammps       set filetype=lammps
     augroup END
 
     " Use keywords from Octave syntax language file for autocomplete
