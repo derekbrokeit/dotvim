@@ -18,6 +18,7 @@ if has("conceal") && &enc == 'utf-8'
   call s:pythonGreek('pyGreek'  , 'xi'      , 'ξ')
   call s:pythonGreek('pyGreek'  , 'pi'      , 'π')
   call s:pythonGreek('pyGreek'  , 'rho'     , 'ρ')
+  call s:pythonGreek('pyGreek'  , 'mu'		, 'μ')
   call s:pythonGreek('pyGreek'  , 'sigma'   , 'σ')
   call s:pythonGreek('pyGreek'  , 'tau'     , 'τ')
   call s:pythonGreek('pyGreek'  , 'upsilon' , 'υ')
