@@ -547,6 +547,7 @@ nmap <leader>so    :OpenSession  <CR>
 
 "NERDTree
 nnoremap <leader>nt :NERDTreeToggle<CR>
+let NERDTreeIgnore=['\.pyc$', '\~$', '\.o$']
 let NERDTreeMinimalUI=1
 if os == "Darwin"
     let NERDTreeDirArrows=1
