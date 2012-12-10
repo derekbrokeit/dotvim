@@ -566,6 +566,8 @@ nmap <Leader>a= :Tabularize /=<CR>
 vmap <Leader>a= :Tabularize /=<CR>
 nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>a: :Tabularize /:\zs<CR>
+nmap <Leader>a3 vip:Tabularize /\#<CR>
+vmap <Leader>a3 :Tabularize /\#<CR>
 
 
 " Visually select the text that was last edited/pasted
