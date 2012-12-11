@@ -668,7 +668,7 @@ let VimuxUseNearestPane = 1
 
 " ctags are great, open up taglist window:
 if os == "Darwin"
-    let Tlist_Ctags_Cmd="/opt/local/bin/ctags"
+    let Tlist_Ctags_Cmd="/usr/local/bin/ctags"
 endif
 nnoremap _t :TlistOpen<CR>
 
