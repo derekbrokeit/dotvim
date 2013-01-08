@@ -184,7 +184,7 @@ endfunction
 
 " use 'par' for paragraph formatting
 if os == "Darwin"
-    set formatprg=/opt/local/bin/par
+    set formatprg=/usr/local/bin/par
 endif
 
 " fortran options
