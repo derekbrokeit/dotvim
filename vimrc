@@ -4,6 +4,11 @@
 " Derek Thomas 2012
 "                            "
 """"""""""""""""""""""""""""""
+" unset all autocommands
+if has("autocmd")
+    " Remove ALL autocommands for the current group.
+    autocmd!
+endif
 " --- pathogen call --- {{{1
 " setup the runtime plugin bundles
 " this initiates pahtogen ... MUST be before filetype detection activated
