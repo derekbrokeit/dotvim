@@ -437,6 +437,19 @@ if has("autocmd")
     endfunction
     autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | call OpenGitRoot() | endif
 
+    if exists("$TMUX")
+        " Get the environment variable
+        let tmux_pane_name_cmd = 'tmux display -p \#D'
+        let tmux_pane_name = substitute(system(g:tmux_pane_name_cmd), "\n", "", "")
+        let tmux_env_var = "TMUXPWD_" . substitute(g:tmux_pane_name, "%", "", "")
+        unlet tmux_pane_name tmux_pane_name_cmd
+        function! BroadcastTmuxCwd()
+            let filename = substitute(expand("%:p:h"), $HOME, "~", "")
+            let output = system("tmux setenv ".g:tmux_env_var." ".l:filename)
+        endfunction
+        autocmd BufEnter * call BroadcastTmuxCwd()
+    endif
+
 endif
 
 " --- key mapping --- {{{1
