@@ -337,10 +337,10 @@ hi EasyMotionShade  ctermfg=237 guibg=#000000 guifg=#3a3a3a gui=none
 
 
 " highlighting for vimdiff stuff
-hi DiffAdd        term=bold ctermfg=white ctermbg=29 
-hi DiffChange     term=bold ctermfg=231 ctermbg=102 
-hi DiffDelete     term=reverse cterm=bold ctermbg=52 
-hi DiffText       term=bold ctermfg=57 ctermbg=195 
+hi DiffAdd        term=bold ctermfg=white ctermbg=29
+hi DiffChange     term=bold ctermfg=231 ctermbg=102
+hi DiffDelete     term=reverse cterm=bold ctermbg=52
+hi DiffText       term=bold ctermfg=57 ctermbg=195
 
 
 " Powerline
@@ -633,8 +633,8 @@ endif
 
 " This is w3m settings
 " highlighting:
-highlight! w3mLink      ctermfg=green ctermbg=none guifg=#66CC33 
-highlight! w3mLinkHover ctermfg=17 ctermbg=108 
+highlight! w3mLink      ctermfg=green ctermbg=none guifg=#66CC33
+highlight! w3mLinkHover ctermfg=17 ctermbg=108
 " highlight! w3mLinkHover ctermfg=215 ctermbg=6
 highlight! w3mSubmit    ctermfg=208 cterm=bold ctermbg=none
 highlight! w3mInput     term=underline cterm=underline ctermfg=yellow ctermbg=238
