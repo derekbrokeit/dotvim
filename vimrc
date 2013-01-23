@@ -1,14 +1,9 @@
-"""""""""""""""""""""""""""""
 "                            "
+"""""""""""""""""""""""""""""
 " vim startup file ~/.vimrc "
 " Derek Thomas 2012
 "                            "
 """"""""""""""""""""""""""""""
-" unset all autocommands
-if has("autocmd")
-    " Remove ALL autocommands for the current group.
-    autocmd!
-endif
 " --- pathogen call --- {{{1
 " setup the runtime plugin bundles
 " this initiates pahtogen ... MUST be before filetype detection activated
@@ -259,7 +254,7 @@ set shiftround
 "nnoremap <silent> <Space> :silent noh<Bar>echo<CR>
 
 " make trailing-spaces and tabs more visible
-set listchars=tab:>-,trail:.,eol:$
+set listchars=tab:>-,trail:𐄁,eol:$
 
 " reduce "press OK" messg
 set shortmess=atI
@@ -344,13 +339,14 @@ hi DiffText       term=bold ctermfg=57 ctermbg=195
 
 
 " Powerline
-if os == "Darwin"
-    let g:Powerline_symbols = "fancy"
-else
-    let g:Powerline_symbols = "compatible"
-endif
-let g:Powerline_theme = "default"
-let g:Powerline_colorscheme = "default"
+"python from powerline.ext.vim import source_plugin; source_plugin()
+ if os == "Darwin"
+     let g:Powerline_symbols = "fancy"
+ else
+     let g:Powerline_symbols = "compatible"
+ endif
+ let g:Powerline_theme = "default"
+ let g:Powerline_colorscheme = "default"
 
 " change the highlighting of numbers
 hi Number ctermfg=219 guifg=#ffafff
