@@ -745,3 +745,5 @@ if os == "Darwin"
     let $PATH = "/opt/local/bin:".$HOME."/bin:".$PATH
     let $LOGS_DIR = "~/Dropbox/serverLogs"
 endif
+
+hi Number ctermfg=219 guifg=#ffafff
