@@ -1,5 +1,5 @@
-"""""""""""""""""""""""""""""
 "                            "
+"""""""""""""""""""""""""""""
 " vim startup file ~/.vimrc "
 " Derek Thomas 2012
 "                            "
@@ -50,7 +50,7 @@ set smartcase
 
 " " (this is for C and Java; users of other languages can change as they see
 " fit)
-set wildignore=*.o,*.class,*.asv,*~,*.swp,*.bak,*.pyc
+set wildignore=*.o,*.class,*.asv,*~,*.swp,*.bak,*.pyc,deploy
 
 
 " make foldmethod marker for better Voom
@@ -73,11 +73,11 @@ let g:session_command_aliases = 1
 
 " set encoding: default is utf-8
 if has("multi_byte")
+    set encoding=utf-8                     " better default than latin1
+    setglobal fileencoding=utf-8           " change default file encoding when writing new files
     if &termencoding == ""
         let &termencoding = &encoding
     endif
-    set encoding=utf-8                     " better default than latin1
-    setglobal fileencoding=utf-8           " change default file encoding when writing new files
 endif
 
 " set keyword lookup for manual pages
@@ -85,8 +85,8 @@ set keywordprg=man
 
 " --- commands and functions ---  {{{1
 " matlab running
-" command! -nargs=0 Mrun echo system("rmat -b " . shellescape(expand("%:p"))) .  "rmat>> " . expand("%:t")
 " command! -nargs=0 Mrecall echo system("rmat -r")
+" command! -nargs=0 Mrun echo system("rmat -b " . shellescape(expand("%:p"))) .  "rmat>> " . expand("%:t")
 " " octave running
 " command! -nargs=0 Oct echo system("roct -r " . shellescape(expand("%:p"))) .  "octave> " . expand("%:t")
 
@@ -140,7 +140,6 @@ function! Ansi()
 endfunction
 command! -nargs=0 Ansi call Ansi()
 
-
 " ex command for toggling hex mode - define mapping if desired
 command! -bar Hexmode call ToggleHex()
 command! -bar Hex :Hexmode
@@ -185,7 +184,7 @@ endfunction
 
 " use 'par' for paragraph formatting
 if os == "Darwin"
-    set formatprg=/opt/local/bin/par
+    set formatprg=/usr/local/bin/par
 endif
 
 " fortran options
@@ -209,32 +208,23 @@ if !exists("g:vimrc_loaded_colorscheme")
 
     " colorscheme
     set background=dark
+
     " colorscheme synic
     " colorscheme symfony
     " colorscheme asmanian_blood
     " colorscheme candy_code
     colorscheme jellybeans
     "colorscheme solarized
+    "colorscheme hemisu
 
     let g:vimrc_loaded_colorscheme = 1
 endif
-
-" disk sync after every write
-"au BufWritePost * silent !sync
-
-" set the tile of the terminal
-set title
-if strlen($TMUX)>0
-    set titlestring=%{system('hostname\ -s')}:\ vim\ >\ %t
-else
-    let &titlestring=system('hostname -s').': vim '
-endif
-
 
 " turn on wildmenu
 set wildmenu
 set wildmode=longest:full " more bash-like (does not autocomplete)
 highlight WildMenu ctermbg=darkred ctermfg=white
+
 
 "turn on filetype plugins
 filetype plugin on
@@ -243,8 +233,8 @@ filetype plugin indent on
 " turn on help for long-lines
 match ErrorMsg '\%>132v.\+'
 
-" this enables "visual" wrapping
-set wrap
+" this disables "visual" wrapping
+set nowrap
 
 " this turns off physical line wrapping (ie: automatic insertion of newlines)
 set textwidth=0 wrapmargin=0
@@ -264,7 +254,7 @@ set shiftround
 "nnoremap <silent> <Space> :silent noh<Bar>echo<CR>
 
 " make trailing-spaces and tabs more visible
-set listchars=tab:>-,trail:.,eol:$
+set listchars=tab:>-,trail:*,eol:$
 
 " reduce "press OK" messg
 set shortmess=atI
@@ -342,20 +332,24 @@ hi EasyMotionShade  ctermfg=237 guibg=#000000 guifg=#3a3a3a gui=none
 
 
 " highlighting for vimdiff stuff
-hi DiffAdd        term=bold ctermfg=white ctermbg=29 
-hi DiffChange     term=bold ctermfg=231 ctermbg=102 
-hi DiffDelete     term=reverse cterm=bold ctermbg=52 
-hi DiffText       term=bold ctermfg=57 ctermbg=195 
+hi DiffAdd        term=bold ctermfg=white ctermbg=29
+hi DiffChange     term=bold ctermfg=231 ctermbg=102
+hi DiffDelete     term=reverse cterm=bold ctermbg=52
+hi DiffText       term=bold ctermfg=57 ctermbg=195
 
 
 " Powerline
-if os == "Darwin"
-    let g:Powerline_symbols = "fancy"
-else
-    let g:Powerline_symbols = "compatible"
-endif
-let g:Powerline_theme = "default"
-let g:Powerline_colorscheme = "default"
+"python from powerline.ext.vim import source_plugin; source_plugin()
+ if os == "Darwin"
+     let g:Powerline_symbols = "fancy"
+ else
+     let g:Powerline_symbols = "compatible"
+ endif
+ let g:Powerline_theme = "default"
+ let g:Powerline_colorscheme = "default"
+
+" change the highlighting of numbers
+hi Number ctermfg=219 guifg=#ffafff
 
 " --- autocommands --- {{{1
 if has("autocmd")
@@ -409,6 +403,7 @@ if has("autocmd")
         "LAMMPS
         au! BufRead,BufNewFile in.*           set filetype=lammps
         au! BufRead,BufNewFile *.lmp          set filetype=lammps
+        au! BufRead,BufNewFile *.lammps       set filetype=lammps
     augroup END
 
     " Use keywords from Octave syntax language file for autocomplete
@@ -437,6 +432,19 @@ if has("autocmd")
         endif
     endfunction
     autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | call OpenGitRoot() | endif
+
+    if exists("$TMUX")
+        " Get the environment variable
+        let tmux_pane_name_cmd = 'tmux display -p \#D'
+        let tmux_pane_name = substitute(system(g:tmux_pane_name_cmd), "\n", "", "")
+        let tmux_env_var = "TMUXPWD_" . substitute(g:tmux_pane_name, "%", "", "")
+        unlet tmux_pane_name tmux_pane_name_cmd
+        function! BroadcastTmuxCwd()
+            let filename = substitute(expand("%:p:h"), $HOME, "~", "")
+            let output = system("tmux setenv ".g:tmux_env_var." ".l:filename)
+        endfunction
+        autocmd BufEnter * call BroadcastTmuxCwd()
+    endif
 
 endif
 
@@ -553,6 +561,7 @@ nmap <leader>so    :OpenSession  <CR>
 
 "NERDTree
 nnoremap <leader>nt :NERDTreeToggle<CR>
+let NERDTreeIgnore=['\.pyc$', '\~$', '\.o$']
 let NERDTreeMinimalUI=1
 if os == "Darwin"
     let NERDTreeDirArrows=1
@@ -564,13 +573,15 @@ endif
 nnoremap <leader><leader> :Voom<CR>
 nnoremap <leader><leader>n :Voomunl<CR>
 nnoremap <C-c> :call Voom_DeleteOutline('bd')<CR>
-nnoremap <C-x> :call Voom_DeleteOutline('x')<CR>
+"nnoremap <C-x> :call Voom_DeleteOutline('x')<CR>
 
 " tabularize stuff
 nmap <Leader>a= :Tabularize /=<CR>
 vmap <Leader>a= :Tabularize /=<CR>
 nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>a: :Tabularize /:\zs<CR>
+nmap <Leader>a3 vip:Tabularize /\#<CR>
+vmap <Leader>a3 :Tabularize /\#<CR>
 
 
 " Visually select the text that was last edited/pasted
@@ -618,8 +629,8 @@ endif
 
 " This is w3m settings
 " highlighting:
-highlight! w3mLink      ctermfg=green ctermbg=none guifg=#66CC33 
-highlight! w3mLinkHover ctermfg=17 ctermbg=108 
+highlight! w3mLink      ctermfg=green ctermbg=none guifg=#66CC33
+highlight! w3mLinkHover ctermfg=17 ctermbg=108
 " highlight! w3mLinkHover ctermfg=215 ctermbg=6
 highlight! w3mSubmit    ctermfg=208 cterm=bold ctermbg=none
 highlight! w3mInput     term=underline cterm=underline ctermfg=yellow ctermbg=238
@@ -671,7 +682,7 @@ let VimuxUseNearestPane = 1
 
 " ctags are great, open up taglist window:
 if os == "Darwin"
-    let Tlist_Ctags_Cmd="/opt/local/bin/ctags"
+    let Tlist_Ctags_Cmd="/usr/local/bin/ctags"
 endif
 nnoremap _t :TlistOpen<CR>
 
@@ -746,4 +757,8 @@ if os == "Darwin"
     let $LOGS_DIR = "~/Dropbox/serverLogs"
 endif
 
+" Change number highlight
 hi Number ctermfg=219 guifg=#ffafff
+
+" force markdown filetype
+nnoremap mmd :set ft=markdown<CR>

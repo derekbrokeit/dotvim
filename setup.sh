@@ -16,7 +16,7 @@ if [[ ! -h $HOME/.gvimrc ]] ; then
 fi
 if [[ ! -h $HOME/.NERDTreeBookmarks ]] ; then
   rm $HOME/.gvimrc &> /dev/null
-  ln -s $PWD/NERDTreeBookmarks $HOME/.NERDTreeBookmarks
+  ln -s $PWD/NERDTreeBookmarks.$(uname) $HOME/.NERDTreeBookmarks
 fi
 
 # make sure that vim-tmp directory exists ... if not, make it
