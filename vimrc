@@ -85,8 +85,8 @@ set keywordprg=man
 
 " --- commands and functions ---  {{{1
 " matlab running
-" command! -nargs=0 Mrun echo system("rmat -b " . shellescape(expand("%:p"))) .  "rmat>> " . expand("%:t")
 " command! -nargs=0 Mrecall echo system("rmat -r")
+" command! -nargs=0 Mrun echo system("rmat -b " . shellescape(expand("%:p"))) .  "rmat>> " . expand("%:t")
 " " octave running
 " command! -nargs=0 Oct echo system("roct -r " . shellescape(expand("%:p"))) .  "octave> " . expand("%:t")
 
@@ -254,7 +254,7 @@ set shiftround
 "nnoremap <silent> <Space> :silent noh<Bar>echo<CR>
 
 " make trailing-spaces and tabs more visible
-set listchars=tab:>-,trail:𐄁,eol:$
+set listchars=tab:>-,trail:*,eol:$
 
 " reduce "press OK" messg
 set shortmess=atI
@@ -756,6 +756,9 @@ if os == "Darwin"
     let $PATH = "/opt/local/bin:".$HOME."/bin:".$PATH
     let $LOGS_DIR = "~/Dropbox/serverLogs"
 endif
+
+" Change number highlight
+hi Number ctermfg=219 guifg=#ffafff
 
 " force markdown filetype
 nnoremap mmd :set ft=markdown<CR>
