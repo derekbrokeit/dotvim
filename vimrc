@@ -1,5 +1,5 @@
-"""""""""""""""""""""""""""""
 "                            "
+"""""""""""""""""""""""""""""
 " vim startup file ~/.vimrc "
 " Derek Thomas 2012
 "                            "
@@ -254,7 +254,7 @@ set shiftround
 "nnoremap <silent> <Space> :silent noh<Bar>echo<CR>
 
 " make trailing-spaces and tabs more visible
-set listchars=tab:>-,trail:.,eol:$
+set listchars=tab:>-,trail:𐄁,eol:$
 
 " reduce "press OK" messg
 set shortmess=atI
@@ -332,20 +332,21 @@ hi EasyMotionShade  ctermfg=237 guibg=#000000 guifg=#3a3a3a gui=none
 
 
 " highlighting for vimdiff stuff
-hi DiffAdd        term=bold ctermfg=white ctermbg=29 
-hi DiffChange     term=bold ctermfg=231 ctermbg=102 
-hi DiffDelete     term=reverse cterm=bold ctermbg=52 
-hi DiffText       term=bold ctermfg=57 ctermbg=195 
+hi DiffAdd        term=bold ctermfg=white ctermbg=29
+hi DiffChange     term=bold ctermfg=231 ctermbg=102
+hi DiffDelete     term=reverse cterm=bold ctermbg=52
+hi DiffText       term=bold ctermfg=57 ctermbg=195
 
 
 " Powerline
-if os == "Darwin"
-    let g:Powerline_symbols = "fancy"
-else
-    let g:Powerline_symbols = "compatible"
-endif
-let g:Powerline_theme = "default"
-let g:Powerline_colorscheme = "default"
+"python from powerline.ext.vim import source_plugin; source_plugin()
+ if os == "Darwin"
+     let g:Powerline_symbols = "fancy"
+ else
+     let g:Powerline_symbols = "compatible"
+ endif
+ let g:Powerline_theme = "default"
+ let g:Powerline_colorscheme = "default"
 
 " change the highlighting of numbers
 hi Number ctermfg=219 guifg=#ffafff
@@ -431,6 +432,19 @@ if has("autocmd")
         endif
     endfunction
     autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | call OpenGitRoot() | endif
+
+    if exists("$TMUX")
+        " Get the environment variable
+        let tmux_pane_name_cmd = 'tmux display -p \#D'
+        let tmux_pane_name = substitute(system(g:tmux_pane_name_cmd), "\n", "", "")
+        let tmux_env_var = "TMUXPWD_" . substitute(g:tmux_pane_name, "%", "", "")
+        unlet tmux_pane_name tmux_pane_name_cmd
+        function! BroadcastTmuxCwd()
+            let filename = substitute(expand("%:p:h"), $HOME, "~", "")
+            let output = system("tmux setenv ".g:tmux_env_var." ".l:filename)
+        endfunction
+        autocmd BufEnter * call BroadcastTmuxCwd()
+    endif
 
 endif
 
@@ -615,8 +629,8 @@ endif
 
 " This is w3m settings
 " highlighting:
-highlight! w3mLink      ctermfg=green ctermbg=none guifg=#66CC33 
-highlight! w3mLinkHover ctermfg=17 ctermbg=108 
+highlight! w3mLink      ctermfg=green ctermbg=none guifg=#66CC33
+highlight! w3mLinkHover ctermfg=17 ctermbg=108
 " highlight! w3mLinkHover ctermfg=215 ctermbg=6
 highlight! w3mSubmit    ctermfg=208 cterm=bold ctermbg=none
 highlight! w3mInput     term=underline cterm=underline ctermfg=yellow ctermbg=238
