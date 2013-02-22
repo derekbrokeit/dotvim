@@ -682,7 +682,8 @@ let VimuxUseNearestPane = 1
 
 " ctags are great, open up taglist window:
 if os == "Darwin"
-    let Tlist_Ctags_Cmd="/usr/local/bin/ctags"
+    let homebrew_prefix = substitute(system("brew --prefix"),"\n","","")
+    let Tlist_Ctags_Cmd=homebrew_prefix . "/bin/ctags"
 endif
 nnoremap _t :TlistOpen<CR>
 
