@@ -100,3 +100,6 @@
 [submodule "bundle/hemisu"]
 	path = bundle/hemisu
 	url = git://github.com/noahfrederick/Hemisu.git
+[submodule "bundle/nerdtree-tabs"]
+	path = bundle/nerdtree-tabs
+	url = https://github.com/jistr/vim-nerdtree-tabs.git

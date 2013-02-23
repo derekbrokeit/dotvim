@@ -360,10 +360,6 @@ if has("autocmd")
     " give shell a proper commentstring
     autocmd FileType sh setlocal commentstring=#%s
 
-    " open up NERDTree if vim opens with no buffer
-    autocmd vimenter * if !argc() | NERDTree | endif
-    "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
     " open pdf files?
     autocmd BufReadPre *.pdf set ro nowrap
     "autocmd BufReadPost *.pdf silent %!pdftotext "%" -nopgbrk -layout -q -eol unix -
@@ -568,11 +564,14 @@ if os == "Darwin"
 else
     let NERDTreeDirArrows=0
 endif
+"" tab setup customization
+let g:nerdtree_tabs_open_on_console_startup = 1
+
 
 " Voom: setup voom keys
 nnoremap <leader><leader> :Voom<CR>
 nnoremap <leader><leader>n :Voomunl<CR>
-nnoremap <C-c> :call Voom_DeleteOutline('bd')<CR>
+nnoremap <C-c> :bd<CR>
 "nnoremap <C-x> :call Voom_DeleteOutline('x')<CR>
 
 " tabularize stuff
