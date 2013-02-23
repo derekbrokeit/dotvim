@@ -564,7 +564,7 @@ if os == "Darwin"
 else
     let NERDTreeDirArrows=0
 endif
-"" tab setup customization
+" tab setup customization
 let g:nerdtree_tabs_open_on_console_startup = 1
 
 
@@ -753,7 +753,7 @@ nnoremap <C-W>. :call MoveToNextTab()<CR>
 nnoremap <C-W>, :call MoveToPrevTab()<CR>
 
 if os == "Darwin"
-    let $PATH = "/opt/local/bin:".$HOME."/bin:".$PATH
+    let $PATH = "/opt/homebrew/bin:/opt/homebrew/share/python:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/texbin"
     let $LOGS_DIR = "~/Dropbox/serverLogs"
 endif
 
