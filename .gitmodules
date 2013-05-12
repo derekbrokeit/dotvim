@@ -103,3 +103,6 @@
 [submodule "bundle/nerdtree-tabs"]
 	path = bundle/nerdtree-tabs
 	url = https://github.com/jistr/vim-nerdtree-tabs.git
+[submodule "bundle/gundo"]
+	path = bundle/gundo
+	url = git://github.com/sjl/gundo.vim.git

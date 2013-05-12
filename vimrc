@@ -8,7 +8,7 @@
 " setup the runtime plugin bundles
 " this initiates pahtogen ... MUST be before filetype detection activated
 source ~/.vim/bundle/pathogen/autoload/pathogen.vim
-call pathogen#runtime_append_all_bundles()
+call pathogen#incubate()
 call pathogen#helptags()
 
 " fix for ¥ vs \ in command format
@@ -184,7 +184,7 @@ endfunction
 
 " use 'par' for paragraph formatting
 if os == "Darwin"
-    set formatprg=/usr/local/bin/par
+    set formatprg="/opt/homebrew/bin/par"
 endif
 
 " fortran options
@@ -267,7 +267,7 @@ set number
 highlight LineNr ctermbg=236 ctermfg=245 guibg=#303030 guifg=#8a8a8a
 
 " highlight cursor line
-highlight CursorLine ctermbg=darkred guibg=#5F1F1F
+highlight CursorLine ctermbg=52 guibg=#5F1F1F
 highlight CursorLineNr  ctermfg=yellow ctermbg=239 guifg=#FFFF66 guibg=#4e4e4e
 set cursorline "cursorline required to continuously update cursor position
 
@@ -680,10 +680,6 @@ let VimuxOrientation = "v"
 let VimuxUseNearestPane = 1
 
 " ctags are great, open up taglist window:
-if os == "Darwin"
-    let homebrew_prefix = substitute(system("brew --prefix"),"\n","","")
-    let Tlist_Ctags_Cmd=homebrew_prefix . "/bin/ctags"
-endif
 nnoremap _t :TlistOpen<CR>
 
 " vim-pad settings
@@ -762,3 +758,11 @@ hi Number ctermfg=219 guifg=#ffafff
 
 " force markdown filetype
 nnoremap mmd :set ft=markdown<CR>
+
+" have to put at end because of PATH
+if os == "Darwin"
+    let homebrew_prefix = substitute(system("brew --prefix"),"\n","","")
+    let Tlist_Ctags_Cmd=homebrew_prefix . "/bin/ctags"
+endif
+
+map <leader>g :GundoToggle<CR>

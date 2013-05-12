@@ -35,3 +35,7 @@ imap <silent> <C-s> <esc>:w<CR>:python run_this_line()<CR>
 " nmap <silent> <M-s> :python dedent_run_this_line()<CR>
 " vmap <silent> <C-S> :python run_these_lines()<CR>
 " vmap <silent> <M-s> :python dedent_run_these_lines()<CR>
+
+" special folding practices
+set foldmethod=indent
+set foldlevel=99

@@ -1,14 +1,14 @@
 " make fullscreen
 if os == "Darwin"
     set fu
-    set guifont=Anonymous\ Pro\ for\ Powerline:h11
+    set guifont=Menlo\ for\ Powerline:h10
+    set guifont=Menlo:h10
     set antialias
 
     map <D-N> <esc>:call MoveToNextTab()<CR>
     map <D-P> <esc>:call MoveToPrevTab()<CR>
 
-    let $PATH="/usr/local/heroku/bin:/Users/derekt/bin:/Users/derekt/local/bin:/Users/derekt/local/.gems/bin:/opt/gpg2/bin:/opt/local/bin:/opt/local/libexec/gnubin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/local/bin:/usr/sbin"
-    let $PYTHONPATH="/Users/derekt/local/lib/python2.7/site-packages:/Users/derekt/bin/modules"
+    let PATH="/opt/homebrew/bin:/opt/homebrew/share/python:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/texbin"
 
     " better fonts
     " antialiasing appears to be necessary for some bold/italic effects to always
@@ -47,6 +47,10 @@ if os == "Darwin"
     " expanding and equalizing buffers
     map <D-_> <esc><C-W>_<C-W><Bar>
     map <D-/> <esc><C-W>=
+
+    " swiping
+    nmap <SwipeLeft> gT
+    nmap <SwipeRight> gt
 
 else
     set guifont=Anonymous\ Pro\ 11
