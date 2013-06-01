@@ -766,3 +766,14 @@ if os == "Darwin"
 endif
 
 map <leader>g :GundoToggle<CR>
+
+" Check whether the current working directory contains a ".vimsessions"
+" directory. It it does, we'll configure the vim-session plug-in to load
+" its sessions from the ".vimsessions" directory.
+" From: https://github.com/xolox/vim-session/issues/49
+let s:local_session_directory = xolox#misc#path#merge(getcwd(),
+'.vimsessions')
+if isdirectory(s:local_session_directory)
+    let g:session_directory = s:local_session_directory
+endif
+unlet s:local_session_directory
