@@ -71,11 +71,21 @@ set smartcase
 " fit)
 set wildignore=*.o,*.class,*.asv,*~,*.swp,*.bak,*.pyc,deploy
 
-
 " make foldmethod marker for better Voom
 " initially folds are open, but voom will auto-enable folding
 set fdm=marker
 set nofoldenable
+" set encoding: default is utf-8
+if has("multi_byte")
+    set encoding=utf-8                     " better default than latin1
+    setglobal fileencoding=utf-8           " change default file encoding when writing new files
+    if &termencoding == ""
+        let &termencoding = &encoding
+    endif
+endif
+
+" set keyword lookup for manual pages
+set keywordprg=man
 
 " sessions {{{1
 " set Session variables
@@ -108,30 +118,10 @@ command! SS  wall | SaveSession
 command! SSC wall | SaveSession | CloseSession
 command! SO  OpenSession
 
-" set encoding: default is utf-8
-if has("multi_byte")
-    set encoding=utf-8                     " better default than latin1
-    setglobal fileencoding=utf-8           " change default file encoding when writing new files
-    if &termencoding == ""
-        let &termencoding = &encoding
-    endif
-endif
-
-" set keyword lookup for manual pages
-set keywordprg=man
 
 " --- commands and functions ---  {{{1
-" matlab running
-" command! -nargs=0 Mrecall echo system("rmat -r")
-" command! -nargs=0 Mrun echo system("rmat -b " . shellescape(expand("%:p"))) .  "rmat>> " . expand("%:t")
-" " octave running
-" command! -nargs=0 Oct echo system("roct -r " . shellescape(expand("%:p"))) .  "octave> " . expand("%:t")
-
-" update-system
-" command! -nargs=0 SysUpdate echo system("source $HOME/.bash_profile > /dev/null ; sysupdate ")
-
 " make sure voomclose kills the outline
-com! Voomclose call Voom_DeleteOutline('')
+command! VC call Voom_DeleteOutline('')
 
 " the following command copies the file path to clipboard
 "nnoremap <leader>yp :YP <CR>
@@ -422,10 +412,8 @@ if has("autocmd")
     autocmd BufReadPost *.xls,*.xlsx silent! %!xlsx2csv.sh -q -x "%" -c -
     autocmd BufReadPost *.xls,*.xlsx redraw
 
-    " Octave syntax
     augroup filetypedetect
         au! BufRead,BufNewFile *.m,*.oct,*octaverc set filetype=matlab
-        "au! BufRead,BufNewFile *.m,*.oct set filetype=octave
 
         au! BufRead,BufNewFile *.md set filetype=markdown
 
@@ -438,14 +426,6 @@ if has("autocmd")
         au! BufRead,BufNewFile *.lmp          set filetype=lammps
         au! BufRead,BufNewFile *.lammps       set filetype=lammps
     augroup END
-
-    " Use keywords from Octave syntax language file for autocomplete
-    if exists("+omnifunc")
-        autocmd Filetype octave
-                    \  if &omnifunc == "" |
-                    \   setlocal omnifunc=syntaxcomplete#Complete |
-                    \  endif
-    endif
 
     " Source the vimrc file after saving it
     autocmd! bufwritepost vimrc source $MYVIMRC
@@ -544,6 +524,7 @@ vmap \\  <leader>c<space>
 " fast moving between tabs
 nnoremap <C-L> :tabn <CR>
 nnoremap <C-H> :tabp <CR>
+nnoremap <C-t> :tabnew <CR>
 
 " enlarge the current buffer AND reset the view to all equal
 nnoremap <C-_> <C-W>_<C-W><Bar>
@@ -586,14 +567,13 @@ else
     let NERDTreeDirArrows=0
 endif
 " tab setup customization
-let g:nerdtree_tabs_open_on_console_startup = 1
-
+let g:nerdtree_tabs_open_on_console_startup = 0
+let g:nerdtree_tabs_open_on_gui_startup = 0
 
 " Voom: setup voom keys
 nnoremap <leader><leader> :Voom<CR>
 nnoremap <leader><leader>n :Voomunl<CR>
 nnoremap <C-c> :bd<CR>
-"nnoremap <C-x> :call Voom_DeleteOutline('x')<CR>
 
 " tabularize stuff
 nmap <Leader>a= :Tabularize /=<CR>
@@ -701,7 +681,8 @@ let VimuxOrientation = "v"
 let VimuxUseNearestPane = 1
 
 " ctags are great, open up taglist window:
-nnoremap _t :TlistOpen<CR>
+"nnoremap _t :TlistOpen<CR>
+nnoremap _t :TagbarToggle<CR>
 
 " vim-pad settings
 if os == "Darwin"
@@ -781,20 +762,9 @@ hi Number ctermfg=219 guifg=#ffafff
 nnoremap mmd :set ft=markdown<CR>
 
 " have to put at end because of PATH
-if os == "Darwin"
-    let homebrew_prefix = substitute(system("brew --prefix"),"\n","","")
-    let Tlist_Ctags_Cmd=homebrew_prefix . "/bin/ctags"
-endif
+let homebrew_prefix = substitute(system("brew --prefix"),"\n","","")
+let Tlist_Ctags_Cmd=homebrew_prefix . "/bin/ctags"
+let g:tagbar_ctags_bin = homebrew_prefix . "/bin/ctags"
 
 map <leader>g :GundoToggle<CR>
 
-" Check whether the current working directory contains a ".vimsessions"
-" directory. It it does, we'll configure the vim-session plug-in to load
-" its sessions from the ".vimsessions" directory.
-" From: https://github.com/xolox/vim-session/issues/49
-let s:local_session_directory = xolox#misc#path#merge(getcwd(),
-'.vimsessions')
-if isdirectory(s:local_session_directory)
-    let g:session_directory = s:local_session_directory
-endif
-unlet s:local_session_directory
