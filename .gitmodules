@@ -109,3 +109,6 @@
 [submodule "bundle/tlib_for_snipmate"]
 	path = bundle/tlib_for_snipmate
 	url = git://github.com/tomtom/tlib_vim.git
+[submodule "bundle/commentary"]
+	path = bundle/commentary
+	url = git://github.com/tpope/vim-commentary.git
