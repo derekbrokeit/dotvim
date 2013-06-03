@@ -77,18 +77,36 @@ set wildignore=*.o,*.class,*.asv,*~,*.swp,*.bak,*.pyc,deploy
 set fdm=marker
 set nofoldenable
 
+" sessions {{{1
 " set Session variables
-" this is the save directory
-if os == "Darwin"
-    let g:session_directory="~/Dropbox/serverLogs/vim-sessions_".hostname()
-else
-    let g:session_directory="~/logs/vim-sessions_".hostname()
+let g:session_command_aliases = 'yes'
+let g:session_autosave = 'yes'
+let g:session_autosave_periodic = 5
+let g:session_autoload = 'yes'
+if !exists("g:session_directory_chosen")
+    let g:session_directory_chosen = 1
+    " this is the save directory
+    if os == "Darwin"
+        let g:session_directory="~/Dropbox/serverLogs/vim-sessions_" . hostname()
+    else
+        let g:session_directory="~/logs/vim-sessions_".hostname()
+    endif
+    " attempt to find local directory vim-sessions, which would likelly
+    " be at the git top level
+    " inspired by: https://github.com/xolox/vim-session/issues/49
+    let s:local_session_directory = GitRoot() . '/.vimsessions'
+    if isdirectory(s:local_session_directory)
+        let g:session_directory = s:local_session_directory
+    endif
+    unlet s:local_session_directory
 endif
-"let g:session_autoload = 'yes'
-" "autosave
-let g:session_autosave="yes"
-let g:session_command_aliases = 1
-"set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize
+" map for sessions
+nmap <leader>ss    :wall <CR> :SaveSession  <CR>
+nmap <leader>sc    :CloseSession <CR>
+nmap <leader>so    :OpenSession  <CR>
+command! SS  wall | SaveSession
+command! SSC wall | SaveSession | CloseSession
+command! SO  OpenSession
 
 " set encoding: default is utf-8
 if has("multi_byte")
@@ -557,10 +575,6 @@ nmap <silent> <leader><space> :set nolist!<CR>
 " underline the current line
 nmap <leader>u yypVr-
 
-" play with the sessions
-nmap <leader>ss    :wall <CR> :SaveSession  <CR>
-nmap <leader>sc    :CloseSession <CR>
-nmap <leader>so    :OpenSession  <CR>
 
 "NERDTree
 nnoremap <leader>nt :NERDTreeToggle<CR>
