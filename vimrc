@@ -11,6 +11,25 @@ source ~/.vim/bundle/pathogen/autoload/pathogen.vim
 call pathogen#incubate()
 call pathogen#helptags()
 
+" automatically change directory to file-local-directory
+autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
+function! GitRoot()
+    " returns the toplevel of the current git repository
+    " if not in a git repository, it returns the cwd
+    let shellcmd = 'git rev-parse --show-toplevel'
+    let output = substitute(system(shellcmd), "\n", "", "")
+    if v:shell_error
+        let output = getcwd()
+    endif
+    return output
+endfunction
+function! GoToGitRoot()
+    " takes the output of GitRoot() and moves there locally
+    let gr = GitRoot()
+    silent! lcd `=gr`
+endfunction
+command! -nargs=0 GR call GoToGitRoot()
+
 " fix for ¥ vs \ in command format
 " this makes it impossible to search for ¥, though
 cmap ¥ \
@@ -416,18 +435,6 @@ if has("autocmd")
 
     " strip trailing whitespace off of select filetypes when writing to file
     autocmd BufWritePre *.m,*.sh,*.py,*.js,*.txt,*.f90,*.f :call Preserve("%s/\\s\\+$//e")
-
-    " automatically change directory to file-local-directory
-    " autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
-    function! OpenGitRoot()
-        silent! lcd %:p:h
-        let shellcmd = 'git rev-parse --show-toplevel'
-        let output=system(shellcmd)
-        if !v:shell_error
-            silent! lcd `=output`
-        endif
-    endfunction
-    autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | call OpenGitRoot() | endif
 
     if exists("$TMUX")
         " Get the environment variable
