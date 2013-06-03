@@ -55,12 +55,6 @@
 [submodule "bundle/html5"]
 	path = bundle/html5
 	url = git://github.com/othree/html5-syntax.vim.git
-[submodule "bundle/taglist"]
-	path = bundle/taglist
-	url = git://github.com/vim-scripts/taglist.vim.git
-[submodule "bundle/autotag"]
-	path = bundle/autotag
-	url = git://github.com/vim-scripts/AutoTag.git
 [submodule "bundle/conque-shell"]
 	path = bundle/conque-shell
 	url = git://github.com/sgerrand/Conque-Shell.git
@@ -88,18 +82,12 @@
 [submodule "bundle/ag"]
 	path = bundle/ag
 	url = git://github.com/epmatsw/ag.vim.git
-[submodule "bundle/vim-less"]
-	path = bundle/vim-less
-	url = https://github.com/groenewege/vim-less.git
 [submodule "bundle/rst-tables"]
 	path = bundle/rst-tables
 	url = git://github.com/vim-scripts/RST-Tables.git
 [submodule "bundle/vim-cute-py"]
 	path = bundle/vim-cute-py
 	url = git://github.com/ehamberg/vim-cute-python.git
-[submodule "bundle/hemisu"]
-	path = bundle/hemisu
-	url = git://github.com/noahfrederick/Hemisu.git
 [submodule "bundle/nerdtree-tabs"]
 	path = bundle/nerdtree-tabs
 	url = https://github.com/jistr/vim-nerdtree-tabs.git
