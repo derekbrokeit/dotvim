@@ -2,19 +2,16 @@
 if os == "Darwin"
     set fu
     set guifont=Menlo\ for\ Powerline:h10
-    set guifont=Menlo:h10
+    "set guifont=Menlo:h10
+    " antialiasing appears to be necessary for some bold/italic effects to always
+    " work. otherwise, they work sometimes at some sizes and then begin to fail in
+    " macvim for unkown reasons
     set antialias
 
     map <D-N> <esc>:call MoveToNextTab()<CR>
     map <D-P> <esc>:call MoveToPrevTab()<CR>
 
     let PATH="/opt/homebrew/bin:/opt/homebrew/share/python:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/texbin"
-
-    " better fonts
-    " antialiasing appears to be necessary for some bold/italic effects to always
-    " work. otherwise, they work sometimes at some sizes and then begin to fail in
-    " macvim for unkown reasons
-    " set noantialias
 
     " better motion
     map <D-k> <esc><C-W>k
