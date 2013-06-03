@@ -4,44 +4,24 @@
 " Derek Thomas 2012
 "                            "
 """"""""""""""""""""""""""""""
-" --- pathogen call --- {{{1
 " setup the runtime plugin bundles
 " this initiates pahtogen ... MUST be before filetype detection activated
+" --- pathogen call --- {{{1
 source ~/.vim/bundle/pathogen/autoload/pathogen.vim
 call pathogen#incubate()
 call pathogen#helptags()
 
-" automatically change directory to file-local-directory
-autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
-function! GitRoot()
-    " returns the toplevel of the current git repository
-    " if not in a git repository, it returns the cwd
-    let shellcmd = 'git rev-parse --show-toplevel'
-    let output = substitute(system(shellcmd), "\n", "", "")
-    if v:shell_error
-        let output = getcwd()
-    endif
-    return output
-endfunction
-function! GoToGitRoot()
-    " takes the output of GitRoot() and moves there locally
-    let gr = GitRoot()
-    silent! lcd `=gr`
-endfunction
-command! -nargs=0 GR call GoToGitRoot()
-
-" fix for ¥ vs \ in command format
-" this makes it impossible to search for ¥, though
-cmap ¥ \
-
 " --- general system setup --- {{{1
-" TDOD organize by function and cleanup
 
 " this means vim doesn't try to act like the old 'vi'
 set nocompatible
 
 " keep os name as 'os'
 let os = substitute(system('uname'), "\n", "", "")
+
+" turn on filetype plugins
+filetype plugin on
+filetype plugin indent on
 
 " save all backups and swap files to the same local directory
 " set backup
@@ -66,15 +46,10 @@ runtime macros/matchit.vim
 set ignorecase
 set smartcase
 
-
 " " (this is for C and Java; users of other languages can change as they see
 " fit)
 set wildignore=*.o,*.class,*.asv,*~,*.swp,*.bak,*.pyc,deploy
 
-" make foldmethod marker for better Voom
-" initially folds are open, but voom will auto-enable folding
-set fdm=marker
-set nofoldenable
 " set encoding: default is utf-8
 if has("multi_byte")
     set encoding=utf-8                     " better default than latin1
@@ -87,42 +62,12 @@ endif
 " set keyword lookup for manual pages
 set keywordprg=man
 
-" sessions {{{1
-" set Session variables
-let g:session_command_aliases = 'yes'
-let g:session_autosave = 'yes'
-let g:session_autosave_periodic = 5
-let g:session_autoload = 'yes'
-if !exists("g:session_directory_chosen")
-    let g:session_directory_chosen = 1
-    " this is the save directory
-    if os == "Darwin"
-        let g:session_directory="~/Dropbox/serverLogs/vim-sessions_" . hostname()
-    else
-        let g:session_directory="~/logs/vim-sessions_".hostname()
-    endif
-    " attempt to find local directory vim-sessions, which would likelly
-    " be at the git top level
-    " inspired by: https://github.com/xolox/vim-session/issues/49
-    let s:local_session_directory = GitRoot() . '/.vimsessions'
-    if isdirectory(s:local_session_directory)
-        let g:session_directory = s:local_session_directory
-    endif
-    unlet s:local_session_directory
-endif
-" map for sessions
-nmap <leader>ss    :wall <CR> :SaveSession  <CR>
-nmap <leader>sc    :CloseSession <CR>
-nmap <leader>so    :OpenSession  <CR>
-command! SS  wall | SaveSession
-command! SSC wall | SaveSession | CloseSession
-command! SO  OpenSession
+" greater context when scrolling
+set scrolloff=3
 
+" --- commands and functions ---  {{{1o
 
-" --- commands and functions ---  {{{1
-" make sure voomclose kills the outline
-command! VC call Voom_DeleteOutline('')
-
+" YP: copy filepath to clipboard {{{2
 " the following command copies the file path to clipboard
 "nnoremap <leader>yp :YP <CR>
 function! YP()
@@ -130,7 +75,7 @@ function! YP()
 endfunction
 command! -nargs=0 YP call YP()
 
-" character count
+" WC: character count {{{2
 "nnoremap <leader>wc :WC <CR>
 function! WC()
     let linecount=system("echo -n $(cat " . shellescape(expand("%:p")) . " | wc -l)")
@@ -140,7 +85,7 @@ function! WC()
 endfunction
 command! -nargs=0 WC call WC()
 
-
+" Preserve(): preserve cursor position while performing command {{{2
 function! Preserve(command)
     " Preparation: save last search, and cursor position.
     let _s=@/
@@ -153,6 +98,7 @@ function! Preserve(command)
     call cursor(l, c)
 endfunction
 
+" Ansi: display ansi syntax highlighting
 function! Ansi()
     set cole=3
 
@@ -167,10 +113,7 @@ function! Ansi()
 endfunction
 command! -nargs=0 Ansi call Ansi()
 
-" ex command for toggling hex mode - define mapping if desired
-command! -bar Hexmode call ToggleHex()
-command! -bar Hex :Hexmode
-
+" Hexmode: toogle hexmode {{{2
 " helper function to toggle hex mode
 function! ToggleHex()
     " hex mode should be considered a read-only operation
@@ -208,22 +151,31 @@ function! ToggleHex()
     let &readonly=l:oldreadonly
     let &modifiable=l:oldmodifiable
 endfunction
+" ex command for toggling hex mode - define mapping if desired
+command! -bar Hexmode call ToggleHex()
+command! -bar Hex :Hexmode
 
-" use 'par' for paragraph formatting
-if os == "Darwin"
-    set formatprg="/opt/homebrew/bin/par"
-endif
-
-" fortran options
-let fortran_more_precise=1
-let fortran_free_source=1
-let fortran_do_enddo=1
-
-com! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-	 	\ | wincmd p | diffthis
+" GitRoot() {{{2
+" automatically change directory to file-local-directory
+function! GitRoot()
+    " returns the toplevel of the current git repository
+    " if not in a git repository, it returns the cwd
+    let shellcmd = 'git rev-parse --show-toplevel'
+    let output = substitute(system(shellcmd), "\n", "", "")
+    if v:shell_error
+        let output = getcwd()
+    endif
+    return output
+endfunction
+function! GoToGitRoot()
+    " takes the output of GitRoot() and moves there locally
+    let gr = GitRoot()
+    silent! lcd `=gr`
+endfunction
+command! -nargs=0 GR call GoToGitRoot()
 
 " --- look and feel --- {{{1
-
+" colorscheme {{{"
 if !exists("g:vimrc_loaded_colorscheme")
     " make sure we are in 256 color mode
     if !exists("t_Co")
@@ -247,27 +199,19 @@ if !exists("g:vimrc_loaded_colorscheme")
     let g:vimrc_loaded_colorscheme = 1
 endif
 
+" general settings {{{2
 " turn on wildmenu
 set wildmenu
 set wildmode=longest:full " more bash-like (does not autocomplete)
 highlight WildMenu ctermbg=darkred ctermfg=white
 
 
-"turn on filetype plugins
-filetype plugin on
-filetype plugin indent on
-
-" turn on help for long-lines
-match ErrorMsg '\%>132v.\+'
-
 " this disables "visual" wrapping
 set nowrap
-
 " this turns off physical line wrapping (ie: automatic insertion of newlines)
 set textwidth=0 wrapmargin=0
 
 " turn off the audio-bell
-"set visualbell
 set errorbells
 set novisualbell
 
@@ -277,9 +221,6 @@ set shiftwidth=4
 set expandtab
 set shiftround
 
-" Press space to clear search highlighting and any message already displayed.
-"nnoremap <silent> <Space> :silent noh<Bar>echo<CR>
-
 " make trailing-spaces and tabs more visible
 set listchars=tab:>-,trail:*,eol:$
 
@@ -288,6 +229,25 @@ set shortmess=atI
 
 " allow the backspace button to work at all times
 set backspace=indent,eol,start
+
+" turn on mouse-support
+if has("mouse")
+    set mouse=a
+endif
+
+" first, enable status line always
+set laststatus=2
+
+" indentation instructions
+"set cindent
+"set cinkeys-=0#
+set autoindent
+
+
+" --- highlighting and layout {{{2
+
+" turn on help for long-lines
+match ErrorMsg '\%>80v.\+'
 
 " turn on the line numbers
 set number
@@ -301,31 +261,6 @@ set cursorline "cursorline required to continuously update cursor position
 " highlight the cursor
 hi Cursor  guifg=black guibg=lightblue gui=none
 highlight iCursor guifg=white guibg=steelblue
-" set guicursor=n-v-c:block-Cursor
-" set guicursor+=i:ver100-iCursor
-" set guicursor+=n-v-c:blinkon0
-" set guicursor+=i:blinkwait10
-
-" turn on mouse-support
-if has("mouse")
-    set mouse=a
-endif
-"map <ScrollWheelUp> <C-Y>
-"map <S-ScrollWheelUp> <C-U>
-"map <ScrollWheelDown> <C-E>
-"map <S-ScrollWheelDown> <C-D>
-
-" first, enable status line always
-set laststatus=2
-
-" Voom options
-let g:voom_verify_oop = 1
-let g:voom_user_command = "runtime!  voom_addons/custom_headlines.vim"
-
-" indentation instructions
-"set cindent
-"set cinkeys-=0#
-set autoindent
 
 " tab bar changes
 set showtabline=1
@@ -333,11 +268,6 @@ hi TabLineFill ctermfg=LightGreen ctermbg=23 guifg=#66CC33 guibg=#005f5f gui=non
 hi TabLine ctermfg=blue ctermbg=23 guifg=lightblue guibg=#005f5f gui=none
 hi TabLineSel ctermfg=lightmagenta ctermbg=23 guifg=lightmagenta guibg=#005f5f gui=bold
 hi Title ctermfg=lightgreen guifg=lightgreen
-
-" this is for most-recently-used buffer (MRU)
-"let MRU_Max_Entries = 150
-let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'
-
 
 " visual mode coloring
 hi VisualNOS cterm=none ctermfg=black ctermbg=250 gui=none
@@ -364,22 +294,15 @@ hi DiffChange     term=bold ctermfg=231 ctermbg=102
 hi DiffDelete     term=reverse cterm=bold ctermbg=52
 hi DiffText       term=bold ctermfg=57 ctermbg=195
 
-
-" Powerline
-"python from powerline.ext.vim import source_plugin; source_plugin()
- if os == "Darwin"
-     let g:Powerline_symbols = "fancy"
- else
-     let g:Powerline_symbols = "compatible"
- endif
- let g:Powerline_theme = "default"
- let g:Powerline_colorscheme = "default"
-
 " change the highlighting of numbers
 hi Number ctermfg=219 guifg=#ffafff
 
+"python from powerline.ext.vim import source_plugin; source_plugin()
 " --- autocommands --- {{{1
 if has("autocmd")
+
+    " always move buffer to local file directory upon entering
+    autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
 
     " add fortran commentstring
     au BufRead,BufNewFile *.f90 setlocal commentstring=!%s
@@ -449,12 +372,22 @@ if has("autocmd")
 
 endif
 
-" --- key mapping --- {{{1
+" general mapping --- {{{1
 " set the leader character
 let mapleader=','
 
-" greater context when scrolling
-set scrolloff=3
+" fix for ¥ vs \ in command format
+" this makes it impossible to search for ¥, though
+cmap ¥ \
+
+" this unmaps arrow keys ... let's see if I get used to text movement instead
+map <up>     <nop>
+map <down>   <nop>
+map <left>   <nop>
+map <right>  <nop>
+
+" close buffer
+nnoremap <C-c> :bd<CR>
 
 " move in rows instead of lines (better for wrapped text)
 nnoremap j gj
@@ -469,24 +402,6 @@ nmap <c-j>   ]e
 xmap <c-k>   [egv
 xmap <c-j>   ]egv
 
-" this unmaps arrow keys ... let's see if I get used to text movement instead
-map <up>     <nop>
-map <down>   <nop>
-map <left>   <nop>
-map <right>  <nop>
-
-" add surrounding white space
-" it is easy to quickly input the wrong order,
-" so the reverse order of keys is also supported
-map <up><space>     [<space>
-map <down><space>   ]<space>
-nmap <left><space>  i<space><esc>l
-nmap <right><space> a<space><esc>h
-map <space><up>     [<space>
-map <space><down>   ]<space>
-nmap <space><left>  i<space><esc>l
-nmap <space><right> a<space><esc>h
-nmap <space> za
 
 " Disable commands for creating and deleting folds.
 noremap zf <Nop>
@@ -518,8 +433,6 @@ nmap ¥¥¥ <leader>c<space>
 nmap \\\ <leader>c<space>
 vmap ¥¥  <leader>c<space>
 vmap \\  <leader>c<space>
-
-"nmap <silent> cp "_cw<C-R>"<Esc>
 
 " fast moving between tabs
 nnoremap <C-L> :tabn <CR>
@@ -556,47 +469,19 @@ nmap <silent> <leader><space> :set nolist!<CR>
 " underline the current line
 nmap <leader>u yypVr-
 
-
-"NERDTree
-nnoremap <leader>nt :NERDTreeToggle<CR>
-let NERDTreeIgnore=['\.pyc$', '\~$', '\.o$']
-let NERDTreeMinimalUI=1
-if os == "Darwin"
-    let NERDTreeDirArrows=1
-else
-    let NERDTreeDirArrows=0
-endif
-" tab setup customization
-let g:nerdtree_tabs_open_on_console_startup = 0
-let g:nerdtree_tabs_open_on_gui_startup = 0
-
-" Voom: setup voom keys
-nnoremap <leader><leader> :Voom<CR>
-nnoremap <leader><leader>n :Voomunl<CR>
-nnoremap <C-c> :bd<CR>
-
-" tabularize stuff
-nmap <Leader>a= :Tabularize /=<CR>
-vmap <Leader>a= :Tabularize /=<CR>
-nmap <Leader>a: :Tabularize /:\zs<CR>
-vmap <Leader>a: :Tabularize /:\zs<CR>
-nmap <Leader>a3 vip:Tabularize /\#<CR>
-vmap <Leader>a3 :Tabularize /\#<CR>
-
-
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
 
 " quick edit .vimrc
 nmap <leader>v :tabedit ~/.vim/vimrc<CR>
 
-" Toggle spell checking on and off with `,s`
-let mapleader = ","
-nmap <silent> <leader>sp :set spell!<CR>
-
 nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 nmap _= :call Preserve("normal gg=G")<CR>
 
+" spell check
+nmap <silent> <leader>sp :set spell!<CR>
+
+" quick paste {{{2
 " paste the contents of the clipboard without annoying indentation issues
 if os == "Darwin"
     " get clipboard (this automatically pastes)
@@ -615,7 +500,20 @@ elseif os == "Linux"
     vnoremap <c-c> <esc>:echoerr "Copy not supported in this os (".os.")... yet"<CR>
 endif
 
+" Add white space {{{2
+" it is easy to quickly input the wrong order,
+" so the reverse order of keys is also supported
+map <up><space>     [<space>
+map <down><space>   ]<space>
+nmap <left><space>  i<space><esc>l
+nmap <right><space> a<space><esc>h
+map <space><up>     [<space>
+map <space><down>   ]<space>
+nmap <space><left>  i<space><esc>l
+nmap <space><right> a<space><esc>h
+nmap <space> za
 
+" display syntax groups {{{2
 " Identify the syntax highlighting group used at the cursor
 if has("gui_macvim")
     nmap ¥c <esc>:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -627,7 +525,119 @@ else
                 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 endif
 
-" This is w3m settings
+" PATH  {{{1
+if os == "Darwin"
+    let $PATH = "/opt/homebrew/bin:/opt/homebrew/share/python:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/texbin"
+    let $LOGS_DIR = "~/Dropbox/serverLogs"
+endif
+" have to put at end because of PATH
+let homebrew_prefix = substitute(system("brew --prefix"),"\n","","")
+let Tlist_Ctags_Cmd=homebrew_prefix . "/bin/ctags"
+let g:tagbar_ctags_bin = homebrew_prefix . "/bin/ctags"
+" use 'par' for paragraph formatting
+if os == "Darwin"
+    set formatprg="/opt/homebrew/bin/par"
+endif
+
+
+" Plugin settings {{{1o
+"NERDTree {{{2
+nnoremap <leader>nt :NERDTreeToggle<CR>
+let NERDTreeIgnore=['\.pyc$', '\~$', '\.o$']
+let NERDTreeMinimalUI=1
+if os == "Darwin"
+    let NERDTreeDirArrows=1
+else
+    let NERDTreeDirArrows=0
+endif
+" tab setup customization
+let g:nerdtree_tabs_open_on_console_startup = 0
+let g:nerdtree_tabs_open_on_gui_startup = 0
+" Powerline {{{2
+ if os == "Darwin"
+     let g:Powerline_symbols = "fancy"
+ else
+     let g:Powerline_symbols = "compatible"
+ endif
+ let g:Powerline_theme = "default"
+ let g:Powerline_colorscheme = "default"
+
+" vim-sessions {{{2
+" set Session variables
+let g:session_command_aliases = 'yes'
+let g:session_autosave = 'yes'
+let g:session_autosave_periodic = 5
+let g:session_autoload = 'yes'
+if !exists("g:session_directory_chosen")
+    let g:session_directory_chosen = 1
+    " this is the save directory
+    if os == "Darwin"
+        let g:session_directory="~/Dropbox/serverLogs/vim-sessions_" . hostname()
+    else
+        let g:session_directory="~/logs/vim-sessions_".hostname()
+    endif
+    " attempt to find local directory vim-sessions, which would likelly
+    " be at the git top level
+    " inspired by: https://github.com/xolox/vim-session/issues/49
+    let s:local_session_directory = GitRoot() . '/.vimsessions'
+    if isdirectory(s:local_session_directory)
+        let g:session_directory = s:local_session_directory
+    endif
+    unlet s:local_session_directory
+endif
+" commands for sessions
+command! SS  wall | SaveSession
+command! SSC wall | SaveSession | CloseSession
+command! SO  OpenSession
+
+" Voom options {{{2
+let g:voom_verify_oop = 1
+let g:voom_user_command = "runtime!  voom_addons/custom_headlines.vim"
+" make sure voomclose kills the outline
+command! VC call Voom_DeleteOutline('')
+" Voom: setup voom keys
+nnoremap <leader><leader> :Voom<CR>
+nnoremap <leader><leader>n :Voomunl<CR>
+" make foldmethod marker for better Voom
+" initially folds are open, but voom will auto-enable folding
+set fdm=marker
+set nofoldenable
+
+" tabularize {{{2
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:\zs<CR>
+vmap <Leader>a: :Tabularize /:\zs<CR>
+nmap <Leader>a3 vip:Tabularize /\#<CR>
+vmap <Leader>a3 :Tabularize /\#<CR>
+
+" vimux {{{2
+" Run the current file with python
+map <Leader>ry :call VimuxRunCommand("clear; python " . bufname("%"))<CR>
+map <leader>re :call VimuxRunCommand("clear; ./" . bufname("%"))<CR>
+" Run the current file with the shell
+map <Leader>rz :call VimuxRunCommand("clear; " . bufname("%"))<CR>
+" Prompt for a command to run
+map <Leader>rp :VimuxPromptCommand<CR>
+" Run last command executed by RunVimTmuxCommand
+map <Leader>rl :VimuxRunLastCommand<CR>
+" Inspect runner pane
+map <Leader>ri :VimuxInspectRunner<CR>
+" Close all other tmux panes in current window
+map <Leader>rx :VimuxClosePanes<CR>
+" Interrupt any command running in the runner pane
+map <Leader>rs :VimuxInterruptRunner<CR>
+"If text is selected, save it in the v buffer and send that buffer it to tmux
+vmap <leader>rt "vy :call VimuxRunCommand(@v . "\n", 0)<CR>
+" Select current paragraph (block) and send it to tmux
+nmap <leader>rb vip<leader>rt<CR>
+" vimux options
+let VimuxHeight = "20"
+let VimuxOrientation = "v"
+let VimuxUseNearestPane = 1
+
+
+" w3m {{{2
 " highlighting:
 highlight! w3mLink      ctermfg=green ctermbg=none guifg=#66CC33
 highlight! w3mLinkHover ctermfg=17 ctermbg=108
@@ -654,37 +664,11 @@ let g:w3m#search_engine = "https://www.google.co.jp/search?sourceid=chrome&ie=UT
 let g:w3m#set_hover_on = 1
 " set delay time until highlighting
 let g:w3m#hover_delay_time = 220
-
-" --- Vimux bindings
-" Run the current file with python
-map <Leader>ry :call VimuxRunCommand("clear; python " . bufname("%"))<CR>
-map <leader>re :call VimuxRunCommand("clear; ./" . bufname("%"))<CR>
-" Run the current file with the shell
-map <Leader>rz :call VimuxRunCommand("clear; " . bufname("%"))<CR>
-" Prompt for a command to run
-map <Leader>rp :VimuxPromptCommand<CR>
-" Run last command executed by RunVimTmuxCommand
-map <Leader>rl :VimuxRunLastCommand<CR>
-" Inspect runner pane
-map <Leader>ri :VimuxInspectRunner<CR>
-" Close all other tmux panes in current window
-map <Leader>rx :VimuxClosePanes<CR>
-" Interrupt any command running in the runner pane
-map <Leader>rs :VimuxInterruptRunner<CR>
-"If text is selected, save it in the v buffer and send that buffer it to tmux
-vmap <leader>rt "vy :call VimuxRunCommand(@v . "\n", 0)<CR>
-" Select current paragraph (block) and send it to tmux
-nmap <leader>rb vip<leader>rt<CR>
-" vimux options
-let VimuxHeight = "20"
-let VimuxOrientation = "v"
-let VimuxUseNearestPane = 1
-
 " ctags are great, open up taglist window:
 "nnoremap _t :TlistOpen<CR>
 nnoremap _t :TagbarToggle<CR>
 
-" vim-pad settings
+" vim-pad {{{2
 if os == "Darwin"
     "let g:pad_dir = "~/Dropbox/notes/"
     let g:pad_dir = "~/Library/Mobile\ Documents/N39PJFAFEV\~com\~metaclassy\~byword/Documents"
@@ -699,72 +683,12 @@ nmap <silent> _o <Plug>ListPads
 nmap <silent> _n <Plug>OpenPad
 nmap <silent> _s <Plug>SearchPads
 
-" Syntastic
+" this is for most-recently-used buffer (MRU)
+"let MRU_Max_Entries = 150
+let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'
+
+" Syntastic {{{2
 nmap <F5> :SyntasticToggleMode<CR>
 
-
-"""""""
-function! MoveToPrevTab()
-    "there is only one window
-    if tabpagenr('$') == 1 && winnr('$') == 1
-        return
-    endif
-    "preparing new window
-    let l:tab_nr = tabpagenr('$')
-    let l:cur_buf = bufnr('%')
-    if tabpagenr() != 1
-        close!
-        if l:tab_nr == tabpagenr('$')
-            tabprev
-        endif
-        sp
-    else
-        close!
-        exe "0tabnew"
-    endif
-    "opening current buffer in new window
-    exe "b".l:cur_buf
-endfunc
-
-function! MoveToNextTab()
-    "there is only one window
-    if tabpagenr('$') == 1 && winnr('$') == 1
-        return
-    endif
-    "preparing new window
-    let l:tab_nr = tabpagenr('$')
-    let l:cur_buf = bufnr('%')
-    if tabpagenr() < tab_nr
-        close!
-        if l:tab_nr == tabpagenr('$')
-            tabnext
-        endif
-        sp
-    else
-        close!
-        tabnew
-    endif
-    "opening current buffer in new window
-    exe "b".l:cur_buf
-endfunc
-nnoremap <C-W>. :call MoveToNextTab()<CR>
-nnoremap <C-W>, :call MoveToPrevTab()<CR>
-
-if os == "Darwin"
-    let $PATH = "/opt/homebrew/bin:/opt/homebrew/share/python:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/texbin"
-    let $LOGS_DIR = "~/Dropbox/serverLogs"
-endif
-
-" Change number highlight
-hi Number ctermfg=219 guifg=#ffafff
-
-" force markdown filetype
-nnoremap mmd :set ft=markdown<CR>
-
-" have to put at end because of PATH
-let homebrew_prefix = substitute(system("brew --prefix"),"\n","","")
-let Tlist_Ctags_Cmd=homebrew_prefix . "/bin/ctags"
-let g:tagbar_ctags_bin = homebrew_prefix . "/bin/ctags"
-
+" Gundo {{{2
 map <leader>g :GundoToggle<CR>
-
