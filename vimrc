@@ -62,8 +62,26 @@ endif
 " set keyword lookup for manual pages
 set keywordprg=man
 
-" greater context when scrolling
+" scrolling context
 set scrolloff=3
+
+" faster space scrolling
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
+
+" folding {{{2
+set fdm=marker
+set foldenable
+
+" best fold toggle
+nnoremap <space> za
+
+" Disable commands for creating and deleting folds.
+noremap zf <Nop>
+noremap zF <Nop>
+noremap zd <Nop>
+noremap zD <Nop>
+noremap zE <Nop>
 
 " --- commands and functions ---  {{{1o
 
@@ -402,14 +420,6 @@ nmap <c-j>   ]e
 xmap <c-k>   [egv
 xmap <c-j>   ]egv
 
-
-" Disable commands for creating and deleting folds.
-noremap zf <Nop>
-noremap zF <Nop>
-noremap zd <Nop>
-noremap zD <Nop>
-noremap zE <Nop>
-
 " setup commandT binding
 nnoremap <leader>t :CommandT<CR>
 nnoremap <leader>b :CommandTBuffer<CR>
@@ -421,18 +431,9 @@ nmap <silent> <leader>/ :nohlsearch<CR>
 vmap Q gq
 nmap Q gqap
 
-" faster space scrolling
-nnoremap <C-e> 3<C-e>
-nnoremap <C-y> 3<C-y>
-
-" added functionality to NERDcommenter
-" add the ability to yank, comment, then past the text for comparison
-nmap <silent> <leader>cp     yy <leader>cc p
-vmap <silent> <leader>cp     ygv <leader>cc `>p
-nmap ¥¥¥ <leader>c<space>
-nmap \\\ <leader>c<space>
-vmap ¥¥  <leader>c<space>
-vmap \\  <leader>c<space>
+" fix commenting with yen symbol
+nmap ¥¥¥ \\\
+vmap ¥¥  \\
 
 " fast moving between tabs
 nnoremap <C-L> :tabn <CR>
@@ -507,11 +508,6 @@ map <up><space>     [<space>
 map <down><space>   ]<space>
 nmap <left><space>  i<space><esc>l
 nmap <right><space> a<space><esc>h
-map <space><up>     [<space>
-map <space><down>   ]<space>
-nmap <space><left>  i<space><esc>l
-nmap <space><right> a<space><esc>h
-nmap <space> za
 
 " display syntax groups {{{2
 " Identify the syntax highlighting group used at the cursor
@@ -598,10 +594,6 @@ command! VC call Voom_DeleteOutline('')
 " Voom: setup voom keys
 nnoremap <leader><leader> :Voom<CR>
 nnoremap <leader><leader>n :Voomunl<CR>
-" make foldmethod marker for better Voom
-" initially folds are open, but voom will auto-enable folding
-set fdm=marker
-set nofoldenable
 
 " tabularize {{{2
 nmap <Leader>a= :Tabularize /=<CR>
