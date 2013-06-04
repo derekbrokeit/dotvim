@@ -581,7 +581,6 @@ command! SSC wall | SaveSession | CloseSession
 command! SO  OpenSession
 
 " Voom options {{{2
-let g:voom_verify_oop = 1
 let g:voom_user_command = "runtime!  voom_addons/custom_headlines.vim"
 " make sure voomclose kills the outline
 command! VC call Voom_DeleteOutline('')
