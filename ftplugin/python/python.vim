@@ -38,4 +38,6 @@ imap <silent> <C-s> <esc>:w<CR>:python run_this_line()<CR>
 
 " special folding practices
 set foldmethod=indent
-set foldlevel=99
+set foldnestmax=2
+
+nmap <leader><leader> :Voom python <CR>
