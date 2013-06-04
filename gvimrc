@@ -11,8 +11,6 @@ if os == "Darwin"
     map <D-N> <esc>:call MoveToNextTab()<CR>
     map <D-P> <esc>:call MoveToPrevTab()<CR>
 
-    let PATH="/opt/homebrew/bin:/opt/homebrew/share/python:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/texbin"
-
     " better motion
     map <D-k> <esc><C-W>k
     map <D-j> <esc><C-W>j
