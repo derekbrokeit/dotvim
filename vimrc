@@ -522,18 +522,12 @@ else
 endif
 
 " PATH  {{{1
-if os == "Darwin"
-    let $PATH = "/opt/homebrew/bin:/opt/homebrew/share/python:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/texbin"
-    let $LOGS_DIR = "~/Dropbox/serverLogs"
-endif
 " have to put at end because of PATH
 let homebrew_prefix = substitute(system("brew --prefix"),"\n","","")
 let Tlist_Ctags_Cmd=homebrew_prefix . "/bin/ctags"
 let g:tagbar_ctags_bin = homebrew_prefix . "/bin/ctags"
 " use 'par' for paragraph formatting
-if os == "Darwin"
-    set formatprg="/opt/homebrew/bin/par"
-endif
+set formatprg="par"
 
 
 " Plugin settings {{{1o
