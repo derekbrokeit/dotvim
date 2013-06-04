@@ -230,8 +230,8 @@ set nowrap
 set textwidth=0 wrapmargin=0
 
 " turn off the audio-bell
-set errorbells
-set novisualbell
+set noerrorbells
+set visualbell
 
 " sets all tabs to 3-spaces
 set tabstop=4
@@ -577,7 +577,8 @@ if !exists("g:session_directory_chosen")
 endif
 " commands for sessions
 command! SS  wall | SaveSession
-command! SSC wall | SaveSession | CloseSession
+command! SC wall | SaveSession | CloseSession
+command! SQ wall | SaveSession | CloseSession | q
 command! SO  OpenSession
 
 " Voom options {{{2
