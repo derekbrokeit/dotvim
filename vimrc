@@ -191,6 +191,7 @@ function! GoToGitRoot()
     silent! lcd `=gr`
 endfunction
 command! -nargs=0 GR call GoToGitRoot()
+command! Gammend Gcommit --amend
 
 " --- look and feel --- {{{1
 " colorscheme {{{"
@@ -315,7 +316,6 @@ hi DiffText       term=bold ctermfg=57 ctermbg=195
 " change the highlighting of numbers
 hi Number ctermfg=219 guifg=#ffafff
 
-"python from powerline.ext.vim import source_plugin; source_plugin()
 " --- autocommands --- {{{1
 if has("autocmd")
 
@@ -379,11 +379,11 @@ if has("autocmd")
         " Get the environment variable
         let tmux_pane_name_cmd = 'tmux display -p \#D'
         let tmux_pane_name = substitute(system(g:tmux_pane_name_cmd), "\n", "", "")
-        let tmux_env_var = "TMUXPWD_" . substitute(g:tmux_pane_name, "%", "", "")
+        let tmux_env_var = "TMUX_PWD_" . substitute(g:tmux_pane_name, "%", "", "")
         unlet tmux_pane_name tmux_pane_name_cmd
         function! BroadcastTmuxCwd()
             let filename = substitute(expand("%:p:h"), $HOME, "~", "")
-            let output = system("tmux setenv ".g:tmux_env_var." ".l:filename)
+            let output = system("tmux setenv -g ".g:tmux_env_var." ".l:filename)
         endfunction
         autocmd BufEnter * call BroadcastTmuxCwd()
     endif
@@ -543,15 +543,6 @@ endif
 " tab setup customization
 let g:nerdtree_tabs_open_on_console_startup = 0
 let g:nerdtree_tabs_open_on_gui_startup = 0
-" Powerline {{{2
- if os == "Darwin"
-     let g:Powerline_symbols = "fancy"
- else
-     let g:Powerline_symbols = "compatible"
- endif
- let g:Powerline_theme = "default"
- let g:Powerline_colorscheme = "default"
-
 " vim-sessions {{{2
 " set Session variables
 let g:session_command_aliases = 'yes'
@@ -675,6 +666,17 @@ let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'
 
 " Syntastic {{{2
 nmap <F5> :SyntasticToggleMode<CR>
+" let g:syntastic_echo_current_error = 0
+" let g:syntastic_mode_map = { 'mode': 'passive',
+"                            \ 'active_filetypes': [],
+"                            \ 'passive_filetypes': [] }
 
 " Gundo {{{2
 map <leader>g :GundoToggle<CR>
+
+" " Powerline {{{2
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+set rtp+=~/powerline/powerline/bindings/vim
+
