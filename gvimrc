@@ -1,7 +1,7 @@
 " make fullscreen
 if os == "Darwin"
     set fu
-    set guifont=Anonymice\ Powerline:h10.5
+    set guifont=Anonymice\ Powerline:h10.0
     " antialiasing appears to be necessary for some bold/italic effects to always
     " work. otherwise, they work sometimes at some sizes and then begin to fail in
     " macvim for unkown reasons
