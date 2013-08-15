@@ -436,8 +436,10 @@ nmap ¥¥¥ \\\
 vmap ¥¥  \\
 
 " fast moving between tabs
-nnoremap <C-L> :tabn <CR>
-nnoremap <C-H> :tabp <CR>
+nnoremap <leader>l :tabn <CR>
+nnoremap <leader>j :tabn <CR>
+nnoremap <leader>h :tabp <CR>
+nnoremap <leader>k :tabp <CR>
 nnoremap <C-t> :tabnew <CR>
 
 " enlarge the current buffer AND reset the view to all equal
