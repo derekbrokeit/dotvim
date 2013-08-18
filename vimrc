@@ -48,7 +48,7 @@ set smartcase
 
 " " (this is for C and Java; users of other languages can change as they see
 " fit)
-set wildignore=*.o,*.class,*.asv,*~,*.swp,*.bak,*.pyc,deploy
+set wildignore=*.o,*.class,*.asv,*~,*.swp,*.bak,*.pyc,deploy,*png,*.jpg
 
 " set encoding: default is utf-8
 if has("multi_byte")
@@ -394,10 +394,6 @@ endif
 " set the leader character
 let mapleader=','
 
-" fix for ¥ vs \ in command format
-" this makes it impossible to search for ¥, though
-cmap ¥ \
-
 " this unmaps arrow keys ... let's see if I get used to text movement instead
 map <up>     <nop>
 map <down>   <nop>
@@ -412,13 +408,13 @@ nnoremap j gj
 nnoremap k gk
 
 " remap the tasklist to somethign else
-map <leader>l <Plug>TaskList
+nnoremap <leader>o <Plug>TaskList
 
-" Bubble multiple lines and re-select them (required "unimpaired" plugin
-nmap <c-k>   [e
-nmap <c-j>   ]e
-xmap <c-k>   [egv
-xmap <c-j>   ]egv
+" reselect text after visually moving block text
+nmap [w [e
+nmap ]w ]e
+xmap [w [egv
+xmap ]w ]egv
 
 " setup commandT binding
 nnoremap <leader>t :CommandT<CR>
@@ -431,28 +427,14 @@ nmap <silent> <leader>/ :nohlsearch<CR>
 vmap Q gq
 nmap Q gqap
 
-" fix commenting with yen symbol
-nmap ¥¥¥ \\\
-vmap ¥¥  \\
-
 " fast moving between tabs
-nnoremap <leader>l :tabn <CR>
-nnoremap <leader>j :tabn <CR>
-nnoremap <leader>h :tabp <CR>
-nnoremap <leader>k :tabp <CR>
-nnoremap <C-t> :tabnew <CR>
+nmap [j :tabn<CR>
+nmap ]j :tabp<CR>
+nmap <C-t> :tabnew <CR>:GR<CR>:echo expand("%:p:h")<CR>
 
 " enlarge the current buffer AND reset the view to all equal
 nnoremap <C-_> <C-W>_<C-W><Bar>
 nnoremap <C-W><C-W> <C-W>=
-
-" better window movement
-if !has("gui_macvim")
-    map <silent> ˚ <esc><C-w>k
-    map <silent> ∆ <esc><C-w>j
-    map <silent> ˙ <esc><C-w>h
-    map <silent> ¬ <esc><C-w>l
-endif
 
 " commands for splitting windows
 " window
@@ -470,10 +452,10 @@ nmap <leader>s<down>   :rightbelow new <CR>
 nmap <silent> <leader><space> :set nolist!<CR>
 
 " underline the current line
-nmap <leader>u yypVr-
+nnoremap <leader>u yypVr-
 
 " Visually select the text that was last edited/pasted
-nmap gV `[v`]
+nnoremap gV `[v`]
 
 " quick edit .vimrc
 nmap <leader>v :tabedit ~/.vim/vimrc<CR>
@@ -508,8 +490,8 @@ endif
 " so the reverse order of keys is also supported
 map <up><space>     [<space>
 map <down><space>   ]<space>
-nmap <left><space>  i<space><esc>l
-nmap <right><space> a<space><esc>h
+nnoremap <left><space>  i<space><esc>l
+nnoremap <right><space> a<space><esc>h
 
 " display syntax groups {{{2
 " Identify the syntax highlighting group used at the cursor
@@ -591,25 +573,27 @@ nmap <Leader>a3 vip:Tabularize /\#<CR>
 vmap <Leader>a3 :Tabularize /\#<CR>
 
 " vimux {{{2
+" open tmux pane and go to the current director
+nnoremap <leader>rg :call VimuxRunCommand("cd " . expand("%:p:h"))<CR>
 " Run the current file with python
-map <Leader>ry :call VimuxRunCommand("clear; python " . bufname("%"))<CR>
-map <leader>re :call VimuxRunCommand("clear; ./" . bufname("%"))<CR>
+nnoremap <Leader>ry :call VimuxRunCommand("clear; python " . bufname("%"))<CR>
+nnoremap <leader>re :call VimuxRunCommand("clear; ./" . bufname("%"))<CR>
 " Run the current file with the shell
-map <Leader>rz :call VimuxRunCommand("clear; " . bufname("%"))<CR>
+nnoremap <Leader>rz :call VimuxRunCommand("clear; " . bufname("%"))<CR>
 " Prompt for a command to run
-map <Leader>rp :VimuxPromptCommand<CR>
+nnoremap <Leader>rp :VimuxPromptCommand<CR>
 " Run last command executed by RunVimTmuxCommand
-map <Leader>rl :VimuxRunLastCommand<CR>
+nnoremap <Leader>rl :VimuxRunLastCommand<CR>
 " Inspect runner pane
-map <Leader>ri :VimuxInspectRunner<CR>
+nnoremap <Leader>ri :VimuxInspectRunner<CR>
 " Close all other tmux panes in current window
-map <Leader>rx :VimuxClosePanes<CR>
+nnoremap <Leader>rx :VimuxClosePanes<CR>
 " Interrupt any command running in the runner pane
-map <Leader>rs :VimuxInterruptRunner<CR>
+nnoremap <Leader>rs :VimuxInterruptRunner<CR>
 "If text is selected, save it in the v buffer and send that buffer it to tmux
-vmap <leader>rt "vy :call VimuxRunCommand(@v . "\n", 0)<CR>
+vnoremap <leader>rt "vy :call VimuxRunCommand(@v . "\n", 0)<CR>
 " Select current paragraph (block) and send it to tmux
-nmap <leader>rb vip<leader>rt<CR>
+nnoremap <leader>rb vip<leader>rt<CR>
 " vimux options
 let VimuxHeight = "20"
 let VimuxOrientation = "v"
