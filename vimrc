@@ -516,7 +516,7 @@ set formatprg="par"
 
 " Plugin settings {{{1o
 "NERDTree {{{2
-nnoremap <leader>nt :NERDTreeToggle<CR>
+nnoremap <leader>nt :NERDTreeMirrorToggle<CR>
 let NERDTreeIgnore=['\.pyc$', '\~$', '\.o$']
 let NERDTreeMinimalUI=1
 if os == "Darwin"
