@@ -651,11 +651,9 @@ nmap <silent> _s <Plug>SearchPads
 let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'
 
 " Syntastic {{{2
-nmap <F5> :SyntasticToggleMode<CR>
-" let g:syntastic_echo_current_error = 0
-" let g:syntastic_mode_map = { 'mode': 'passive',
-"                            \ 'active_filetypes': [],
-"                            \ 'passive_filetypes': [] }
+" check errors and go to the first
+nmap <leader>e :Errors<CR>[L
+let g:syntastic_python_flake8_args='--ignore=E501'
 
 " Gundo {{{2
 map <leader>g :GundoToggle<CR>
