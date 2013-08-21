@@ -424,8 +424,8 @@ nnoremap <leader>b :CommandTBuffer<CR>
 nmap <silent> <leader>/ :nohlsearch<CR>
 
 " Use Q for formatting the current paragraph (or selection)
-vmap Q gq
-nmap Q gqap
+vnoremap Q gq
+nnoremap Q gqap
 
 " fast moving between tabs
 nmap [j :tabn<CR>
