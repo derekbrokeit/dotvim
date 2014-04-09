@@ -8,7 +8,7 @@
 " this initiates pahtogen ... MUST be before filetype detection activated
 " --- pathogen call --- {{{1
 source ~/.vim/bundle/pathogen/autoload/pathogen.vim
-call pathogen#incubate()
+call pathogen#infect('bundle/{}')
 call pathogen#helptags()
 
 " --- general system setup --- {{{1
