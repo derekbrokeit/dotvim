@@ -211,9 +211,15 @@ if !exists("g:vimrc_loaded_colorscheme")
     " colorscheme symfony
     " colorscheme asmanian_blood
     " colorscheme candy_code
+
     colorscheme jellybeans
+    hi Normal ctermbg=NONE
+    hi nonText ctermbg=NONE
+
     "colorscheme solarized
-    "colorscheme hemisu
+    " colorscheme hemisu
+    " colorscheme molokai
+    " colorscheme desert256
 
     let g:vimrc_loaded_colorscheme = 1
 endif
@@ -270,16 +276,16 @@ match ErrorMsg '\%>80v.\+'
 
 " turn on the line numbers
 set number
-highlight LineNr ctermbg=236 ctermfg=245 guibg=#303030 guifg=#8a8a8a
+highlight LineNr ctermbg=233 ctermfg=244 guibg=#303030 guifg=#8a8a8a
 
 " highlight cursor line
-highlight CursorLine ctermbg=52 guibg=#5F1F1F
-highlight CursorLineNr  ctermfg=yellow ctermbg=239 guifg=#FFFF66 guibg=#4e4e4e
+" highlight CursorLine ctermbg=52 guibg=#5F1F1F
+highlight CursorLineNr  ctermfg=yellow ctermbg=234 guifg=#FFFF66 guibg=#4e4e4e
 set cursorline "cursorline required to continuously update cursor position
 
 " highlight the cursor
-hi Cursor  guifg=black guibg=lightblue gui=none
-highlight iCursor guifg=white guibg=steelblue
+" hi Cursor  guifg=black guibg=lightblue gui=none
+" highlight iCursor guifg=white guibg=steelblue
 
 " tab bar changes
 set showtabline=1
