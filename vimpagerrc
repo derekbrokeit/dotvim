@@ -1,0 +1,40 @@
+" set noloadplugins
+let vimpager_disable_x11 = 1
+let vimpager_scrolloff = 5
+
+colorscheme jellybeans
+
+" remove background highlighting
+hi Normal ctermbg=NONE
+hi nonText ctermbg=NONE
+
+" source ~/.vimrc
+
+augroup filetypedetect
+    au! BufRead,BufNewFile *.m,*.oct,*octaverc set filetype=matlab
+
+    au! BufRead,BufNewFile *.md set filetype=markdown
+
+    au! BufRead,BufNewFile tmux.conf*,.tmux.conf* set filetype=tmux
+
+    au! BufRead,BufNewFile *.j2 set filetype=jinja
+
+    "LAMMPS
+    au! BufRead,BufNewFile in.*           set filetype=lammps
+    au! BufRead,BufNewFile *.lmp          set filetype=lammps
+    au! BufRead,BufNewFile *.lammps       set filetype=lammps
+augroup END
+
+" turn on the line numbers
+highlight LineNr ctermbg=233 ctermfg=244 guibg=#303030 guifg=#8a8a8a
+
+" highlight cursor line
+highlight CursorLineNr  ctermfg=yellow ctermbg=234 guifg=#FFFF66 guibg=#4e4e4e
+" set cursorline "cursorline required to continuously update cursor position
+
+" mapping
+nnoremap q :q<CR>
+nnoremap <c-c> :q<CR>
+vnoremap <c-c> :w !pbcopy<CR><CR>
+
+" vim: set ft=vim:
