@@ -330,6 +330,7 @@ if has("autocmd")
 
     " add fortran commentstring
     au BufRead,BufNewFile *.f90 setlocal commentstring=!%s
+    au BufRead,BufNewFile *.html set ft=jinja
 
     " give shell a proper commentstring
     autocmd FileType sh setlocal commentstring=#%s
