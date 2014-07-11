@@ -109,3 +109,6 @@
 [submodule "bundle/tmux-navigator"]
 	path = bundle/tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
+[submodule "bundle/arduino"]
+	path = bundle/arduino
+	url = https://github.com/tclem/vim-arduino.git
