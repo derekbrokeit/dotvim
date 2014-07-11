@@ -593,7 +593,7 @@ nnoremap <Leader>rl :VimuxRunLastCommand<CR>
 " Inspect runner pane
 nnoremap <Leader>ri :VimuxInspectRunner<CR>
 " Close all other tmux panes in current window
-nnoremap <Leader>rx :VimuxClosePanes<CR>
+nnoremap <Leader>rx :VimuxCloseRunner<CR>
 " Interrupt any command running in the runner pane
 nnoremap <Leader>rs :VimuxInterruptRunner<CR>
 "If text is selected, save it in the v buffer and send that buffer it to tmux
