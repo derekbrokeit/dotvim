@@ -289,10 +289,10 @@ set cursorline "cursorline required to continuously update cursor position
 
 " tab bar changes
 set showtabline=1
-hi TabLineFill ctermfg=LightGreen ctermbg=23 guifg=#66CC33 guibg=#005f5f gui=none
-hi TabLine ctermfg=blue ctermbg=23 guifg=lightblue guibg=#005f5f gui=none
-hi TabLineSel ctermfg=lightmagenta ctermbg=23 guifg=lightmagenta guibg=#005f5f gui=bold
-hi Title ctermfg=lightgreen guifg=lightgreen
+" hi TabLineFill ctermfg=LightGreen ctermbg=23 guifg=#66CC33 guibg=#005f5f gui=none
+" hi TabLine ctermfg=blue ctermbg=23 guifg=lightblue guibg=#005f5f gui=none
+" hi TabLineSel ctermfg=lightmagenta ctermbg=23 guifg=lightmagenta guibg=#005f5f gui=bold
+" hi Title ctermfg=lightgreen guifg=lightgreen
 
 " visual mode coloring
 hi VisualNOS cterm=none ctermfg=black ctermbg=250 gui=none
@@ -330,7 +330,12 @@ if has("autocmd")
 
     " add fortran commentstring
     au BufRead,BufNewFile *.f90 setlocal commentstring=!%s
+
+    " html is now shown as jinja
     au BufRead,BufNewFile *.html set ft=jinja
+
+    " show gcode using ngc syntax highlighting
+    au BufRead,BufNewFile *.gcode set ft=ngc
 
     " give shell a proper commentstring
     autocmd FileType sh setlocal commentstring=#%s
@@ -666,8 +671,12 @@ let g:syntastic_python_flake8_args='--ignore=E501'
 map <leader>g :GundoToggle<CR>
 
 " " Powerline {{{2
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
-set rtp+=~/powerline/powerline/bindings/vim
+" python from powerline.vim import setup as powerline_setup
+" python powerline_setup()
+" python del powerline_setup
+" set rtp+=~/powerline/powerline/bindings/vim
+set rtp+=$HOME/.config/lib/python2.7/site-packages/powerline/bindings/vim/
+" Always show statusline
+set laststatus=2
+set t_Co=256
 
