@@ -646,9 +646,9 @@ nnoremap _t :TagbarToggle<CR>
 " vim-pad {{{2
 if os == "Darwin"
     "let g:pad_dir = "~/Dropbox/notes/"
-    let g:pad_dir = "~/Library/Mobile\ Documents/N39PJFAFEV\~com\~metaclassy\~byword/Documents"
+    let g:pad#dir = "~/Library/Mobile\ Documents/N39PJFAFEV\~com\~metaclassy\~byword/Documents"
 elseif os == "Linux"
-    let g:pad_dir = "~/notes"
+    let g:pad#dir = "~/notes"
 endif
 let g:pad_window_height = 15
 let g:pad_use_default_mappings = 0
