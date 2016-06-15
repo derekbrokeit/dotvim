@@ -16,9 +16,6 @@
 [submodule "bundle/tasklist"]
 	path = bundle/tasklist
 	url = git://github.com/vim-scripts/TaskList.vim.git
-[submodule "bundle/voom"]
-	path = bundle/voom
-	url = git://github.com/vim-scripts/VOoM.git
 [submodule "bundle/unimpaired"]
 	path = bundle/unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
