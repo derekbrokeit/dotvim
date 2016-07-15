@@ -335,7 +335,7 @@ if has("autocmd")
     au BufRead,BufNewFile *.html set ft=jinja
 
     " show gcode using ngc syntax highlighting
-    au BufRead,BufNewFile *.gcode set ft=ngc
+    au BufRead,BufNewFile *.gcode,*.g,*.ngc set ft=g
 
     " give shell a proper commentstring
     autocmd FileType sh setlocal commentstring=#%s
