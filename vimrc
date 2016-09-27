@@ -8,7 +8,7 @@
 set shell=/bin/bash
 
 " --- setup Vundle --- {{{1
-et nocompatible              " be iMproved, required
+set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
@@ -30,7 +30,7 @@ Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 " Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
+Plugin 'wincent/command-t'
 " better abbreviations and substitutions
 Plugin 'epmatsw/ag.vim'
 Plugin 'vim-scripts/AnsiEsc.vim'
