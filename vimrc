@@ -737,9 +737,9 @@ let g:syntastic_python_flake8_args='--ignore=E501'
 map <leader>g :GundoToggle<CR>
 
 " " Powerline {{{2
-" python from powerline.vim import setup as powerline_setup
-" python powerline_setup()
-" python del powerline_setup
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
 " set rtp+=~/powerline/powerline/bindings/vim
 set rtp+=$HOME/.config/lib/python2.7/site-packages/powerline/bindings/vim/
 " Always show statusline
