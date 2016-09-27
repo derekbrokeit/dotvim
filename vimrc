@@ -4,6 +4,9 @@
 " Derek Thomas 2012
 "                            "
 """"""""""""""""""""""""""""""
+" --- ensure that the shell works --- {{{1
+set shell=/bin/bash
+
 " --- setup Vundle --- {{{1
 et nocompatible              " be iMproved, required
 filetype off                  " required
