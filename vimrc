@@ -136,7 +136,7 @@ set scrolloff=3
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
-" folding {{{2
+" folding {{{1
 set fdm=marker
 set foldenable
 
@@ -150,9 +150,10 @@ noremap zd <Nop>
 noremap zD <Nop>
 noremap zE <Nop>
 
+
 " --- commands and functions ---  {{{1o
 
-" YP: copy filepath to clipboard {{{2
+" YP: copy filepath to clipboard {{{1
 " the following command copies the file path to clipboard
 "nnoremap <leader>yp :YP <CR>
 function! YP()
@@ -160,7 +161,7 @@ function! YP()
 endfunction
 command! -nargs=0 YP call YP()
 
-" WC: character count {{{2
+" WC: character count {{{1
 "nnoremap <leader>wc :WC <CR>
 function! WC()
     let linecount=system("echo -n $(cat " . shellescape(expand("%:p")) . " | wc -l)")
@@ -170,7 +171,7 @@ function! WC()
 endfunction
 command! -nargs=0 WC call WC()
 
-" Preserve(): preserve cursor position while performing command {{{2
+" Preserve(): preserve cursor position while performing command {{{1
 function! Preserve(command)
     " Preparation: save last search, and cursor position.
     let _s=@/
@@ -198,7 +199,7 @@ function! Ansi()
 endfunction
 command! -nargs=0 Ansi call Ansi()
 
-" Hexmode: toogle hexmode {{{2
+" Hexmode: toogle hexmode {{{1
 " helper function to toggle hex mode
 function! ToggleHex()
     " hex mode should be considered a read-only operation
@@ -240,7 +241,7 @@ endfunction
 command! -bar Hexmode call ToggleHex()
 command! -bar Hex :Hexmode
 
-" GitRoot() {{{2
+" GitRoot() {{{1
 " automatically change directory to file-local-directory
 function! GitRoot()
     " returns the toplevel of the current git repository
@@ -291,7 +292,7 @@ if !exists("g:vimrc_loaded_colorscheme")
     let g:vimrc_loaded_colorscheme = 1
 endif
 
-" general settings {{{2
+" general settings {{{1
 " turn on wildmenu
 set wildmenu
 set wildmode=longest:full " more bash-like (does not autocomplete)
@@ -336,7 +337,7 @@ set laststatus=2
 set autoindent
 
 
-" --- highlighting and layout {{{2
+" --- highlighting and layout {{{1
 
 " turn on help for long-lines
 match ErrorMsg '\%>80v.\+'
@@ -545,7 +546,7 @@ nmap _= :call Preserve("normal gg=G")<CR>
 " spell check
 nmap <silent> <leader>sp :set spell!<CR>
 
-" quick paste {{{2
+" quick paste {{{1
 " paste the contents of the clipboard without annoying indentation issues
 if os == "Darwin"
     " get clipboard (this automatically pastes)
@@ -564,7 +565,7 @@ elseif os == "Linux"
     vnoremap <c-c> <esc>:echoerr "Copy not supported in this os (".os.")... yet"<CR>
 endif
 
-" Add white space {{{2
+" Add white space {{{1
 " it is easy to quickly input the wrong order,
 " so the reverse order of keys is also supported
 map <up><space>     [<space>
@@ -572,7 +573,7 @@ map <down><space>   ]<space>
 nnoremap <left><space>  i<space><esc>l
 nnoremap <right><space> a<space><esc>h
 
-" display syntax groups {{{2
+" display syntax groups {{{1
 " Identify the syntax highlighting group used at the cursor
 if has("gui_macvim")
     nmap ¥c <esc>:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -594,7 +595,7 @@ set formatprg="par"
 
 
 " Plugin settings {{{1o
-"NERDTree {{{2
+"NERDTree {{{1
 nnoremap <leader>nt :NERDTreeMirrorToggle<CR>
 let NERDTreeIgnore=['\.pyc$', '\~$', '\.o$']
 let NERDTreeMinimalUI=1
@@ -606,7 +607,7 @@ endif
 " tab setup customization
 let g:nerdtree_tabs_open_on_console_startup = 0
 let g:nerdtree_tabs_open_on_gui_startup = 0
-" vim-sessions {{{2
+" vim-sessions {{{1
 " set Session variables
 let g:session_command_aliases = 'yes'
 let g:session_autosave = 'yes'
@@ -635,7 +636,7 @@ command! SC wall | SaveSession | CloseSession
 command! SQ wall | SaveSession | CloseSession | q
 command! SO  OpenSession
 
-" Voom options {{{2
+" Voom options {{{1
 let g:voom_user_command = "runtime!  voom_addons/custom_headlines.vim"
 " make sure voomclose kills the outline
 command! VC call Voom_DeleteOutline('')
@@ -643,7 +644,7 @@ command! VC call Voom_DeleteOutline('')
 nnoremap <leader><leader> :Voom<CR>
 nnoremap <leader><leader>n :Voomunl<CR>
 
-" tabularize {{{2
+" tabularize {{{1
 nmap <Leader>a= :Tabularize /=<CR>
 vmap <Leader>a= :Tabularize /=<CR>
 nmap <Leader>a: :Tabularize /:\zs<CR>
@@ -651,7 +652,7 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 nmap <Leader>a3 vip:Tabularize /\#<CR>
 vmap <Leader>a3 :Tabularize /\#<CR>
 
-" vimux {{{2
+" vimux {{{1
 " open tmux pane and go to the current director
 nnoremap <leader>rg :call VimuxRunCommand("cd " . expand("%:p:h"))<CR>
 " Run the current file with python
@@ -679,7 +680,7 @@ let VimuxOrientation = "v"
 let VimuxUseNearestPane = 1
 
 
-" w3m {{{2
+" w3m {{{1
 " highlighting:
 highlight! w3mLink      ctermfg=green ctermbg=none guifg=#66CC33
 highlight! w3mLinkHover ctermfg=17 ctermbg=108
@@ -710,7 +711,7 @@ let g:w3m#hover_delay_time = 220
 "nnoremap _t :TlistOpen<CR>
 nnoremap _t :TagbarToggle<CR>
 
-" vim-pad {{{2
+" vim-pad {{{1
 if os == "Darwin"
     "let g:pad_dir = "~/Dropbox/notes/"
     let g:pad#dir = "~/Library/Mobile\ Documents/N39PJFAFEV\~com\~metaclassy\~byword/Documents"
@@ -729,15 +730,15 @@ nmap <silent> _s <Plug>SearchPads
 "let MRU_Max_Entries = 150
 let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'
 
-" Syntastic {{{2
+" Syntastic {{{1
 " check errors and go to the first
 nmap <leader>e :Errors<CR>[L
 let g:syntastic_python_flake8_args='--ignore=E501'
 
-" Gundo {{{2
+" Gundo {{{1
 map <leader>g :GundoToggle<CR>
 
-" " Powerline {{{2
+" " Powerline {{{1
 python from powerline.vim import setup as powerline_setup
 python powerline_setup()
 python del powerline_setup
