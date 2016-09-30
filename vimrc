@@ -59,6 +59,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'fmoralesc/vim-pad'
 Plugin 'benmills/vimux'
 Plugin 'yuratomo/w3m.vim'
+Plugin 'tmux-plugins/vim-tmux'
 "syntax highlighting for xonsh
 Plugin 'linkinpark342/xonsh-vim'
 
