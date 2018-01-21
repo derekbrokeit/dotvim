@@ -396,6 +396,9 @@ if has("autocmd")
     " always move buffer to local file directory upon entering
     autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
 
+    " redraw screen
+    au BufRead,BufNewFile,BufWritePost * redraw
+
     " add fortran commentstring
     au BufRead,BufNewFile *.f90 setlocal commentstring=!%s
 
