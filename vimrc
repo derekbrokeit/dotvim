@@ -736,7 +736,14 @@ let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'
 " Syntastic {{{1
 " check errors and go to the first
 nmap <leader>e :Errors<CR>[L
-let g:syntastic_python_flake8_args='--ignore=E501'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_flake8_args='--max-complexity 10'
 
 " Gundo {{{1
 map <leader>g :GundoToggle<CR>
