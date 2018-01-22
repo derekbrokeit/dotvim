@@ -587,9 +587,11 @@ endif
 
 " PATH  {{{1
 " have to put at end because of PATH
-let homebrew_prefix = substitute(system("brew --prefix"),"\n","","")
-let Tlist_Ctags_Cmd=homebrew_prefix . "/bin/ctags"
-let g:tagbar_ctags_bin = homebrew_prefix . "/bin/ctags"
+if os == "Darwin"
+    let homebrew_prefix = substitute(system("brew --prefix"),"\n","","")
+    let Tlist_Ctags_Cmd=homebrew_prefix . "/bin/ctags"
+    let g:tagbar_ctags_bin = homebrew_prefix . "/bin/ctags"
+endif
 " use 'par' for paragraph formatting
 set formatprg="par"
 
