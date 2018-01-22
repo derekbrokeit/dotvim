@@ -395,6 +395,9 @@ if has("autocmd")
     " always move buffer to local file directory upon entering
     autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
 
+    " redraw screen
+    au BufRead,BufNewFile,BufWritePost * redraw
+
     " add fortran commentstring
     au BufRead,BufNewFile *.f90 setlocal commentstring=!%s
 
@@ -734,15 +737,22 @@ let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'
 " Syntastic {{{1
 " check errors and go to the first
 nmap <leader>e :Errors<CR>[L
-let g:syntastic_python_flake8_args='--ignore=E501'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_flake8_args='--max-complexity 10'
 
 " Gundo {{{1
 map <leader>g :GundoToggle<CR>
 
 " " Powerline {{{1
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
+python3 from powerline.vim import setup as powerline_setup
+python3 powerline_setup()
+python3 del powerline_setup
 " set rtp+=~/powerline/powerline/bindings/vim
 set rtp+=$HOME/.config/lib/python2.7/site-packages/powerline/bindings/vim/
 " Always show statusline
