@@ -1,4 +1,3 @@
-"                            "
 """""""""""""""""""""""""""""
 " vim startup file ~/.vimrc "
 " Derek Thomas 2012
@@ -750,3 +749,16 @@ set rtp+=$HOME/.config/lib/python2.7/site-packages/powerline/bindings/vim/
 set laststatus=2
 set t_Co=256
 
+" vim-tmux navigator {{{1
+let g:tmux_navigator_no_mappings = 1
+let g:tmux_navigator_disable_when_zoomed = 1
+
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
+
+" python-mode {{{1
+"let g:pymode_python = 'python3'
+"let g:pymode_lint_checkers = ['flake8'] ", 'pep8']
