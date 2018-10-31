@@ -747,6 +747,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_flake8_args='--max-complexity 10'
+let g:syntastic_python_checkers=["flake8"]
 
 " Gundo {{{1
 map <leader>g :GundoToggle<CR>
