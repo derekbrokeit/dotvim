@@ -25,6 +25,8 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'previm/previm'
 Plugin 'tyru/open-browser.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 " other tpope plugins
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-commentary'
@@ -341,7 +343,7 @@ set autoindent
 " --- highlighting and layout {{{1
 
 " turn on help for long-lines
-match ErrorMsg '\%>79v.\+'
+match ErrorMsg '\%>88v.\+'
 
 " turn on the line numbers
 set number
@@ -752,15 +754,16 @@ let g:syntastic_python_checkers=["flake8"]
 " Gundo {{{1
 map <leader>g :GundoToggle<CR>
 
-" " Powerline {{{1
-python3 from powerline.vim import setup as powerline_setup
-python3 powerline_setup()
-python3 del powerline_setup
+" " " Powerline {{{1
+let g:airline_powerline_fonts = 1
+" python3 from powerline.vim import setup as powerline_setup
+" python3 powerline_setup()
+" python3 del powerline_setup
 " set rtp+=~/powerline/powerline/bindings/vim
-set rtp+=$HOME/.config/lib/python2.7/site-packages/powerline/bindings/vim/
-" Always show statusline
-set laststatus=2
-set t_Co=256
+""set rtp+=$HOME/.config/lib/python2.7/site-packages/powerline/bindings/vim/
+"" Always show statusline
+"set laststatus=2
+"set t_Co=256
 
 " vim-tmux navigator {{{1
 let g:tmux_navigator_no_mappings = 1
