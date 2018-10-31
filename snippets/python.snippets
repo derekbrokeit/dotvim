@@ -16,8 +16,8 @@ snippet class
 snippet lambda
 	${1:var} = lambda ${2:vars} : ${3:action}
 #insert pdb breakpoint
-snippet pdb
-	import pdb; pdb.set_trace()
+snippet wpdb
+	__import__('web_pdb').set_trace()
 #import science modules
 snippet impsci
 	import numpy as np
