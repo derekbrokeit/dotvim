@@ -23,6 +23,8 @@ Plugin 'VundleVim/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
+Plugin 'previm/previm'
+Plugin 'tyru/open-browser.vim'
 " other tpope plugins
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-commentary'
