@@ -341,7 +341,7 @@ set autoindent
 " --- highlighting and layout {{{1
 
 " turn on help for long-lines
-match ErrorMsg '\%>80v.\+'
+match ErrorMsg '\%>79v.\+'
 
 " turn on the line numbers
 set number
