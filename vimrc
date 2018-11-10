@@ -27,6 +27,8 @@ Plugin 'previm/previm'
 Plugin 'tyru/open-browser.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'edkolev/tmuxline.vim'
+Plugin 'Vigemus/iron.nvim', {'do': ':UpdateRemotePlugins'}
 " other tpope plugins
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-commentary'
@@ -42,7 +44,7 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'sjl/gundo.vim'
 Plugin 'Glench/Vim-Jinja2-Syntax'
 Plugin 'othree/html5-syntax.vim'
-Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'tpope/vim-repeat'
 Plugin 'vim-scripts/RST-Tables'
@@ -55,14 +57,14 @@ Plugin 'godlygeek/tabular'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/TaskList.vim'
 Plugin 'tomtom/tlib_vim'
-Plugin 'christoomey/vim-tmux-navigator'
+"Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'xolox/vim-misc'
 Plugin 'honza/vim-snippets'
 Plugin 'fmoralesc/vim-pad'
-Plugin 'benmills/vimux'
-Plugin 'yuratomo/w3m.vim'
-Plugin 'tmux-plugins/vim-tmux'
+"Plugin 'benmills/vimux'
+"Plugin 'yuratomo/w3m.vim'
+"Plugin 'tmux-plugins/vim-tmux'
 "syntax highlighting for xonsh
 Plugin 'linkinpark342/xonsh-vim'
 
@@ -516,11 +518,19 @@ nnoremap Q gqap
 " fast moving between tabs
 nmap [j :tabn<CR>
 nmap ]j :tabp<CR>
+nmap <c-n> :tabn<CR>
+nmap <c-p> :tabp<CR>
 nmap <C-t> :tabnew <CR>:GR<CR>:echo expand("%:p:h")<CR>
 
 " enlarge the current buffer AND reset the view to all equal
-nnoremap <C-_> <C-W>_<C-W><Bar>
-nnoremap <C-W><C-W> <C-W>=
+" nnoremap <C-_> <C-W>_<C-W><Bar>
+" nnoremap <C-W><C-W> <C-W>=
+nnoremap <c-Z> <C-W>_<C-W><Bar>
+nnoremap <c-W><c-W> <C-W>=
+nnoremap <M-l> <C-W>l
+nnoremap <M-k> <C-W>k
+nnoremap <M-j> <C-W>j
+nnoremap <M-h> <C-W>h
 
 " commands for splitting windows
 " window
@@ -566,9 +576,9 @@ elseif os == "Linux"
     " (this simply gets prepared for a paste, turn off after paste)
     nnoremap _p :set pastetoggle<CR>i
 
-    " no support for cut/copy remotely yet
-    vnoremap <c-x> <esc>:echoerr "Cut not supported in this os (".os.")... yet"<CR>
-    vnoremap <c-c> <esc>:echoerr "Copy not supported in this os (".os.")... yet"<CR>
+    " " no support for cut/copy remotely yet
+    " vnoremap <c-x> <esc>:echoerr "Cut not supported in this os (".os.")... yet"<CR>
+    " vnoremap <c-c> <esc>:echoerr "Copy not supported in this os (".os.")... yet"<CR>
 endif
 
 " Add white space {{{1
@@ -613,8 +623,8 @@ else
     let NERDTreeDirArrows=0
 endif
 " tab setup customization
-let g:nerdtree_tabs_open_on_console_startup = 0
-let g:nerdtree_tabs_open_on_gui_startup = 0
+" let g:nerdtree_tabs_open_on_console_startup = 0
+" let g:nerdtree_tabs_open_on_gui_startup = 0
 " vim-sessions {{{1
 " set Session variables
 let g:session_command_aliases = 'yes'
@@ -660,32 +670,32 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 nmap <Leader>a3 vip:Tabularize /\#<CR>
 vmap <Leader>a3 :Tabularize /\#<CR>
 
-" vimux {{{1
-" open tmux pane and go to the current director
-nnoremap <leader>rg :call VimuxRunCommand("cd " . expand("%:p:h"))<CR>
-" Run the current file with python
-nnoremap <Leader>ry :call VimuxRunCommand("clear; python " . bufname("%"))<CR>
-nnoremap <leader>re :call VimuxRunCommand("clear; ./" . bufname("%"))<CR>
-" Run the current file with the shell
-nnoremap <Leader>rz :call VimuxRunCommand("clear; " . bufname("%"))<CR>
-" Prompt for a command to run
-nnoremap <Leader>rp :VimuxPromptCommand<CR>
-" Run last command executed by RunVimTmuxCommand
-nnoremap <Leader>rl :VimuxRunLastCommand<CR>
-" Inspect runner pane
-nnoremap <Leader>ri :VimuxInspectRunner<CR>
-" Close all other tmux panes in current window
-nnoremap <Leader>rx :VimuxCloseRunner<CR>
-" Interrupt any command running in the runner pane
-nnoremap <Leader>rs :VimuxInterruptRunner<CR>
-"If text is selected, save it in the v buffer and send that buffer it to tmux
-vnoremap <leader>rt "vy :call VimuxRunCommand(@v . "\n", 0)<CR>
-" Select current paragraph (block) and send it to tmux
-nnoremap <leader>rb vip<leader>rt<CR>
-" vimux options
-let VimuxHeight = "20"
-let VimuxOrientation = "v"
-let VimuxUseNearestPane = 1
+"" vimux {{{1
+"" open tmux pane and go to the current director
+"nnoremap <leader>rg :call VimuxRunCommand("cd " . expand("%:p:h"))<CR>
+"" Run the current file with python
+"nnoremap <Leader>ry :call VimuxRunCommand("clear; python " . bufname("%"))<CR>
+"nnoremap <leader>re :call VimuxRunCommand("clear; ./" . bufname("%"))<CR>
+"" Run the current file with the shell
+"nnoremap <Leader>rz :call VimuxRunCommand("clear; " . bufname("%"))<CR>
+"" Prompt for a command to run
+"nnoremap <Leader>rp :VimuxPromptCommand<CR>
+"" Run last command executed by RunVimTmuxCommand
+"nnoremap <Leader>rl :VimuxRunLastCommand<CR>
+"" Inspect runner pane
+"nnoremap <Leader>ri :VimuxInspectRunner<CR>
+"" Close all other tmux panes in current window
+"nnoremap <Leader>rx :VimuxCloseRunner<CR>
+"" Interrupt any command running in the runner pane
+"nnoremap <Leader>rs :VimuxInterruptRunner<CR>
+""If text is selected, save it in the v buffer and send that buffer it to tmux
+"vnoremap <leader>rt "vy :call VimuxRunCommand(@v . "\n", 0)<CR>
+"" Select current paragraph (block) and send it to tmux
+"nnoremap <leader>rb vip<leader>rt<CR>
+"" vimux options
+"let VimuxHeight = "20"
+"let VimuxOrientation = "v"
+"let VimuxUseNearestPane = 1
 
 
 " w3m {{{1
@@ -748,14 +758,15 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_python_flake8_args='--max-complexity 10'
+let g:syntastic_python_flake8_args='--max-complexity 10 --max-line-length 88 --ignore=E203,E266,E501,W503,E252'
 let g:syntastic_python_checkers=["flake8"]
 
 " Gundo {{{1
 map <leader>g :GundoToggle<CR>
 
 " " " Powerline {{{1
-let g:airline_powerline_fonts = 1
+let g:airline_theme='jellybeans'
+"let g:airline_powerline_fonts = 1
 " python3 from powerline.vim import setup as powerline_setup
 " python3 powerline_setup()
 " python3 del powerline_setup
@@ -765,16 +776,41 @@ let g:airline_powerline_fonts = 1
 "set laststatus=2
 "set t_Co=256
 
-" vim-tmux navigator {{{1
-let g:tmux_navigator_no_mappings = 1
-let g:tmux_navigator_disable_when_zoomed = 1
+" " vim-tmux navigator {{{1
+" let g:tmux_navigator_no_mappings = 1
+" let g:tmux_navigator_disable_when_zoomed = 1
 
-nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
+" nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+" nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+" nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+" nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+" nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 
-" python-mode {{{1
-"let g:pymode_python = 'python3'
-"let g:pymode_lint_checkers = ['flake8'] ", 'pep8']
+" REPL {{{1
+if has('nvim')
+    nnoremap <leader>ir :IronRepl<cr>
+    tnoremap <Esc> <C-\><C-n>
+    " tnoremap <C-l> <Esc><C-l>
+    " tnoremap <C-k> <Esc><C-k>
+    " tnoremap <C-j> <Esc><C-j>
+    " tnoremap <C-h> <Esc><C-h>
+    tnoremap <M-l> <C-\><C-n><C-W>l
+    tnoremap <M-j> <C-\><C-n><C-W>j
+    tnoremap <M-k> <C-\><C-n><C-W>k
+    tnoremap <M-h> <C-\><C-n><C-W>h
+
+    " help with quick insert or copy 
+    nnoremap <CR> i
+    vnoremap <CR> y
+endif
+
+lua << EOF
+local iron = require("iron")
+
+iron.core.set_config{
+preferred = {
+    python = "ipython"
+},
+repl_open_cmd = "rightbelow 20 split"
+}
+EOF
