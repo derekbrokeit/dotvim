@@ -4,7 +4,7 @@
 "                            "
 """"""""""""""""""""""""""""""
 " --- ensure that the shell works --- {{{1
-set shell=/bin/bash
+set shell=/bin/zsh
 
 " --- setup Vundle --- {{{1
 set nocompatible              " be iMproved, required
@@ -22,6 +22,7 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
+Plugin 'vim-python/python-syntax'
 Plugin 'tpope/vim-fugitive'
 Plugin 'previm/previm'
 Plugin 'tyru/open-browser.vim'
@@ -41,7 +42,7 @@ Plugin 'epmatsw/ag.vim'
 Plugin 'vim-scripts/AnsiEsc.vim'
 Plugin 'vim-scripts/DrawIt'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'sjl/gundo.vim'
+" Plugin 'sjl/gundo.vim'
 Plugin 'Glench/Vim-Jinja2-Syntax'
 Plugin 'othree/html5-syntax.vim'
 Plugin 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
@@ -345,7 +346,7 @@ set autoindent
 " --- highlighting and layout {{{1
 
 " turn on help for long-lines
-match ErrorMsg '\%>88v.\+'
+" match ErrorMsg '\%>88v.\+'
 
 " turn on the line numbers
 set number
@@ -525,8 +526,8 @@ nmap <C-t> :tabnew <CR>:GR<CR>:echo expand("%:p:h")<CR>
 " enlarge the current buffer AND reset the view to all equal
 " nnoremap <C-_> <C-W>_<C-W><Bar>
 " nnoremap <C-W><C-W> <C-W>=
-nnoremap <c-Z> <C-W>_<C-W><Bar>
-nnoremap <c-W><c-W> <C-W>=
+nnoremap <C-_> <C-W>_<C-W><Bar>
+nnoremap <C-W><c-W> <C-W>=
 nnoremap <M-l> <C-W>l
 nnoremap <M-k> <C-W>k
 nnoremap <M-j> <C-W>j
@@ -654,13 +655,13 @@ command! SC wall | SaveSession | CloseSession
 command! SQ wall | SaveSession | CloseSession | q
 command! SO  OpenSession
 
-" Voom options {{{1
-let g:voom_user_command = "runtime!  voom_addons/custom_headlines.vim"
-" make sure voomclose kills the outline
-command! VC call Voom_DeleteOutline('')
-" Voom: setup voom keys
-nnoremap <leader><leader> :Voom<CR>
-nnoremap <leader><leader>n :Voomunl<CR>
+" " Voom options {{{1
+" let g:voom_user_command = "runtime!  voom_addons/custom_headlines.vim"
+" " make sure voomclose kills the outline
+" command! VC call Voom_DeleteOutline('')
+" " Voom: setup voom keys
+" nnoremap <leader><leader> :Voom<CR>
+" nnoremap <leader><leader>n :Voomunl<CR>
 
 " tabularize {{{1
 nmap <Leader>a= :Tabularize /=<CR>
@@ -698,33 +699,36 @@ vmap <Leader>a3 :Tabularize /\#<CR>
 "let VimuxUseNearestPane = 1
 
 
-" w3m {{{1
-" highlighting:
-highlight! w3mLink      ctermfg=green ctermbg=none guifg=#66CC33
-highlight! w3mLinkHover ctermfg=17 ctermbg=108
-" highlight! w3mLinkHover ctermfg=215 ctermbg=6
-highlight! w3mSubmit    ctermfg=208 cterm=bold ctermbg=none
-highlight! w3mInput     term=underline cterm=underline ctermfg=yellow ctermbg=238
-highlight! w3mBold      ctermfg=blue cterm=bold ctermbg=none
-highlight! w3mUnderline cterm=underline ctermfg=magenta ctermbg=none
-highlight! w3mHitAHint  ctermbg=darkred ctermfg=white
-highlight! w3mAnchor    ctermfg=cyan cterm=none ctermbg=none
-" Home Page:
-let g:w3m#homepage = "http://www.google.com/ncr"
-" Use Proxy:
-" let &HTTP_PROXY='http://xxx.xxx/:8080'
-" External browser:
-let g:w3m#external_browser = 'open'
-" Specify Key Of Hit-A-Hint
-let g:w3m#hit_a_hint_key = 'f'
-" Specify Default Search Engine
-let g:w3m#search_engine = "https://www.google.co.jp/search?sourceid=chrome&ie=UTF-8&q="
-" disable default keymap
-" let g:w3m#disable_default_keymap = 1
-" enable hover links
-let g:w3m#set_hover_on = 1
-" set delay time until highlighting
-let g:w3m#hover_delay_time = 220
+" " w3m {{{1
+" " highlighting:
+" highlight! w3mLink      ctermfg=green ctermbg=none guifg=#66CC33
+" highlight! w3mLinkHover ctermfg=17 ctermbg=108
+" " highlight! w3mLinkHover ctermfg=215 ctermbg=6
+" highlight! w3mSubmit    ctermfg=208 cterm=bold ctermbg=none
+" highlight! w3mInput     term=underline cterm=underline ctermfg=yellow ctermbg=238
+" highlight! w3mBold      ctermfg=blue cterm=bold ctermbg=none
+" highlight! w3mUnderline cterm=underline ctermfg=magenta ctermbg=none
+" highlight! w3mHitAHint  ctermbg=darkred ctermfg=white
+" highlight! w3mAnchor    ctermfg=cyan cterm=none ctermbg=none
+" " Home Page:
+" let g:w3m#homepage = "http://www.google.com/ncr"
+" " Use Proxy:
+" " let &HTTP_PROXY='http://xxx.xxx/:8080'
+" " External browser:
+" let g:w3m#external_browser = 'open'
+" " Specify Key Of Hit-A-Hint
+" let g:w3m#hit_a_hint_key = 'f'
+" " Specify Default Search Engine
+" let g:w3m#search_engine = "https://www.google.co.jp/search?sourceid=chrome&ie=UTF-8&q="
+" " disable default keymap
+" " let g:w3m#disable_default_keymap = 1
+" " enable hover links
+" let g:w3m#set_hover_on = 1
+" " set delay time until highlighting
+" let g:w3m#hover_delay_time = 220
+
+
+
 " ctags are great, open up taglist window:
 "nnoremap _t :TlistOpen<CR>
 nnoremap _t :TagbarToggle<CR>
@@ -761,8 +765,8 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_python_flake8_args='--max-complexity 10 --max-line-length 88 --ignore=E203,E266,E501,W503,E252'
 let g:syntastic_python_checkers=["flake8"]
 
-" Gundo {{{1
-map <leader>g :GundoToggle<CR>
+" " Gundo {{{1
+" map <leader>g :GundoToggle<CR>
 
 " " " Powerline {{{1
 let g:airline_theme='jellybeans'
@@ -781,13 +785,20 @@ let g:airline_theme='jellybeans'
 " let g:tmux_navigator_disable_when_zoomed = 1
 
 " nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-" nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+" nnoremap <silent> <C-j> :TmuxNavigateDown<cr>nnoremap
 " nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 " nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 " nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 
+let g:python_highlight_all = 1
+
 " REPL {{{1
 if has('nvim')
+    nnoremap <silent> <leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+    nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+
+    nnoremap <leader>x  :rightbelow new<CR>:terminal /bin/zsh<CR>
+
     nnoremap <leader>ir :IronRepl<cr>
     tnoremap <Esc> <C-\><C-n>
     " tnoremap <C-l> <Esc><C-l>
@@ -800,7 +811,8 @@ if has('nvim')
     tnoremap <M-h> <C-\><C-n><C-W>h
 
     " help with quick insert or copy 
-    nnoremap <CR> i
+    " nnoremap <CR> i
+    " nnoremap <space> <CR>
     vnoremap <CR> y
 endif
 
