@@ -22,6 +22,8 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
+Plugin 'google/vim-maktaba'
+Plugin 'bazelbuild/vim-bazel'
 Plugin 'vim-python/python-syntax'
 Plugin 'tpope/vim-fugitive'
 Plugin 'previm/previm'
@@ -39,7 +41,8 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'wincent/command-t'
 " better abbreviations and substitutions
 Plugin 'epmatsw/ag.vim'
-Plugin 'vim-scripts/AnsiEsc.vim'
+"Plugin 'vim-scripts/AnsiEsc.vim'
+Plugin 'powerman/vim-plugin-AnsiEsc'
 Plugin 'vim-scripts/DrawIt'
 Plugin 'easymotion/vim-easymotion'
 " Plugin 'sjl/gundo.vim'
@@ -68,6 +71,7 @@ Plugin 'fmoralesc/vim-pad'
 "Plugin 'tmux-plugins/vim-tmux'
 "syntax highlighting for xonsh
 Plugin 'linkinpark342/xonsh-vim'
+Plugin 'Asheq/close-buffers.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -121,7 +125,7 @@ set smartcase
 
 " " (this is for C and Java; users of other languages can change as they see
 " fit)
-set wildignore=*.o,*.class,*.asv,*~,*.swp,*.bak,*.pyc,deploy,*png,*.jpg
+set wildignore=*.o,*.class,*.asv,*~,*.swp,*.bak,*.pyc,deploy,*png,*.jpg,*/build/*
 
 " set encoding: default is utf-8
 if has("multi_byte")
@@ -314,7 +318,7 @@ set textwidth=0 wrapmargin=0
 set noerrorbells
 set visualbell
 
-" sets all tabs to 3-spaces
+" sets all tabs to 4-spaces
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -508,6 +512,8 @@ xmap ]w ]egv
 " setup commandT binding
 nnoremap <leader>t :CommandT<CR>
 nnoremap <leader>b :CommandTBuffer<CR>
+let g:CommandTMaxFiles = 2000000
+let g:CommandTSuppressMaxFilesWarning = 1
 
 " clear search buffer
 nmap <silent> <leader>/ :nohlsearch<CR>
@@ -573,9 +579,7 @@ if os == "Darwin"
     vnoremap <c-x> :!pbcopy<CR>
     vnoremap <C-c> :w !pbcopy<CR><CR>
 elseif os == "Linux"
-    " get ready for pasting
-    " (this simply gets prepared for a paste, turn off after paste)
-    nnoremap _p :set pastetoggle<CR>i
+    set clipboard+=unnamedplus
 
     " " no support for cut/copy remotely yet
     " vnoremap <c-x> <esc>:echoerr "Cut not supported in this os (".os.")... yet"<CR>
@@ -798,6 +802,7 @@ if has('nvim')
     nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 
     nnoremap <leader>x  :rightbelow new<CR>:terminal /bin/zsh<CR>
+    tnoremap <C-T> <C-\><C-n>yaW:rightbelow<space>vnew<space><C-R>0<CR>
 
     nnoremap <leader>ir :IronRepl<cr>
     tnoremap <Esc> <C-\><C-n>
@@ -815,6 +820,12 @@ if has('nvim')
     " nnoremap <space> <CR>
     vnoremap <CR> y
 endif
+
+" fix weird issue where n/N are reversed
+nmap n /<CR>
+nmap N ?<CR>
+vmap n /<CR>
+vmap N ?<CR>
 
 lua << EOF
 local iron = require("iron")
